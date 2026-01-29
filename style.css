@@ -1,0 +1,142 @@
+       :root {
+            --primary-bg: #1a1a1a;
+            --secondary-bg: #2d2d2d;
+            --accent-color: #d4af37; /* Gold accent */
+            --text-main: #f4f4f4;
+            --text-muted: #b0b0b0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* Navigation */
+        nav {
+            background: rgba(26, 26, 26, 0.95);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; color: var(--accent-color); }
+
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { text-decoration: none; color: var(--text-main); font-size: 0.9rem; transition: 0.3s; }
+        nav ul li a:hover { color: var(--accent-color); }
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1474932430478-3a7fb9082db4?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 0 20px;
+        }
+
+        header h1 { font-size: 4rem; margin-bottom: 10px; }
+        header p { font-size: 1.2rem; font-style: italic; color: var(--accent-color); }
+
+        /* Sections */
+        section { padding: 80px 10%; }
+        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; border-bottom: 2px solid var(--accent-color); display: inline-block; left: 50%; position: relative; transform: translateX(-50%); }
+
+        /* Author Section */
+        #about { display: flex; align-items: center; gap: 50px; background: var(--secondary-bg); }
+        .author-img { width: 400px; height: 400px; object-fit: cover; border-radius: 5px; border: 5px solid #3d3d3d; }
+        .quote { font-style: italic; color: var(--accent-color); margin-top: 20px; border-left: 3px solid var(--accent-color); padding-left: 20px; }
+
+        /* Books Grid */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .book-card {
+            background: #222;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid #333;
+        }
+
+        .book-card:hover { transform: translateY(-10px); }
+        .book-cover { width: 100%; height: 350px; object-fit: cover; margin-bottom: 15px; }
+        .book-date { font-size: 0.8rem; color: var(--accent-color); text-transform: uppercase; }
+
+        /* Footer */
+        footer {
+            background: #111;
+            padding: 50px 10%;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .newsletter input {
+            padding: 10px;
+            width: 250px;
+            background: #222;
+            border: 1px solid #444;
+            color: white;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: var(--accent-color);
+            border: none;
+            color: black;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: #b8962e; }
+
+        @media (max-width: 768px) {
+            #about { flex-direction: column; text-align: center; }
+            .author-img { width: 100%; height: auto; }
+            header h1 { font-size: 2.5rem; }
+        }
+
+.book-card:hover {
+    cursor: pointer;
+    border-color: var(--accent-color); /* Highlights the border in gold on hover */
+}
+
+.book-card-link {
+    text-decoration: none; /* Removes underline from titles */
+    color: inherit;        /* Keeps your text white/gray instead of blue */
+    display: block;        /* Ensures the link fills the space */
+}
+
+/* This centers the Substack box and makes it blend with a dark theme */
+.substack-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.substack-container iframe {
+    max-width: 100%; /* Ensures it doesn't break on mobile */
+    filter: invert(0.9) hue-rotate(180deg); /* Optional: This flips the colors to make a light box look dark */
+    border-radius: 8px;
+}
