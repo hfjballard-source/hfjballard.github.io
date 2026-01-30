@@ -178,9 +178,3 @@ header {
     justify-content: center;
     padding: 20px 0;
 }
-
-.substack-container iframe {
-    max-width: 100%; /* Ensures it doesn't break on mobile */
-    filter: invert(0.9) hue-rotate(180deg); /* Optional: This flips the colors to make a light box look dark */
-    border-radius: 8px;
-}
