@@ -39,7 +39,11 @@
         nav ul li a:hover { color: var(--accent-color); }
 
         /* Hero Section */
-        header {
+        
+        
+        
+        
+     /*   header {
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -50,7 +54,7 @@
             background-size: cover;
             background-position: center;
             padding: 0 20px;
-        }
+        }*/
 
         header h1 { font-size: 4rem; margin-bottom: 10px; }
         header p { font-size: 1.2rem; font-style: italic; color: var(--accent-color); }
@@ -139,4 +143,44 @@
     max-width: 100%; /* Ensures it doesn't break on mobile */
     filter: invert(0.9) hue-rotate(180deg); /* Optional: This flips the colors to make a light box look dark */
     border-radius: 8px;
+}
+
+header {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Keeps the video from spilling out */
+    background-color: black; /* Fallback color */
+}
+
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    transform: translate(-50%, -50%); /* Centers the video */
+    object-fit: cover;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Adjust 0.6 to make it darker or lighter */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Sits above the video and overlay */
+    text-align: center;
 }
