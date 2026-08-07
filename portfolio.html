@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,564 +7,45 @@
 
     <title>Illustration Portfolio — HFJ Ballard</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: #111;
-            color: #eee;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 300;
-            line-height: 1.6;
-        }
-
-        /* =========================
-           NAVIGATION
-        ========================= */
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            padding: 20px 6%;
-
-            background: rgba(17, 17, 17, 0.92);
-            backdrop-filter: blur(10px);
-
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
-            letter-spacing: 3px;
-            font-weight: 600;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 35px;
-        }
-
-        nav a {
-            color: #eee;
-            text-decoration: none;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            transition: opacity 0.3s ease;
-        }
-
-        nav a:hover {
-            opacity: 0.55;
-        }
-
-        /* =========================
-           HEADER
-        ========================= */
-
-        .portfolio-header {
-            min-height: 55vh;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-
-            padding: 150px 20px 80px;
-
-            background:
-                linear-gradient(
-                    rgba(17,17,17,0.55),
-                    rgba(17,17,17,0.95)
-                ),
-                url("images/portfolio-header.webp");
-
-            background-size: cover;
-            background-position: center;
-        }
-
-        .portfolio-header-content {
-            max-width: 850px;
-        }
-
-        .portfolio-header h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3.5rem, 8vw, 7rem);
-            font-weight: 500;
-            letter-spacing: 4px;
-            line-height: 0.95;
-            margin-bottom: 25px;
-        }
-
-        .portfolio-header p {
-            max-width: 650px;
-            margin: auto;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            opacity: 0.75;
-        }
-
-        .eyebrow {
-            font-size: 0.75rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            opacity: 0.55;
-        }
-
-        /* =========================
-           PORTFOLIO INTRO
-        ========================= */
-
-        .portfolio-intro {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 90px 25px 60px;
-            text-align: center;
-        }
-
-        .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-
-        .portfolio-intro p {
-            color: #bbb;
-            font-size: 0.95rem;
-        }
-
-        /* =========================
-           PORTFOLIO GRID
-        ========================= */
-
-        .portfolio {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px 5% 120px;
-        }
-
-        .portfolio-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(auto-fit, minmax(280px, 1fr));
-
-            gap: 28px;
-        }
-
-        .portfolio-item {
-            position: relative;
-            overflow: hidden;
-
-            cursor: pointer;
-
-            background: #1a1a1a;
-
-            aspect-ratio: 4 / 3;
-
-            border: 1px solid rgba(255,255,255,0.08);
-
-            transition:
-                transform 0.4s ease,
-                box-shadow 0.4s ease;
-        }
-
-        .portfolio-item:hover {
-            transform: translateY(-6px);
-
-            box-shadow:
-                0 20px 50px rgba(0,0,0,0.45);
-        }
-
-        .portfolio-item img {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            display: block;
-
-            transition:
-                transform 0.6s ease,
-                filter 0.6s ease;
-        }
-
-        .portfolio-item:hover img {
-            transform: scale(1.045);
-            filter: brightness(0.65);
-        }
-
-        /* =========================
-           ITEM INFORMATION
-        ========================= */
-
-        .portfolio-overlay {
-            position: absolute;
-
-            left: 0;
-            right: 0;
-            bottom: 0;
-
-            padding: 25px;
-
-            background:
-                linear-gradient(
-                    transparent,
-                    rgba(0,0,0,0.9)
-                );
-
-            transform: translateY(20px);
-            opacity: 0;
-
-            transition: all 0.4s ease;
-        }
-
-        .portfolio-item:hover .portfolio-overlay {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .portfolio-overlay h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.7rem;
-            font-weight: 500;
-        }
-
-        .portfolio-overlay p {
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            color: #ccc;
-        }
-
-        .book-badge {
-            display: inline-block;
-
-            margin-bottom: 8px;
-
-            font-size: 0.65rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-
-            opacity: 0.7;
-        }
-
-        /* =========================
-           MODAL
-        ========================= */
-
-        .modal {
-            position: fixed;
-            inset: 0;
-
-            display: none;
-
-            z-index: 2000;
-
-            background: rgba(0,0,0,0.94);
-
-            padding: 40px;
-        }
-
-        .modal.active {
-            display: flex;
-
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            width: min(1200px, 95vw);
-            max-height: 90vh;
-
-            display: flex;
-            flex-direction: column;
-
-            background: #171717;
-
-            border: 1px solid rgba(255,255,255,0.12);
-
-            box-shadow: 0 30px 100px rgba(0,0,0,0.7);
-
-            overflow: hidden;
-        }
-
-        .modal-image-container {
-            flex: 1;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            min-height: 0;
-
-            padding: 35px;
-        }
-
-        .modal-image {
-            max-width: 100%;
-            max-height: 65vh;
-
-            object-fit: contain;
-        }
-
-        .modal-info {
-            padding: 25px 35px 30px;
-
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .modal-info h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .modal-info p {
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-
-        .close-modal {
-            position: fixed;
-
-            top: 20px;
-            right: 30px;
-
-            width: 45px;
-            height: 45px;
-
-            border: none;
-            background: transparent;
-
-            color: white;
-
-            font-size: 2rem;
-
-            cursor: pointer;
-
-            z-index: 2100;
-        }
-
-        /* =========================
-           FLIPBOOK
-        ========================= */
-
-        .flipbook-modal {
-            position: fixed;
-            inset: 0;
-
-            z-index: 3000;
-
-            display: none;
-
-            justify-content: center;
-            align-items: center;
-
-            background: rgba(0,0,0,0.96);
-
-            padding: 70px 30px;
-        }
-
-        .flipbook-modal.active {
-            display: flex;
-        }
-
-        .flipbook-wrapper {
-            width: min(1100px, 95vw);
-            height: min(750px, 80vh);
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #flipbook {
-            width: 100%;
-            height: 100%;
-        }
-
-        .flipbook-close {
-            position: absolute;
-
-            top: 20px;
-            right: 30px;
-
-            border: none;
-            background: transparent;
-
-            color: white;
-
-            font-size: 2rem;
-
-            cursor: pointer;
-        }
-
-        .flipbook-help {
-            position: absolute;
-
-            bottom: 20px;
-
-            left: 0;
-            right: 0;
-
-            text-align: center;
-
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-
-            color: #777;
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            text-align: center;
-
-            padding: 70px 20px;
-
-            border-top: 1px solid rgba(255,255,255,0.08);
-
-            color: #777;
-        }
-
-        footer a {
-            color: #aaa;
-            text-decoration: none;
-        }
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 700px) {
-
-            nav {
-                padding: 18px 5%;
-            }
-
-            nav ul {
-                gap: 15px;
-            }
-
-            nav a {
-                font-size: 0.7rem;
-            }
-
-            .portfolio-header {
-                min-height: 45vh;
-                padding-top: 130px;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .portfolio-item {
-                aspect-ratio: 4 / 3;
-            }
-
-            .portfolio-overlay {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            .modal {
-                padding: 15px;
-            }
-
-            .modal-image-container {
-                padding: 15px;
-            }
-
-            .flipbook-modal {
-                padding: 60px 5px;
-            }
-
-        }
-
-    </style>
+    <!-- Your existing stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Page-turn library -->
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
 </head>
 
-
 <body>
-
 
 <!-- =========================
      NAVIGATION
 ========================= -->
 
 <nav>
-
-    <div class="logo">
-        HFJ BALLARD
-    </div>
+    <div class="logo">HFJ BALLARD</div>
 
     <ul>
-        <li>
-            <a href="index.html">Home</a>
-        </li>
-
-        <li>
-            <a href="index.html#about">About</a>
-        </li>
-
-        <li>
-            <a href="index.html#books">Books</a>
-        </li>
-
-        <li>
-            <a href="portfolio.html">Illustration</a>
-        </li>
-
-        <li>
-            <a href="index.html#contact">Contact</a>
-        </li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#books">Books</a></li>
+        <li><a href="portfolio.html">Illustration</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
     </ul>
-
 </nav>
 
 
 <!-- =========================
-     HEADER
+     PORTFOLIO HEADER
 ========================= -->
 
 <header class="portfolio-header">
 
     <div class="portfolio-header-content">
 
-        <div class="eyebrow">
+        <p class="portfolio-eyebrow">
             Illustration Portfolio
-        </div>
+        </p>
 
-        <h1>
-            ART &amp; STORY
-        </h1>
+        <h1>ART &amp; STORY</h1>
 
         <p>
             Illustration for picture books, stories, and strange little worlds.
@@ -595,10 +77,10 @@
 
 
 <!-- =========================
-     PORTFOLIO
+     PORTFOLIO GRID
 ========================= -->
 
-<main class="portfolio">
+<section class="illustration-portfolio">
 
     <div class="portfolio-grid">
 
@@ -624,9 +106,7 @@
 
                 <h3>The Forest</h3>
 
-                <p>
-                    Character &amp; environment
-                </p>
+                <p>Character &amp; environment</p>
 
             </div>
 
@@ -654,9 +134,7 @@
 
                 <h3>The Little Explorer</h3>
 
-                <p>
-                    Character illustration
-                </p>
+                <p>Character illustration</p>
 
             </div>
 
@@ -675,7 +153,7 @@
 
             <img
                 src="images/portfolio/picturebook1.webp"
-                alt="The Adventures of You picture book sample"
+                alt="The Adventures of You picture book"
                 loading="lazy"
             >
 
@@ -685,13 +163,9 @@
                     Picture Book
                 </span>
 
-                <h3>
-                    The Adventures of You
-                </h3>
+                <h3>The Adventures of You</h3>
 
-                <p>
-                    View book sample
-                </p>
+                <p>View book sample</p>
 
             </div>
 
@@ -717,13 +191,9 @@
 
             <div class="portfolio-overlay">
 
-                <h3>
-                    Moonlight
-                </h3>
+                <h3>Moonlight</h3>
 
-                <p>
-                    Digital illustration
-                </p>
+                <p>Digital illustration</p>
 
             </div>
 
@@ -752,13 +222,9 @@
                     Picture Book
                 </span>
 
-                <h3>
-                    Picture Book Sample
-                </h3>
+                <h3>Picture Book Sample</h3>
 
-                <p>
-                    View book sample
-                </p>
+                <p>View book sample</p>
 
             </div>
 
@@ -784,39 +250,35 @@
 
             <div class="portfolio-overlay">
 
-                <h3>
-                    Wonder
-                </h3>
+                <h3>Wonder</h3>
 
-                <p>
-                    Digital illustration
-                </p>
+                <p>Digital illustration</p>
 
             </div>
 
         </div>
 
 
-        <!-- ADD MORE ITEMS HERE -->
+        <!--
+        =====================================================
+        ADD MORE PORTFOLIO ITEMS HERE
+        =====================================================
+        -->
 
 
     </div>
 
-</main>
+</section>
 
 
 <!-- =========================
-     IMAGE MODAL
+     IMAGE POPUP
 ========================= -->
 
-<div
-    id="imageModal"
-    class="modal"
-    onclick="closeImage(event)"
->
+<div id="imageModal" class="portfolio-modal">
 
     <button
-        class="close-modal"
+        class="portfolio-modal-close"
         onclick="closeImage()"
         aria-label="Close"
     >
@@ -824,28 +286,21 @@
     </button>
 
     <div
-        class="modal-content"
+        class="portfolio-modal-content"
         onclick="event.stopPropagation()"
     >
 
-        <div class="modal-image-container">
+        <img
+            id="modalImage"
+            src=""
+            alt=""
+        >
 
-            <img
-                id="modalImage"
-                class="modal-image"
-                src=""
-                alt=""
-            >
+        <div class="portfolio-modal-info">
 
-        </div>
+            <h2 id="modalTitle"></h2>
 
-        <div class="modal-info">
-
-            <h2 id="modalTitle">
-            </h2>
-
-            <p id="modalDescription">
-            </p>
+            <p id="modalDescription"></p>
 
         </div>
 
@@ -855,34 +310,28 @@
 
 
 <!-- =========================
-     FLIPBOOK MODAL
+     PICTURE BOOK FLIPBOOK
 ========================= -->
 
-<div
-    id="bookModal"
-    class="flipbook-modal"
->
+<div id="bookModal" class="book-modal">
 
     <button
-        class="flipbook-close"
+        class="book-modal-close"
         onclick="closeBook()"
-        aria-label="Close book"
+        aria-label="Close"
     >
         &times;
     </button>
 
     <div class="flipbook-wrapper">
 
-        <div id="flipbook">
-        </div>
+        <div id="flipbook"></div>
 
     </div>
 
-    <div class="flipbook-help">
-
-        CLICK THE CORNERS OR USE YOUR ARROW KEYS TO TURN PAGES
-
-    </div>
+    <p class="flipbook-instructions">
+        Click the corners or use the arrow keys to turn pages.
+    </p>
 
 </div>
 
@@ -891,19 +340,14 @@
      FOOTER
 ========================= -->
 
-<footer>
+<footer id="contact">
 
-    <p>
-        HFJ BALLARD
-    </p>
+    <div>
+        <p>hfjballard@gmail.com</p>
+        <p>(385) 231-9200</p>
+    </div>
 
-    <p style="margin-top: 10px;">
-        <a href="mailto:hfjballard@gmail.com">
-            hfjballard@gmail.com
-        </a>
-    </p>
-
-    <p style="margin-top: 20px; font-size: 0.8rem;">
+    <p style="margin-top: 20px; font-size: 0.8rem; color: #555;">
         &copy; 2026 HFJ Ballard.
     </p>
 
@@ -911,67 +355,49 @@
 
 
 <!-- =========================
-     PDF.JS
+     JAVASCRIPT
 ========================= -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
-        type="module">
-</script>
+<script type="module">
+
+    /*
+     * PDF.js
+     *
+     * Used to turn the PDF pages into images that
+     * can be displayed by the page-turning viewer.
+     */
+
+    import * as pdfjsLib from
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
 
 
-<!-- =========================
-     STPAGEFLIP
-========================= -->
-
-<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js">
-</script>
+    let pageFlip = null;
 
 
-<script>
+    /* ==========================================
+       NORMAL IMAGE POPUP
+    ========================================== */
 
-    /* =========================
-       IMAGE MODAL
-    ========================= */
+    window.openImage = function(image, title, description) {
 
-    function openImage(image, title, description) {
+        document.getElementById("modalImage").src = image;
 
-        const modal = document.getElementById("imageModal");
+        document.getElementById("modalImage").alt = title;
 
-        const modalImage =
-            document.getElementById("modalImage");
+        document.getElementById("modalTitle").textContent = title;
 
-        const modalTitle =
-            document.getElementById("modalTitle");
+        document.getElementById("modalDescription").textContent =
+            description;
 
-        const modalDescription =
-            document.getElementById("modalDescription");
-
-
-        modalImage.src = image;
-
-        modalImage.alt = title;
-
-        modalTitle.textContent = title;
-
-        modalDescription.textContent = description;
-
-
-        modal.classList.add("active");
+        document
+            .getElementById("imageModal")
+            .classList.add("active");
 
         document.body.style.overflow = "hidden";
+    };
 
-    }
 
-
-    function closeImage(event) {
-
-        if (
-            event &&
-            event.target !== event.currentTarget &&
-            !event.target.classList.contains("close-modal")
-        ) {
-            return;
-        }
+    window.closeImage = function() {
 
         document
             .getElementById("imageModal")
@@ -979,17 +405,14 @@
 
         document.body.style.overflow = "";
 
-    }
+    };
 
 
-    /* =========================
-       FLIPBOOK
-    ========================= */
+    /* ==========================================
+       PICTURE BOOK
+    ========================================== */
 
-    let pageFlip = null;
-
-
-    async function openBook(pdfPath, title) {
+    window.openBook = async function(pdfPath, title) {
 
         const modal =
             document.getElementById("bookModal");
@@ -1002,124 +425,129 @@
 
         document.body.style.overflow = "hidden";
 
-
         flipbook.innerHTML = "";
 
 
-        /*
-         * Load PDF
-         */
+        try {
 
-        const pdf =
-            await pdfjsLib.getDocument(pdfPath).promise;
+            const pdf =
+                await pdfjsLib.getDocument(pdfPath).promise;
 
-
-        const pages = [];
+            const pages = [];
 
 
-        /*
-         * Convert every PDF page
-         * into an image.
-         */
+            /*
+             * Render every PDF page as an image.
+             */
 
-        for (
-            let pageNumber = 1;
-            pageNumber <= pdf.numPages;
-            pageNumber++
-        ) {
+            for (
+                let pageNumber = 1;
+                pageNumber <= pdf.numPages;
+                pageNumber++
+            ) {
 
-            const page =
-                await pdf.getPage(pageNumber);
+                const page =
+                    await pdf.getPage(pageNumber);
 
+                const viewport =
+                    page.getViewport({
+                        scale: 1.5
+                    });
 
-            const viewport =
-                page.getViewport({
-                    scale: 1.5
-                });
+                const canvas =
+                    document.createElement("canvas");
 
+                const context =
+                    canvas.getContext("2d");
 
-            const canvas =
-                document.createElement("canvas");
+                canvas.width =
+                    viewport.width;
 
-
-            const context =
-                canvas.getContext("2d");
-
-
-            canvas.width =
-                viewport.width;
-
-            canvas.height =
-                viewport.height;
+                canvas.height =
+                    viewport.height;
 
 
-            await page.render({
-
-                canvasContext: context,
-
-                viewport: viewport
-
-            }).promise;
+                await page.render({
+                    canvasContext: context,
+                    viewport: viewport
+                }).promise;
 
 
-            pages.push(
-                canvas.toDataURL("image/jpeg", 0.92)
-            );
+                pages.push(
+                    canvas.toDataURL(
+                        "image/jpeg",
+                        0.92
+                    )
+                );
+            }
+
+
+            /*
+             * Create the page-turning book.
+             */
+
+            pageFlip =
+                new St.PageFlip(
+                    flipbook,
+                    {
+
+                        width: 550,
+
+                        height: 750,
+
+                        size: "stretch",
+
+                        minWidth: 280,
+
+                        maxWidth: 1100,
+
+                        minHeight: 380,
+
+                        maxHeight: 750,
+
+                        showCover: true,
+
+                        mobileScrollSupport: false,
+
+                        drawShadow: true,
+
+                        flippingTime: 900,
+
+                        usePortrait: true,
+
+                        startPage: 0
+
+                    }
+                );
+
+
+            pageFlip.loadFromImages(pages);
 
         }
 
+        catch (error) {
 
-        /*
-         * Create flipbook.
-         */
-
-        pageFlip =
-            new St.PageFlip(
-                flipbook,
-                {
-
-                    width: 550,
-
-                    height: 750,
-
-                    size: "stretch",
-
-                    minWidth: 280,
-
-                    maxWidth: 1100,
-
-                    minHeight: 380,
-
-                    maxHeight: 750,
-
-                    showCover: true,
-
-                    mobileScrollSupport: false,
-
-                    drawShadow: true,
-
-                    flippingTime: 900,
-
-                    usePortrait: true,
-
-                    startPage: 0
-
-                }
+            console.error(
+                "Unable to load PDF:",
+                error
             );
 
+            alert(
+                "Sorry, this picture book could not be loaded."
+            );
 
-        pageFlip.loadFromImages(pages);
+            closeBook();
 
-    }
+        }
 
-
-    function closeBook() {
-
-        const modal =
-            document.getElementById("bookModal");
+    };
 
 
-        modal.classList.remove("active");
+    window.closeBook = function() {
+
+        document
+            .getElementById("bookModal")
+            .classList.remove("active");
 
         document.body.style.overflow = "";
 
@@ -1132,12 +560,12 @@
 
         }
 
-    }
+    };
 
 
-    /* =========================
-       ESC KEY
-    ========================= */
+    /* ==========================================
+       CLOSE WITH ESCAPE
+    ========================================== */
 
     document.addEventListener(
         "keydown",
@@ -1155,9 +583,9 @@
     );
 
 
-    /* =========================
-       ARROW KEYS
-    ========================= */
+    /* ==========================================
+       ARROW KEY PAGE TURNING
+    ========================================== */
 
     document.addEventListener(
         "keydown",
@@ -1184,8 +612,30 @@
         }
     );
 
-</script>
 
+    /* ==========================================
+       CLICK OUTSIDE IMAGE TO CLOSE
+    ========================================== */
+
+    document
+        .getElementById("imageModal")
+        .addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target === this
+                ) {
+
+                    closeImage();
+
+                }
+
+            }
+        );
+
+</script>
 
 </body>
 </html>
+```
