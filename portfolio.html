@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Illustration Portfolio — HFJ Ballard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #111;
+            color: #eee;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 20px 6%;
+
+            background: rgba(17, 17, 17, 0.92);
+            backdrop-filter: blur(10px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            letter-spacing: 3px;
+            font-weight: 600;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        nav a {
+            color: #eee;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a:hover {
+            opacity: 0.55;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .portfolio-header {
+            min-height: 55vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            padding: 150px 20px 80px;
+
+            background:
+                linear-gradient(
+                    rgba(17,17,17,0.55),
+                    rgba(17,17,17,0.95)
+                ),
+                url("images/portfolio-header.webp");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .portfolio-header-content {
+            max-width: 850px;
+        }
+
+        .portfolio-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 500;
+            letter-spacing: 4px;
+            line-height: 0.95;
+            margin-bottom: 25px;
+        }
+
+        .portfolio-header p {
+            max-width: 650px;
+            margin: auto;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            opacity: 0.75;
+        }
+
+        .eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0.55;
+        }
+
+        /* =========================
+           PORTFOLIO INTRO
+        ========================= */
+
+        .portfolio-intro {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 90px 25px 60px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .portfolio-intro p {
+            color: #bbb;
+            font-size: 0.95rem;
+        }
+
+        /* =========================
+           PORTFOLIO GRID
+        ========================= */
+
+        .portfolio {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 5% 120px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 28px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+
+            cursor: pointer;
+
+            background: #1a1a1a;
+
+            aspect-ratio: 4 / 3;
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            transition:
+                transform 0.4s ease,
+                box-shadow 0.4s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.45);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition:
+                transform 0.6s ease,
+                filter 0.6s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.045);
+            filter: brightness(0.65);
+        }
+
+        /* =========================
+           ITEM INFORMATION
+        ========================= */
+
+        .portfolio-overlay {
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            padding: 25px;
+
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(0,0,0,0.9)
+                );
+
+            transform: translateY(20px);
+            opacity: 0;
+
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.7rem;
+            font-weight: 500;
+        }
+
+        .portfolio-overlay p {
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            color: #ccc;
+        }
+
+        .book-badge {
+            display: inline-block;
+
+            margin-bottom: 8px;
+
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            opacity: 0.7;
+        }
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+
+            display: none;
+
+            z-index: 2000;
+
+            background: rgba(0,0,0,0.94);
+
+            padding: 40px;
+        }
+
+        .modal.active {
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            width: min(1200px, 95vw);
+            max-height: 90vh;
+
+            display: flex;
+            flex-direction: column;
+
+            background: #171717;
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            box-shadow: 0 30px 100px rgba(0,0,0,0.7);
+
+            overflow: hidden;
+        }
+
+        .modal-image-container {
+            flex: 1;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            min-height: 0;
+
+            padding: 35px;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 65vh;
+
+            object-fit: contain;
+        }
+
+        .modal-info {
+            padding: 25px 35px 30px;
+
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .modal-info h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .modal-info p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .close-modal {
+            position: fixed;
+
+            top: 20px;
+            right: 30px;
+
+            width: 45px;
+            height: 45px;
+
+            border: none;
+            background: transparent;
+
+            color: white;
+
+            font-size: 2rem;
+
+            cursor: pointer;
+
+            z-index: 2100;
+        }
+
+        /* =========================
+           FLIPBOOK
+        ========================= */
+
+        .flipbook-modal {
+            position: fixed;
+            inset: 0;
+
+            z-index: 3000;
+
+            display: none;
+
+            justify-content: center;
+            align-items: center;
+
+            background: rgba(0,0,0,0.96);
+
+            padding: 70px 30px;
+        }
+
+        .flipbook-modal.active {
+            display: flex;
+        }
+
+        .flipbook-wrapper {
+            width: min(1100px, 95vw);
+            height: min(750px, 80vh);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #flipbook {
+            width: 100%;
+            height: 100%;
+        }
+
+        .flipbook-close {
+            position: absolute;
+
+            top: 20px;
+            right: 30px;
+
+            border: none;
+            background: transparent;
+
+            color: white;
+
+            font-size: 2rem;
+
+            cursor: pointer;
+        }
+
+        .flipbook-help {
+            position: absolute;
+
+            bottom: 20px;
+
+            left: 0;
+            right: 0;
+
+            text-align: center;
+
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+
+            color: #777;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            padding: 70px 20px;
+
+            border-top: 1px solid rgba(255,255,255,0.08);
+
+            color: #777;
+        }
+
+        footer a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 18px 5%;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            nav a {
+                font-size: 0.7rem;
+            }
+
+            .portfolio-header {
+                min-height: 45vh;
+                padding-top: 130px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-item {
+                aspect-ratio: 4 / 3;
+            }
+
+            .portfolio-overlay {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .modal {
+                padding: 15px;
+            }
+
+            .modal-image-container {
+                padding: 15px;
+            }
+
+            .flipbook-modal {
+                padding: 60px 5px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<nav>
+
+    <div class="logo">
+        HFJ BALLARD
+    </div>
+
+    <ul>
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+
+        <li>
+            <a href="index.html#about">About</a>
+        </li>
+
+        <li>
+            <a href="index.html#books">Books</a>
+        </li>
+
+        <li>
+            <a href="portfolio.html">Illustration</a>
+        </li>
+
+        <li>
+            <a href="index.html#contact">Contact</a>
+        </li>
+    </ul>
+
+</nav>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="portfolio-header">
+
+    <div class="portfolio-header-content">
+
+        <div class="eyebrow">
+            Illustration Portfolio
+        </div>
+
+        <h1>
+            ART &amp; STORY
+        </h1>
+
+        <p>
+            Illustration for picture books, stories, and strange little worlds.
+        </p>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<section class="portfolio-intro">
+
+    <h2 class="section-title">
+        Illustration
+    </h2>
+
+    <p>
+        A selection of my illustration work, including character art,
+        picture-book spreads, and visual storytelling. Click an illustration
+        to view it in greater detail, or explore the picture-book samples
+        as an interactive book.
+    </p>
+
+</section>
+
+
+<!-- =========================
+     PORTFOLIO
+========================= -->
+
+<main class="portfolio">
+
+    <div class="portfolio-grid">
+
+
+        <!-- NORMAL ILLUSTRATION -->
+
+        <div
+            class="portfolio-item"
+            onclick="openImage(
+                'images/portfolio/illustration1.webp',
+                'The Forest',
+                'Digital illustration — character and environment'
+            )"
+        >
+
+            <img
+                src="images/portfolio/illustration1.webp"
+                alt="The Forest illustration"
+                loading="lazy"
+            >
+
+            <div class="portfolio-overlay">
+
+                <h3>The Forest</h3>
+
+                <p>
+                    Character &amp; environment
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- NORMAL ILLUSTRATION -->
+
+        <div
+            class="portfolio-item"
+            onclick="openImage(
+                'images/portfolio/illustration2.webp',
+                'The Little Explorer',
+                'Character illustration'
+            )"
+        >
+
+            <img
+                src="images/portfolio/illustration2.webp"
+                alt="The Little Explorer illustration"
+                loading="lazy"
+            >
+
+            <div class="portfolio-overlay">
+
+                <h3>The Little Explorer</h3>
+
+                <p>
+                    Character illustration
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PICTURE BOOK -->
+
+        <div
+            class="portfolio-item"
+            onclick="openBook(
+                'pdfs/portfolio/picturebook1.pdf',
+                'The Adventures of You'
+            )"
+        >
+
+            <img
+                src="images/portfolio/picturebook1.webp"
+                alt="The Adventures of You picture book sample"
+                loading="lazy"
+            >
+
+            <div class="portfolio-overlay">
+
+                <span class="book-badge">
+                    Picture Book
+                </span>
+
+                <h3>
+                    The Adventures of You
+                </h3>
+
+                <p>
+                    View book sample
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- NORMAL ILLUSTRATION -->
+
+        <div
+            class="portfolio-item"
+            onclick="openImage(
+                'images/portfolio/illustration3.webp',
+                'Moonlight',
+                'Digital illustration'
+            )"
+        >
+
+            <img
+                src="images/portfolio/illustration3.webp"
+                alt="Moonlight illustration"
+                loading="lazy"
+            >
+
+            <div class="portfolio-overlay">
+
+                <h3>
+                    Moonlight
+                </h3>
+
+                <p>
+                    Digital illustration
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PICTURE BOOK -->
+
+        <div
+            class="portfolio-item"
+            onclick="openBook(
+                'pdfs/portfolio/picturebook2.pdf',
+                'Picture Book Sample'
+            )"
+        >
+
+            <img
+                src="images/portfolio/picturebook2.webp"
+                alt="Picture book sample"
+                loading="lazy"
+            >
+
+            <div class="portfolio-overlay">
+
+                <span class="book-badge">
+                    Picture Book
+                </span>
+
+                <h3>
+                    Picture Book Sample
+                </h3>
+
+                <p>
+                    View book sample
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- NORMAL ILLUSTRATION -->
+
+        <div
+            class="portfolio-item"
+            onclick="openImage(
+                'images/portfolio/illustration4.webp',
+                'Wonder',
+                'Digital illustration'
+            )"
+        >
+
+            <img
+                src="images/portfolio/illustration4.webp"
+                alt="Wonder illustration"
+                loading="lazy"
+            >
+
+            <div class="portfolio-overlay">
+
+                <h3>
+                    Wonder
+                </h3>
+
+                <p>
+                    Digital illustration
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ADD MORE ITEMS HERE -->
+
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     IMAGE MODAL
+========================= -->
+
+<div
+    id="imageModal"
+    class="modal"
+    onclick="closeImage(event)"
+>
+
+    <button
+        class="close-modal"
+        onclick="closeImage()"
+        aria-label="Close"
+    >
+        &times;
+    </button>
+
+    <div
+        class="modal-content"
+        onclick="event.stopPropagation()"
+    >
+
+        <div class="modal-image-container">
+
+            <img
+                id="modalImage"
+                class="modal-image"
+                src=""
+                alt=""
+            >
+
+        </div>
+
+        <div class="modal-info">
+
+            <h2 id="modalTitle">
+            </h2>
+
+            <p id="modalDescription">
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     FLIPBOOK MODAL
+========================= -->
+
+<div
+    id="bookModal"
+    class="flipbook-modal"
+>
+
+    <button
+        class="flipbook-close"
+        onclick="closeBook()"
+        aria-label="Close book"
+    >
+        &times;
+    </button>
+
+    <div class="flipbook-wrapper">
+
+        <div id="flipbook">
+        </div>
+
+    </div>
+
+    <div class="flipbook-help">
+
+        CLICK THE CORNERS OR USE YOUR ARROW KEYS TO TURN PAGES
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <p>
+        HFJ BALLARD
+    </p>
+
+    <p style="margin-top: 10px;">
+        <a href="mailto:hfjballard@gmail.com">
+            hfjballard@gmail.com
+        </a>
+    </p>
+
+    <p style="margin-top: 20px; font-size: 0.8rem;">
+        &copy; 2026 HFJ Ballard.
+    </p>
+
+</footer>
+
+
+<!-- =========================
+     PDF.JS
+========================= -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
+        type="module">
+</script>
+
+
+<!-- =========================
+     STPAGEFLIP
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js">
+</script>
+
+
+<script>
+
+    /* =========================
+       IMAGE MODAL
+    ========================= */
+
+    function openImage(image, title, description) {
+
+        const modal = document.getElementById("imageModal");
+
+        const modalImage =
+            document.getElementById("modalImage");
+
+        const modalTitle =
+            document.getElementById("modalTitle");
+
+        const modalDescription =
+            document.getElementById("modalDescription");
+
+
+        modalImage.src = image;
+
+        modalImage.alt = title;
+
+        modalTitle.textContent = title;
+
+        modalDescription.textContent = description;
+
+
+        modal.classList.add("active");
+
+        document.body.style.overflow = "hidden";
+
+    }
+
+
+    function closeImage(event) {
+
+        if (
+            event &&
+            event.target !== event.currentTarget &&
+            !event.target.classList.contains("close-modal")
+        ) {
+            return;
+        }
+
+        document
+            .getElementById("imageModal")
+            .classList.remove("active");
+
+        document.body.style.overflow = "";
+
+    }
+
+
+    /* =========================
+       FLIPBOOK
+    ========================= */
+
+    let pageFlip = null;
+
+
+    async function openBook(pdfPath, title) {
+
+        const modal =
+            document.getElementById("bookModal");
+
+        const flipbook =
+            document.getElementById("flipbook");
+
+
+        modal.classList.add("active");
+
+        document.body.style.overflow = "hidden";
+
+
+        flipbook.innerHTML = "";
+
+
+        /*
+         * Load PDF
+         */
+
+        const pdf =
+            await pdfjsLib.getDocument(pdfPath).promise;
+
+
+        const pages = [];
+
+
+        /*
+         * Convert every PDF page
+         * into an image.
+         */
+
+        for (
+            let pageNumber = 1;
+            pageNumber <= pdf.numPages;
+            pageNumber++
+        ) {
+
+            const page =
+                await pdf.getPage(pageNumber);
+
+
+            const viewport =
+                page.getViewport({
+                    scale: 1.5
+                });
+
+
+            const canvas =
+                document.createElement("canvas");
+
+
+            const context =
+                canvas.getContext("2d");
+
+
+            canvas.width =
+                viewport.width;
+
+            canvas.height =
+                viewport.height;
+
+
+            await page.render({
+
+                canvasContext: context,
+
+                viewport: viewport
+
+            }).promise;
+
+
+            pages.push(
+                canvas.toDataURL("image/jpeg", 0.92)
+            );
+
+        }
+
+
+        /*
+         * Create flipbook.
+         */
+
+        pageFlip =
+            new St.PageFlip(
+                flipbook,
+                {
+
+                    width: 550,
+
+                    height: 750,
+
+                    size: "stretch",
+
+                    minWidth: 280,
+
+                    maxWidth: 1100,
+
+                    minHeight: 380,
+
+                    maxHeight: 750,
+
+                    showCover: true,
+
+                    mobileScrollSupport: false,
+
+                    drawShadow: true,
+
+                    flippingTime: 900,
+
+                    usePortrait: true,
+
+                    startPage: 0
+
+                }
+            );
+
+
+        pageFlip.loadFromImages(pages);
+
+    }
+
+
+    function closeBook() {
+
+        const modal =
+            document.getElementById("bookModal");
+
+
+        modal.classList.remove("active");
+
+        document.body.style.overflow = "";
+
+
+        if (pageFlip) {
+
+            pageFlip.destroy();
+
+            pageFlip = null;
+
+        }
+
+    }
+
+
+    /* =========================
+       ESC KEY
+    ========================= */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+
+                closeImage();
+
+                closeBook();
+
+            }
+
+        }
+    );
+
+
+    /* =========================
+       ARROW KEYS
+    ========================= */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (!pageFlip) {
+                return;
+            }
+
+
+            if (event.key === "ArrowRight") {
+
+                pageFlip.flipNext();
+
+            }
+
+
+            if (event.key === "ArrowLeft") {
+
+                pageFlip.flipPrev();
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+</html>
