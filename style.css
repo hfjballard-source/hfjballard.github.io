@@ -1245,3 +1245,141 @@ header {
 }
 
 }
+<style>
+  /* Base Container */
+  .infinite-gallery {
+    padding: 80px 0;
+    background-color: #faf9f6; /* Soft warm light background like Alex Fisher's site */
+    overflow: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  .gallery-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 0 20px;
+  }
+
+  .gallery-header h2 {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.02em;
+  }
+
+  .gallery-header p {
+    font-size: 1.05rem;
+    color: #666;
+    margin: 0;
+  }
+
+  /* Marquee Layout & Mask */
+  .marquee-wrapper {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    margin-bottom: 24px;
+    
+    /* Gradient edge fade for smooth entry/exit */
+    mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 10%,
+      rgba(0, 0, 0, 1) 90%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 10%,
+      rgba(0, 0, 0, 1) 90%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    will-change: transform;
+  }
+
+  /* Pause scrolling on hover */
+  .marquee-wrapper:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Card Styling */
+  .gallery-card {
+    width: 320px;
+    height: 240px;
+    flex-shrink: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    cursor: pointer;
+  }
+
+  .gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  /* Hover Effects */
+  .gallery-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .gallery-card:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Scroll Direction Animations */
+  .scroll-left {
+    animation: scrollLeft 35s linear infinite;
+  }
+
+  .scroll-right {
+    animation: scrollRight 35s linear infinite;
+  }
+
+  @keyframes scrollLeft {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes scrollRight {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .gallery-card {
+      width: 240px;
+      height: 180px;
+    }
+    
+    .marquee-track {
+      gap: 16px;
+    }
+
+    .infinite-gallery {
+      padding: 50px 0;
+    }
+  }
+</style>
