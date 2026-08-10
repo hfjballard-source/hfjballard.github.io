@@ -1,282 +1,442 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Illustration Portfolio — HFJ Ballard</title>
 
     <!-- Your existing stylesheet -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- Page-turn library -->
-    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
 </head>
+
 
 <body>
 
-<!-- =========================
+
+<!-- =====================================================
      NAVIGATION
-========================= -->
+===================================================== -->
 
- <nav>
-        <div class="logo">HFJ BALLARD</div>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#books">Books</a></li>
-            <li><a href="portfolio.html">Portfolio</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+<nav>
 
-
-<!-- =========================
-     PORTFOLIO HEADER
-========================= -->
-
- <header id="home">
-        
-         <div class="hero-content">
-        <h1>Art &amp Illustrations</h1>
-        <p>HFJ Ballard</p>
+    <div class="logo">
+        HFJ BALLARD
     </div>
-    
-     <div class="video-overlay"></div>
-        
-    <video autoplay muted loop playsinline class="hero-video">
-        <source src="videos/firstlines.mp4" type="video/mp4">
-        <img src="images/herofallback.jpg" alt="Background fallback">
-    </video>
+
+    <ul>
+
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+
+        <li>
+            <a href="index.html#about">About</a>
+        </li>
+
+        <li>
+            <a href="index.html#books">Books</a>
+        </li>
+
+        <li>
+            <a href="portfolio.html">Portfolio</a>
+        </li>
+
+        <li>
+            <a href="index.html#contact">Contact</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="portfolio-header">
+
+    <div class="portfolio-header-content">
+
+        <p class="portfolio-eyebrow">
+            Illustration Portfolio
+        </p>
+
+        <h1>
+            ART &amp; STORY
+        </h1>
+
+        <p>
+            Illustration for picture books, stories, and strange little worlds.
+        </p>
+
+    </div>
 
 </header>
 
 
-<!-- =========================
-     PORTFOLIO GRID
-========================= -->
 
-<section class="illustration-portfolio">
+<!-- =====================================================
+     INTRO
+===================================================== -->
 
-    <div class="portfolio-grid">
+<section class="portfolio-intro">
 
+    <h2 class="section-title">
+        Illustration
+    </h2>
 
-        <!-- NORMAL ILLUSTRATION -->
+    <p>
+        A selection of my illustration work, including character art,
+        picture-book spreads, and visual storytelling.
+    </p>
 
-        <div
-            class="portfolio-item"
-            onclick="openImage(
-                'images/portfolio/illustration1.webp',
-                'The Forest',
-                'Digital illustration — character and environment'
-            )"
-        >
-
-            <img
-                src="images/portfolio/illustration1.webp"
-                alt="The Forest illustration"
-                loading="lazy"
-            >
-
-            <div class="portfolio-overlay">
-
-                <h3>The Forest</h3>
-
-                <p>Character &amp; environment</p>
-
-            </div>
-
-        </div>
+</section>
 
 
-        <!-- NORMAL ILLUSTRATION -->
 
-        <div
-            class="portfolio-item"
-            onclick="openImage(
-                'images/portfolio/illustration2.webp',
-                'The Little Explorer',
-                'Character illustration'
-            )"
-        >
+<!-- =====================================================
+     CHARACTER SCROLL SECTION
+     
+     Replace the two PNG filenames below with your
+     character images.
+===================================================== -->
 
-            <img
-                src="images/portfolio/illustration2.webp"
-                alt="The Little Explorer illustration"
-                loading="lazy"
-            >
+<section class="character-stage">
 
-            <div class="portfolio-overlay">
+    <!-- LEFT CHARACTER -->
 
-                <h3>The Little Explorer</h3>
-
-                <p>Character illustration</p>
-
-            </div>
-
-        </div>
+    <img
+        src="images/portfolio/character-left.png"
+        alt=""
+        class="scroll-character character-left"
+    >
 
 
-        <!-- PICTURE BOOK -->
+    <!-- RIGHT CHARACTER -->
 
-        <div
-            class="portfolio-item"
-            onclick="openBook(
-                'pdfs/portfolio/picturebook1.pdf',
-                'The Adventures of You'
-            )"
-        >
-
-            <img
-                src="images/portfolio/picturebook1.webp"
-                alt="The Adventures of You picture book"
-                loading="lazy"
-            >
-
-            <div class="portfolio-overlay">
-
-                <span class="book-badge">
-                    Picture Book
-                </span>
-
-                <h3>The Adventures of You</h3>
-
-                <p>View book sample</p>
-
-            </div>
-
-        </div>
+    <img
+        src="images/portfolio/character-right.png"
+        alt=""
+        class="scroll-character character-right"
+    >
 
 
-        <!-- NORMAL ILLUSTRATION -->
+    <div class="character-stage-content">
 
-        <div
-            class="portfolio-item"
-            onclick="openImage(
-                'images/portfolio/illustration3.webp',
-                'Moonlight',
-                'Digital illustration'
-            )"
-        >
+        <p class="portfolio-eyebrow">
+            Selected Work
+        </p>
 
-            <img
-                src="images/portfolio/illustration3.webp"
-                alt="Moonlight illustration"
-                loading="lazy"
-            >
+        <h2 class="section-title">
+            Worlds Worth Exploring
+        </h2>
 
-            <div class="portfolio-overlay">
-
-                <h3>Moonlight</h3>
-
-                <p>Digital illustration</p>
-
-            </div>
-
-        </div>
-
-
-        <!-- PICTURE BOOK -->
-
-        <div
-            class="portfolio-item"
-            onclick="openBook(
-                'pdfs/portfolio/picturebook2.pdf',
-                'Picture Book Sample'
-            )"
-        >
-
-            <img
-                src="images/portfolio/picturebook2.webp"
-                alt="Picture book sample"
-                loading="lazy"
-            >
-
-            <div class="portfolio-overlay">
-
-                <span class="book-badge">
-                    Picture Book
-                </span>
-
-                <h3>Picture Book Sample</h3>
-
-                <p>View book sample</p>
-
-            </div>
-
-        </div>
-
-
-        <!-- NORMAL ILLUSTRATION -->
-
-        <div
-            class="portfolio-item"
-            onclick="openImage(
-                'images/portfolio/illustration4.webp',
-                'Wonder',
-                'Digital illustration'
-            )"
-        >
-
-            <img
-                src="images/portfolio/illustration4.webp"
-                alt="Wonder illustration"
-                loading="lazy"
-            >
-
-            <div class="portfolio-overlay">
-
-                <h3>Wonder</h3>
-
-                <p>Digital illustration</p>
-
-            </div>
-
-        </div>
-
-
-        <!--
-        =====================================================
-        ADD MORE PORTFOLIO ITEMS HERE
-        =====================================================
-        -->
-
+        <p>
+            Characters, creatures, places, and stories from my
+            illustration work.
+        </p>
 
     </div>
 
 </section>
 
 
-<!-- =========================
-     IMAGE POPUP
-========================= -->
 
-<div id="imageModal" class="portfolio-modal">
+<!-- =====================================================
+     GALLERY
+===================================================== -->
+
+<section class="illustration-gallery">
+
+    <div class="gallery-heading">
+
+        <p class="portfolio-eyebrow">
+            Portfolio
+        </p>
+
+        <h2 class="section-title">
+            A Selection of Work
+        </h2>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ROW ONE
+         
+         Add images by copying the COMPLETE
+         "gallery-item" snippet.
+    ================================================== -->
+
+    <div class="gallery-row gallery-row-one">
+
+        <div class="gallery-track">
+
+
+            <!-- ===== IMAGE SNIPPET START ===== -->
+
+            <div
+                class="gallery-item"
+                onclick="openImage(
+                    'images/portfolio/illustration1.webp',
+                    'The Forest',
+                    'Digital illustration — character and environment'
+                )"
+            >
+
+                <img
+                    src="images/portfolio/illustration1.webp"
+                    alt="The Forest"
+                    loading="lazy"
+                >
+
+            </div>
+
+            <!-- ===== IMAGE SNIPPET END ===== -->
+
+
+            <!-- ===== COPY THIS SNIPPET ===== -->
+
+            <div
+                class="gallery-item"
+                onclick="openImage(
+                    'images/portfolio/illustration2.webp',
+                    'The Little Explorer',
+                    'Character illustration'
+                )"
+            >
+
+                <img
+                    src="images/portfolio/illustration2.webp"
+                    alt="The Little Explorer"
+                    loading="lazy"
+                >
+
+            </div>
+
+            <!-- ===== END COPY SNIPPET ===== -->
+
+
+            <div
+                class="gallery-item"
+                onclick="openImage(
+                    'images/portfolio/illustration3.webp',
+                    'Moonlight',
+                    'Digital illustration'
+                )"
+            >
+
+                <img
+                    src="images/portfolio/illustration3.webp"
+                    alt="Moonlight"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <div
+                class="gallery-item"
+                onclick="openImage(
+                    'images/portfolio/illustration4.webp',
+                    'Wonder',
+                    'Digital illustration'
+                )"
+            >
+
+                <img
+                    src="images/portfolio/illustration4.webp"
+                    alt="Wonder"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <!--
+            =================================================
+            ADD MORE IMAGES HERE
+
+            Just copy this:
+
+            <div
+                class="gallery-item"
+                onclick="openImage(
+                    'images/portfolio/YOUR-IMAGE.webp',
+                    'TITLE',
+                    'DESCRIPTION'
+                )"
+            >
+
+                <img
+                    src="images/portfolio/YOUR-IMAGE.webp"
+                    alt="TITLE"
+                    loading="lazy"
+                >
+
+            </div>
+
+            =================================================
+            -->
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ROW TWO
+         
+         This row automatically moves in the opposite
+         direction.
+    ================================================== -->
+
+    <div class="gallery-row gallery-row-two">
+
+        <div class="gallery-track">
+
+
+            <div
+                class="gallery-item"
+                onclick="openImage(
+                    'images/portfolio/illustration5.webp',
+                    'The Night',
+                    'Digital illustration'
+                )"
+            >
+
+                <img
+                    src="images/portfolio/illustration5.webp"
+                    alt="The Night"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <div
+                class="gallery-item"
+                onclick="openImage(
+                    'images/portfolio/illustration6.webp',
+                    'The Adventure',
+                    'Picture book illustration'
+                )"
+            >
+
+                <img
+                    src="images/portfolio/illustration6.webp"
+                    alt="The Adventure"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <div
+                class="gallery-item"
+                onclick="openImage(
+                    'images/portfolio/illustration7.webp',
+                    'The Creature',
+                    'Character illustration'
+                )"
+            >
+
+                <img
+                    src="images/portfolio/illustration7.webp"
+                    alt="The Creature"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <div
+                class="gallery-item"
+                onclick="openImage(
+                    'images/portfolio/illustration8.webp',
+                    'Wonderland',
+                    'Digital illustration'
+                )"
+            >
+
+                <img
+                    src="images/portfolio/illustration8.webp"
+                    alt="Wonderland"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <!--
+            =================================================
+            ADD MORE IMAGES HERE
+
+            Copy the same gallery-item snippet.
+            =================================================
+            -->
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     IMAGE POPUP
+===================================================== -->
+
+<div
+    id="imageModal"
+    class="portfolio-modal"
+>
 
     <button
         class="portfolio-modal-close"
         onclick="closeImage()"
-        aria-label="Close"
+        aria-label="Close image"
     >
         &times;
     </button>
+
 
     <div
         class="portfolio-modal-content"
         onclick="event.stopPropagation()"
     >
 
-        <img
-            id="modalImage"
-            src=""
-            alt=""
-        >
+        <div class="portfolio-modal-image-wrapper">
+
+            <img
+                id="modalImage"
+                src=""
+                alt=""
+            >
+
+        </div>
+
 
         <div class="portfolio-modal-info">
 
-            <h2 id="modalTitle"></h2>
+            <h2 id="modalTitle">
+            </h2>
 
-            <p id="modalDescription"></p>
+            <p id="modalDescription">
+            </p>
 
         </div>
 
@@ -285,332 +445,317 @@
 </div>
 
 
-<!-- =========================
-     PICTURE BOOK FLIPBOOK
-========================= -->
 
-<div id="bookModal" class="book-modal">
-
-    <button
-        class="book-modal-close"
-        onclick="closeBook()"
-        aria-label="Close"
-    >
-        &times;
-    </button>
-
-    <div class="flipbook-wrapper">
-
-        <div id="flipbook"></div>
-
-    </div>
-
-    <p class="flipbook-instructions">
-        Click the corners or use the arrow keys to turn pages.
-    </p>
-
-</div>
-
-
-<!-- =========================
+<!-- =====================================================
      FOOTER
-========================= -->
+===================================================== -->
 
 <footer id="contact">
 
     <div>
-        <p>hfjballard@gmail.com</p>
-        <p>(385) 231-9200</p>
+
+        <p>
+            hfjballard@gmail.com
+        </p>
+
+        <p>
+            (385) 231-9200
+        </p>
+
     </div>
 
-    <p style="margin-top: 20px; font-size: 0.8rem; color: #555;">
+
+    <p
+        style="
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #555;
+        "
+    >
         &copy; 2026 HFJ Ballard.
     </p>
 
 </footer>
 
 
-<!-- =========================
+
+<!-- =====================================================
      JAVASCRIPT
-========================= -->
+===================================================== -->
 
-<script type="module">
+<script>
 
-    /*
-     * PDF.js
-     *
-     * Used to turn the PDF pages into images that
-     * can be displayed by the page-turning viewer.
-     */
 
-    import * as pdfjsLib from
-        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
+/* =====================================================
+   IMAGE POPUP
+===================================================== */
 
+function openImage(image, title, description) {
 
-    let pageFlip = null;
+    const modal =
+        document.getElementById("imageModal");
 
+    const modalImage =
+        document.getElementById("modalImage");
 
-    /* ==========================================
-       NORMAL IMAGE POPUP
-    ========================================== */
+    const modalTitle =
+        document.getElementById("modalTitle");
 
-    window.openImage = function(image, title, description) {
+    const modalDescription =
+        document.getElementById("modalDescription");
 
-        document.getElementById("modalImage").src = image;
 
-        document.getElementById("modalImage").alt = title;
+    modalImage.src = image;
 
-        document.getElementById("modalTitle").textContent = title;
+    modalImage.alt = title;
 
-        document.getElementById("modalDescription").textContent =
-            description;
+    modalTitle.textContent = title;
 
-        document
-            .getElementById("imageModal")
-            .classList.add("active");
+    modalDescription.textContent = description;
 
-        document.body.style.overflow = "hidden";
-    };
 
+    modal.classList.add("active");
 
-    window.closeImage = function() {
+    document.body.style.overflow = "hidden";
 
-        document
-            .getElementById("imageModal")
-            .classList.remove("active");
+}
 
-        document.body.style.overflow = "";
 
-    };
 
-
-    /* ==========================================
-       PICTURE BOOK
-    ========================================== */
-
-    window.openBook = async function(pdfPath, title) {
-
-        const modal =
-            document.getElementById("bookModal");
-
-        const flipbook =
-            document.getElementById("flipbook");
-
-
-        modal.classList.add("active");
-
-        document.body.style.overflow = "hidden";
-
-        flipbook.innerHTML = "";
-
-
-        try {
-
-            const pdf =
-                await pdfjsLib.getDocument(pdfPath).promise;
-
-            const pages = [];
-
-
-            /*
-             * Render every PDF page as an image.
-             */
-
-            for (
-                let pageNumber = 1;
-                pageNumber <= pdf.numPages;
-                pageNumber++
-            ) {
-
-                const page =
-                    await pdf.getPage(pageNumber);
-
-                const viewport =
-                    page.getViewport({
-                        scale: 1.5
-                    });
-
-                const canvas =
-                    document.createElement("canvas");
-
-                const context =
-                    canvas.getContext("2d");
-
-                canvas.width =
-                    viewport.width;
-
-                canvas.height =
-                    viewport.height;
-
-
-                await page.render({
-                    canvasContext: context,
-                    viewport: viewport
-                }).promise;
-
-
-                pages.push(
-                    canvas.toDataURL(
-                        "image/jpeg",
-                        0.92
-                    )
-                );
-            }
-
-
-            /*
-             * Create the page-turning book.
-             */
-
-            pageFlip =
-                new St.PageFlip(
-                    flipbook,
-                    {
-
-                        width: 550,
-
-                        height: 750,
-
-                        size: "stretch",
-
-                        minWidth: 280,
-
-                        maxWidth: 1100,
-
-                        minHeight: 380,
-
-                        maxHeight: 750,
-
-                        showCover: true,
-
-                        mobileScrollSupport: false,
-
-                        drawShadow: true,
-
-                        flippingTime: 900,
-
-                        usePortrait: true,
-
-                        startPage: 0
-
-                    }
-                );
-
-
-            pageFlip.loadFromImages(pages);
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Unable to load PDF:",
-                error
-            );
-
-            alert(
-                "Sorry, this picture book could not be loaded."
-            );
-
-            closeBook();
-
-        }
-
-    };
-
-
-    window.closeBook = function() {
-
-        document
-            .getElementById("bookModal")
-            .classList.remove("active");
-
-        document.body.style.overflow = "";
-
-
-        if (pageFlip) {
-
-            pageFlip.destroy();
-
-            pageFlip = null;
-
-        }
-
-    };
-
-
-    /* ==========================================
-       CLOSE WITH ESCAPE
-    ========================================== */
-
-    document.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (event.key === "Escape") {
-
-                closeImage();
-
-                closeBook();
-
-            }
-
-        }
-    );
-
-
-    /* ==========================================
-       ARROW KEY PAGE TURNING
-    ========================================== */
-
-    document.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (!pageFlip) {
-                return;
-            }
-
-
-            if (event.key === "ArrowRight") {
-
-                pageFlip.flipNext();
-
-            }
-
-
-            if (event.key === "ArrowLeft") {
-
-                pageFlip.flipPrev();
-
-            }
-
-        }
-    );
-
-
-    /* ==========================================
-       CLICK OUTSIDE IMAGE TO CLOSE
-    ========================================== */
+function closeImage() {
 
     document
         .getElementById("imageModal")
-        .addEventListener(
-            "click",
-            function(event) {
+        .classList.remove("active");
 
-                if (
-                    event.target === this
-                ) {
+    document.body.style.overflow = "";
 
-                    closeImage();
+}
 
-                }
+
+/* =====================================================
+   CLOSE POPUP BY CLICKING OUTSIDE
+===================================================== */
+
+document
+    .getElementById("imageModal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (event.target === this) {
+
+                closeImage();
 
             }
-        );
+
+        }
+    );
+
+
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            closeImage();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CHARACTER SCROLL ANIMATION
+=====================================================
+
+   The characters don't simply slide in.
+
+   Their movement is calculated from the scroll
+   position, allowing them to:
+
+       1. Start outside the scene.
+       2. Lean inward.
+       3. Reach their maximum lean.
+       4. Lean back outward.
+       5. Leave the scene.
+
+   The transform-origin is set in CSS to the
+   bottom center of each character.
+===================================================== */
+
+const characterStage =
+    document.querySelector(".character-stage");
+
+const leftCharacter =
+    document.querySelector(".character-left");
+
+const rightCharacter =
+    document.querySelector(".character-right");
+
+
+function clamp(value, min, max) {
+
+    return Math.min(
+        Math.max(value, min),
+        max
+    );
+
+}
+
+
+function smoothStep(value) {
+
+    return value * value * (3 - 2 * value);
+
+}
+
+
+function updateCharacters() {
+
+    if (!characterStage) {
+        return;
+    }
+
+
+    const rect =
+        characterStage.getBoundingClientRect();
+
+    const viewportHeight =
+        window.innerHeight;
+
+
+    /*
+     * Progress through the character section.
+     *
+     * 0 = entering
+     * 0.5 = middle
+     * 1 = leaving
+     */
+
+    let progress =
+        (viewportHeight - rect.top)
+        /
+        (viewportHeight + rect.height);
+
+
+    progress =
+        clamp(progress, 0, 1);
+
+
+    /*
+     * Convert the progress into a
+     * gentle "lean in, lean out" curve.
+     *
+     * sin() gives us:
+     *
+     * 0 → 1 → 0
+     */
+
+    const lean =
+        Math.sin(progress * Math.PI);
+
+
+    /*
+     * Small amount of horizontal movement.
+     *
+     * The rotation is intentionally much
+     * more noticeable than the translation.
+     */
+
+    const slide =
+        35 * (1 - lean);
+
+
+    /*
+     * Maximum rotation.
+     *
+     * Keeping this relatively small makes
+     * the effect feel like a character
+     * peeking into the page rather than
+     * spinning around.
+     */
+
+    const rotation =
+        10 * lean;
+
+
+    /*
+     * LEFT CHARACTER
+     */
+
+    leftCharacter.style.transform =
+        `
+        translateX(${-slide}px)
+        rotate(${-rotation}deg)
+        `;
+
+
+    /*
+     * RIGHT CHARACTER
+     */
+
+    rightCharacter.style.transform =
+        `
+        translateX(${slide}px)
+        rotate(${rotation}deg)
+        `;
+
+}
+
+
+/*
+ * Update continuously while scrolling.
+ */
+
+let animationFrame = null;
+
+
+function requestCharacterUpdate() {
+
+    if (!animationFrame) {
+
+        animationFrame =
+            requestAnimationFrame(
+                function() {
+
+                    updateCharacters();
+
+                    animationFrame = null;
+
+                }
+            );
+
+    }
+
+}
+
+
+window.addEventListener(
+    "scroll",
+    requestCharacterUpdate,
+    { passive: true }
+);
+
+
+window.addEventListener(
+    "resize",
+    requestCharacterUpdate
+);
+
+
+updateCharacters();
+
 
 </script>
 
+
 </body>
+
 </html>
