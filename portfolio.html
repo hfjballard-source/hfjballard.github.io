@@ -484,6 +484,62 @@ window.addEventListener(
 updateCharacters();
 
 
+    document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('lightbox-modal');
+  const modalImg = document.getElementById('lightbox-img');
+  const modalTitle = document.getElementById('lightbox-title');
+  const modalCaption = document.getElementById('lightbox-caption');
+  const closeBtn = document.querySelector('.lightbox-close');
+  const gallerySection = document.querySelector('.infinite-gallery');
+
+  // Open modal via event delegation on gallery section
+  gallerySection.addEventListener('click', (event) => {
+    const card = event.target.closest('.gallery-card');
+    if (!card) return;
+
+    const img = card.querySelector('img');
+    if (!img) return;
+
+    // Set Image Source & Alt
+    modalImg.src = img.src;
+    modalImg.alt = img.alt || '';
+
+    // Set Title (data-title OR fallback to alt OR default fallback)
+    modalTitle.textContent = img.dataset.title || img.alt || 'Selected Work';
+
+    // Set Description (data-description OR fallback to alt)
+    modalCaption.textContent = img.dataset.description || img.alt || '';
+
+    // Hide caption block if no text is present
+    if (!modalTitle.textContent && !modalCaption.textContent) {
+      modalCaption.parentElement.style.display = 'none';
+    } else {
+      modalCaption.parentElement.style.display = 'flex';
+    }
+
+    modal.showModal();
+  });
+
+  // Close when clicking the close button
+  closeBtn.addEventListener('click', () => modal.close());
+
+  // Close when clicking on the backdrop
+  modal.addEventListener('click', (event) => {
+    const rect = modal.getBoundingClientRect();
+    const isInDialog = (
+      rect.top <= event.clientY &&
+      event.clientY <= rect.top + rect.height &&
+      rect.left <= event.clientX &&
+      event.clientX <= rect.left + rect.width
+    );
+
+    if (!isInDialog) {
+      modal.close();
+    }
+  });
+});
+
+
 </script>
 
     <!-- Lightbox Popup Modal -->
