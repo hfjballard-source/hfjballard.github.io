@@ -2,562 +2,198 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Illustration Portfolio — HFJ Ballard</title>
-
-    <!-- Your existing stylesheet -->
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
+    <!-- =====================================================
+         NAVIGATION
+    ===================================================== -->
+    <nav>
+        <div class="logo">HFJ BALLARD</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#books">Books</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-<!-- =====================================================
-     NAVIGATION
-===================================================== -->
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
+    <header class="portfolio-header">
+        <div class="portfolio-header-content">
+            <p class="portfolio-eyebrow">Illustration Portfolio</p>
+            <h1>ART &amp; STORY</h1>
+            <p>Illustration for picture books, stories, and strange little worlds.</p>
+        </div>
+    </header>
 
-<nav>
-
-    <div class="logo">
-        HFJ BALLARD
-    </div>
-
-    <ul>
-
-        <li>
-            <a href="index.html">Home</a>
-        </li>
-
-        <li>
-            <a href="index.html#about">About</a>
-        </li>
-
-        <li>
-            <a href="index.html#books">Books</a>
-        </li>
-
-        <li>
-            <a href="portfolio.html">Portfolio</a>
-        </li>
-
-        <li>
-            <a href="index.html#contact">Contact</a>
-        </li>
-
-    </ul>
-
-</nav>
-
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
-<header class="portfolio-header">
-
-    <div class="portfolio-header-content">
-
-        <p class="portfolio-eyebrow">
-            Illustration Portfolio
-        </p>
-
-        <h1>
-            ART &amp; STORY
-        </h1>
-
-        <p>
-            Illustration for picture books, stories, and strange little worlds.
-        </p>
-
-    </div>
-
-</header>
-
-<!-- =========================================================
-     GALLERY SECTION CODE (Paste this inside your HTML body)
-     ========================================================= -->
-<section class="infinite-gallery">
-  <div class="gallery-header">
-    <h2>Selected Work</h2>
-    <p>Explore recent illustrations and design projects</p>
-  </div>
-
-  <!-- ROW 1: SCROLLS LEFT -->
-  <div class="marquee-wrapper">
-    <div class="marquee-track scroll-left">
-      <!-- Original Set -->
-      <div class="gallery-card"><img src="images/carcomingoverhill.webp" alt="A car from Miles to Go coming over the hill"></div>
-      <div class="gallery-card"><img src="images/duckandcatinwater.webp" alt="Duck and Cat ride in the rapids"></div>
-      <div class="gallery-card"><img src="images/familyincar.webp" alt="Page 6 from The Adventures of You"></div>
-      <div class="gallery-card"><img src="images/jumpingcat.webp" alt="Cat and Duck jump down from a tree"></div>
-      <div class="gallery-card"><img src="images/monstercover.webp" alt="The cover for my novel Monster"></div>
-
-      <!-- Duplicate Set for Seamless Loop -->
-      <div class="gallery-card"><img src="images/carcomingoverhill.webp" alt="A car from Miles to Go coming over the hill"></div>
-      <div class="gallery-card"><img src="images/duckandcatinwater.webp" alt="Duck and Cat ride in the rapids"></div>
-      <div class="gallery-card"><img src="images/familyincar.webp" alt="Page 6 from The Adventures of You"></div>
-      <div class="gallery-card"><img src="images/jumpingcat.webp" alt="Cat and Duck jump down from a tree"></div>
-      <div class="gallery-card"><img src="images/monstercover.webp" alt="The cover for my novel, Monster"></div>
-    </div>
-  </div>
-
-  <!-- ROW 2: SCROLLS RIGHT -->
-  <div class="marquee-wrapper">
-    <div class="marquee-track scroll-right">
-      <!-- Original Set -->
-      <div class="gallery-card"><img src="images/milesandturkey.webp" alt="a frame from a thanksgiving pannel of Miles to Go"></div>
-      <div class="gallery-card"><img src="images/pirates.webp" alt="The final illustration in The Adventures of You (and Us Too)"></div>
-      <div class="gallery-card"><img src="images/theoonhisback.webp" alt="An illustration from Theopolis Turtopolis"></div>
-      <div class="gallery-card"><img src="images/stickwater.webp" alt="A frame from Miles to Go"></div>
-      <div class="gallery-card"><img src="images/yay.webp" alt="Design 5"></div>
-
-      <!-- Duplicate Set for Seamless Loop -->
-      <div class="gallery-card"><img src="images/milesandturkey.webp" alt="a frame from a thanksgiving pannel of Miles to Go"></div>
-      <div class="gallery-card"><img src="images/pirates.webp" alt="The final illustration in The Adventures of You (and Us Too)"></div>
-      <div class="gallery-card"><img src="images/theoonhisback.webp" alt="An illustration from Theopolis Turtopolis"></div>
-      <div class="gallery-card"><img src="images/stickwater.webp" alt="A frame from Miles to Go"></div>
-      <div class="gallery-card"><img src="images/yay.webp" alt="Design 5"></div>
-    </div>
-  </div>
-</section>
-
-<div
-    id="imageModal"
-    class="portfolio-modal"
->
-
-    <button
-        class="portfolio-modal-close"
-        onclick="closeImage()"
-        aria-label="Close image"
-    >
-        &times;
-    </button>
-
-
-    <div
-        class="portfolio-modal-content"
-        onclick="event.stopPropagation()"
-    >
-
-        <div class="portfolio-modal-image-wrapper">
-
-            <img
-                id="modalImage"
-                src=""
-                alt=""
-            >
-
+    <!-- =====================================================
+         GALLERY SECTION
+    ===================================================== -->
+    <section class="infinite-gallery">
+        <div class="gallery-header">
+            <h2>Selected Work</h2>
+            <p>Explore recent illustrations and design projects</p>
         </div>
 
+        <!-- ROW 1: SCROLLS LEFT -->
+        <div class="marquee-wrapper">
+            <div class="marquee-track scroll-left">
+                <!-- Original Set -->
+                <div class="gallery-card"><img src="images/carcomingoverhill.webp" alt="A car from Miles to Go coming over the hill"></div>
+                <div class="gallery-card"><img src="images/duckandcatinwater.webp" alt="Duck and Cat ride in the rapids"></div>
+                <div class="gallery-card"><img src="images/familyincar.webp" alt="Page 6 from The Adventures of You"></div>
+                <div class="gallery-card"><img src="images/jumpingcat.webp" alt="Cat and Duck jump down from a tree"></div>
+                <div class="gallery-card"><img src="images/monstercover.webp" alt="The cover for my novel Monster"></div>
 
-        <div class="portfolio-modal-info">
-
-            <h2 id="modalTitle">
-            </h2>
-
-            <p id="modalDescription">
-            </p>
-
+                <!-- Duplicate Set for Seamless Loop -->
+                <div class="gallery-card"><img src="images/carcomingoverhill.webp" alt="A car from Miles to Go coming over the hill"></div>
+                <div class="gallery-card"><img src="images/duckandcatinwater.webp" alt="Duck and Cat ride in the rapids"></div>
+                <div class="gallery-card"><img src="images/familyincar.webp" alt="Page 6 from The Adventures of You"></div>
+                <div class="gallery-card"><img src="images/jumpingcat.webp" alt="Cat and Duck jump down from a tree"></div>
+                <div class="gallery-card"><img src="images/monstercover.webp" alt="The cover for my novel, Monster"></div>
+            </div>
         </div>
 
-    </div>
+        <!-- ROW 2: SCROLLS RIGHT -->
+        <div class="marquee-wrapper">
+            <div class="marquee-track scroll-right">
+                <!-- Original Set -->
+                <div class="gallery-card"><img src="images/milesandturkey.webp" alt="a frame from a thanksgiving panel of Miles to Go"></div>
+                <div class="gallery-card"><img src="images/pirates.webp" alt="The final illustration in The Adventures of You (and Us Too)"></div>
+                <div class="gallery-card"><img src="images/theoonhisback.webp" alt="An illustration from Theopolis Turtopolis"></div>
+                <div class="gallery-card"><img src="images/stickwater.webp" alt="A frame from Miles to Go"></div>
+                <div class="gallery-card"><img src="images/yay.webp" alt="Design 5"></div>
 
-</div>
+                <!-- Duplicate Set for Seamless Loop -->
+                <div class="gallery-card"><img src="images/milesandturkey.webp" alt="a frame from a thanksgiving panel of Miles to Go"></div>
+                <div class="gallery-card"><img src="images/pirates.webp" alt="The final illustration in The Adventures of You (and Us Too)"></div>
+                <div class="gallery-card"><img src="images/theoonhisback.webp" alt="An illustration from Theopolis Turtopolis"></div>
+                <div class="gallery-card"><img src="images/stickwater.webp" alt="A frame from Miles to Go"></div>
+                <div class="gallery-card"><img src="images/yay.webp" alt="Design 5"></div>
+            </div>
+        </div>
+    </section>
 
+    <!-- =====================================================
+         LIGHTBOX POPUP MODAL
+    ===================================================== -->
+    <dialog id="lightbox-modal" class="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Close modal">&times;</button>
+            
+            <div class="lightbox-media">
+                <img id="lightbox-img" src="" alt="" />
+            </div>
 
+            <div class="lightbox-info">
+                <h3 id="lightbox-title">Selected Work</h3>
+                <p id="lightbox-caption"></p>
+            </div>
+        </div>
+    </dialog>
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer id="contact">
-
-    <div>
-
-        <p>
-            hfjballard@gmail.com
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+    <footer id="contact">
+        <div>
+            <p>hfjballard@gmail.com</p>
+            <p>(385) 231-9200</p>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.8rem; color: #555;">
+            &copy; 2026 HFJ Ballard.
         </p>
+    </footer>
 
-        <p>
-            (385) 231-9200
-        </p>
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+    <script>
+        /* Character Scroll Animation */
+        const characterStage = document.querySelector(".character-stage");
+        const leftCharacter = document.querySelector(".character-left");
+        const rightCharacter = document.querySelector(".character-right");
 
-    </div>
-
-
-    <p
-        style="
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: #555;
-        "
-    >
-        &copy; 2026 HFJ Ballard.
-    </p>
-
-</footer>
-
-
-
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
-<script>
-
-
-/* =====================================================
-   IMAGE POPUP
-===================================================== */
-
-function openImage(image, title, description) {
-
-    const modal =
-        document.getElementById("imageModal");
-
-    const modalImage =
-        document.getElementById("modalImage");
-
-    const modalTitle =
-        document.getElementById("modalTitle");
-
-    const modalDescription =
-        document.getElementById("modalDescription");
-
-
-    modalImage.src = image;
-
-    modalImage.alt = title;
-
-    modalTitle.textContent = title;
-
-    modalDescription.textContent = description;
-
-
-    modal.classList.add("active");
-
-    document.body.style.overflow = "hidden";
-
-}
-
-
-
-function closeImage() {
-
-    document
-        .getElementById("imageModal")
-        .classList.remove("active");
-
-    document.body.style.overflow = "";
-
-}
-
-
-/* =====================================================
-   CLOSE POPUP BY CLICKING OUTSIDE
-===================================================== */
-
-document
-    .getElementById("imageModal")
-    .addEventListener(
-        "click",
-        function(event) {
-
-            if (event.target === this) {
-
-                closeImage();
-
-            }
-
-        }
-    );
-
-
-/* =====================================================
-   ESCAPE KEY
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (event.key === "Escape") {
-
-            closeImage();
-
+        function clamp(value, min, max) {
+            return Math.min(Math.max(value, min), max);
         }
 
-    }
-);
+        function updateCharacters() {
+            if (!characterStage) return;
+            const rect = characterStage.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            let progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+            progress = clamp(progress, 0, 1);
+            const lean = Math.sin(progress * Math.PI);
+            const slide = 35 * (1 - lean);
+            const rotation = 10 * lean;
 
+            if (leftCharacter) leftCharacter.style.transform = `translateX(${-slide}px) rotate(${-rotation}deg)`;
+            if (rightCharacter) rightCharacter.style.transform = `translateX(${slide}px) rotate(${rotation}deg)`;
+        }
 
-/* =====================================================
-   CHARACTER SCROLL ANIMATION
-=====================================================
-
-   The characters don't simply slide in.
-
-   Their movement is calculated from the scroll
-   position, allowing them to:
-
-       1. Start outside the scene.
-       2. Lean inward.
-       3. Reach their maximum lean.
-       4. Lean back outward.
-       5. Leave the scene.
-
-   The transform-origin is set in CSS to the
-   bottom center of each character.
-===================================================== */
-
-const characterStage =
-    document.querySelector(".character-stage");
-
-const leftCharacter =
-    document.querySelector(".character-left");
-
-const rightCharacter =
-    document.querySelector(".character-right");
-
-
-function clamp(value, min, max) {
-
-    return Math.min(
-        Math.max(value, min),
-        max
-    );
-
-}
-
-
-function smoothStep(value) {
-
-    return value * value * (3 - 2 * value);
-
-}
-
-
-function updateCharacters() {
-
-    if (!characterStage) {
-        return;
-    }
-
-
-    const rect =
-        characterStage.getBoundingClientRect();
-
-    const viewportHeight =
-        window.innerHeight;
-
-
-    /*
-     * Progress through the character section.
-     *
-     * 0 = entering
-     * 0.5 = middle
-     * 1 = leaving
-     */
-
-    let progress =
-        (viewportHeight - rect.top)
-        /
-        (viewportHeight + rect.height);
-
-
-    progress =
-        clamp(progress, 0, 1);
-
-
-    /*
-     * Convert the progress into a
-     * gentle "lean in, lean out" curve.
-     *
-     * sin() gives us:
-     *
-     * 0 → 1 → 0
-     */
-
-    const lean =
-        Math.sin(progress * Math.PI);
-
-
-    /*
-     * Small amount of horizontal movement.
-     *
-     * The rotation is intentionally much
-     * more noticeable than the translation.
-     */
-
-    const slide =
-        35 * (1 - lean);
-
-
-    /*
-     * Maximum rotation.
-     *
-     * Keeping this relatively small makes
-     * the effect feel like a character
-     * peeking into the page rather than
-     * spinning around.
-     */
-
-    const rotation =
-        10 * lean;
-
-
-    /*
-     * LEFT CHARACTER
-     */
-
-    leftCharacter.style.transform =
-        `
-        translateX(${-slide}px)
-        rotate(${-rotation}deg)
-        `;
-
-
-    /*
-     * RIGHT CHARACTER
-     */
-
-    rightCharacter.style.transform =
-        `
-        translateX(${slide}px)
-        rotate(${rotation}deg)
-        `;
-
-}
-
-
-/*
- * Update continuously while scrolling.
- */
-
-let animationFrame = null;
-
-
-function requestCharacterUpdate() {
-
-    if (!animationFrame) {
-
-        animationFrame =
-            requestAnimationFrame(
-                function() {
-
+        let animationFrame = null;
+        function requestCharacterUpdate() {
+            if (!animationFrame) {
+                animationFrame = requestAnimationFrame(() => {
                     updateCharacters();
-
                     animationFrame = null;
+                });
+            }
+        }
 
-                }
-            );
+        window.addEventListener("scroll", requestCharacterUpdate, { passive: true });
+        window.addEventListener("resize", requestCharacterUpdate);
+        updateCharacters();
 
-    }
+        /* Lightbox Click Listener */
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('lightbox-modal');
+            const modalImg = document.getElementById('lightbox-img');
+            const modalTitle = document.getElementById('lightbox-title');
+            const modalCaption = document.getElementById('lightbox-caption');
+            const closeBtn = document.querySelector('.lightbox-close');
+            const gallerySection = document.querySelector('.infinite-gallery');
 
-}
+            if (!modal || !gallerySection) return;
 
+            gallerySection.addEventListener('click', (event) => {
+                const card = event.target.closest('.gallery-card');
+                if (!card) return;
 
-window.addEventListener(
-    "scroll",
-    requestCharacterUpdate,
-    { passive: true }
-);
+                const img = card.querySelector('img');
+                if (!img) return;
 
+                modalImg.src = img.src;
+                modalImg.alt = img.alt || '';
+                modalTitle.textContent = img.dataset.title || 'Selected Work';
+                modalCaption.textContent = img.dataset.description || img.alt || '';
 
-window.addEventListener(
-    "resize",
-    requestCharacterUpdate
-);
+                modal.showModal();
+            });
 
+            closeBtn.addEventListener('click', () => modal.close());
 
-updateCharacters();
-
-
-    document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('lightbox-modal');
-  const modalImg = document.getElementById('lightbox-img');
-  const modalTitle = document.getElementById('lightbox-title');
-  const modalCaption = document.getElementById('lightbox-caption');
-  const closeBtn = document.querySelector('.lightbox-close');
-  const gallerySection = document.querySelector('.infinite-gallery');
-
-  // Open modal via event delegation on gallery section
-  gallerySection.addEventListener('click', (event) => {
-    const card = event.target.closest('.gallery-card');
-    if (!card) return;
-
-    const img = card.querySelector('img');
-    if (!img) return;
-
-    // Set Image Source & Alt
-    modalImg.src = img.src;
-    modalImg.alt = img.alt || '';
-
-    // Set Title (data-title OR fallback to alt OR default fallback)
-    modalTitle.textContent = img.dataset.title || img.alt || 'Selected Work';
-
-    // Set Description (data-description OR fallback to alt)
-    modalCaption.textContent = img.dataset.description || img.alt || '';
-
-    // Hide caption block if no text is present
-    if (!modalTitle.textContent && !modalCaption.textContent) {
-      modalCaption.parentElement.style.display = 'none';
-    } else {
-      modalCaption.parentElement.style.display = 'flex';
-    }
-
-    modal.showModal();
-  });
-
-  // Close when clicking the close button
-  closeBtn.addEventListener('click', () => modal.close());
-
-  // Close when clicking on the backdrop
-  modal.addEventListener('click', (event) => {
-    const rect = modal.getBoundingClientRect();
-    const isInDialog = (
-      rect.top <= event.clientY &&
-      event.clientY <= rect.top + rect.height &&
-      rect.left <= event.clientX &&
-      event.clientX <= rect.left + rect.width
-    );
-
-    if (!isInDialog) {
-      modal.close();
-    }
-  });
-});
-
-
-</script>
-
-    <!-- Lightbox Popup Modal -->
-<dialog id="lightbox-modal" class="lightbox">
-  <div class="lightbox-content">
-    <button class="lightbox-close" aria-label="Close modal">&times;</button>
-    
-    <div class="lightbox-media">
-      <img id="lightbox-img" src="" alt="" />
-    </div>
-
-    <div class="lightbox-info">
-      <h3 id="lightbox-title">Project Title</h3>
-      <p id="lightbox-caption">Project description goes here...</p>
-    </div>
-  </div>
-</dialog>
-
+            modal.addEventListener('click', (event) => {
+                const rect = modal.getBoundingClientRect();
+                const isInDialog = (
+                    rect.top <= event.clientY &&
+                    event.clientY <= rect.top + rect.height &&
+                    rect.left <= event.clientX &&
+                    event.clientX <= rect.left + rect.width
+                );
+                if (!isInDialog) modal.close();
+            });
+        });
+    </script>
 </body>
-
 </html>
