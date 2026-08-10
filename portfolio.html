@@ -133,253 +133,53 @@
 
 
 
-<!-- =====================================================
-     GALLERY
-===================================================== -->
+<!-- =========================================================
+     GALLERY SECTION CODE (Paste this inside your HTML body)
+     ========================================================= -->
+<section class="infinite-gallery">
+  <div class="gallery-header">
+    <h2>Selected Work</h2>
+    <p>Explore recent illustrations and design projects</p>
+  </div>
 
-<section class="illustration-gallery">
+  <!-- ROW 1: SCROLLS LEFT -->
+  <div class="marquee-wrapper">
+    <div class="marquee-track scroll-left">
+      <!-- Original Set -->
+      <div class="gallery-card"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Abstract 1"></div>
+      <div class="gallery-card"><img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80" alt="Abstract 2"></div>
+      <div class="gallery-card"><img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=600&q=80" alt="Abstract 3"></div>
+      <div class="gallery-card"><img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=600&q=80" alt="Abstract 4"></div>
+      <div class="gallery-card"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Abstract 5"></div>
 
-    <div class="gallery-heading">
-
-        <p class="portfolio-eyebrow">
-            Portfolio
-        </p>
-
-        <h2 class="section-title">
-            A Selection of Work
-        </h2>
-
+      <!-- Duplicate Set for Seamless Loop -->
+      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Abstract 1"></div>
+      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80" alt="Abstract 2"></div>
+      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=600&q=80" alt="Abstract 3"></div>
+      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=600&q=80" alt="Abstract 4"></div>
+      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Abstract 5"></div>
     </div>
+  </div>
 
+  <!-- ROW 2: SCROLLS RIGHT -->
+  <div class="marquee-wrapper">
+    <div class="marquee-track scroll-right">
+      <!-- Original Set -->
+      <div class="gallery-card"><img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=600&q=80" alt="Design 1"></div>
+      <div class="gallery-card"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Design 2"></div>
+      <div class="gallery-card"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Design 3"></div>
+      <div class="gallery-card"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Design 4"></div>
+      <div class="gallery-card"><img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=600&q=80" alt="Design 5"></div>
 
-
-    <!-- =================================================
-         ROW ONE
-         
-         Add images by copying the COMPLETE
-         "gallery-item" snippet.
-    ================================================== -->
-
-    <div class="gallery-row gallery-row-one">
-
-        <div class="gallery-track">
-
-
-            <!-- ===== IMAGE SNIPPET START ===== -->
-
-            <div
-                class="gallery-item"
-                onclick="openImage(
-                    'images/ratcover.webp',
-                    'The Forest',
-                    'Digital illustration — character and environment'
-                )"
-            >
-
-                <img
-                    src="images/theadventuresofyoucover.webp"
-                    alt="The Forest"
-                    loading="lazy"
-                >
-
-            </div>
-
-            <!-- ===== IMAGE SNIPPET END ===== -->
-
-
-            <!-- ===== COPY THIS SNIPPET ===== -->
-
-            <div
-                class="gallery-item"
-                onclick="openImage(
-                    'images/theopolisturtopoliscover.webp',
-                    'The Little Explorer',
-                    'Character illustration'
-                )"
-            >
-
-                <img
-                    src="images/portfolio/illustration2.webp"
-                    alt="The Little Explorer"
-                    loading="lazy"
-                >
-
-            </div>
-
-            <!-- ===== END COPY SNIPPET ===== -->
-
-
-            <div
-                class="gallery-item"
-                onclick="openImage(
-                    'images/portfolio/illustration3.webp',
-                    'Moonlight',
-                    'Digital illustration'
-                )"
-            >
-
-                <img
-                    src="images/portfolio/illustration3.webp"
-                    alt="Moonlight"
-                    loading="lazy"
-                >
-
-            </div>
-
-
-            <div
-                class="gallery-item"
-                onclick="openImage(
-                    'images/portfolio/illustration4.webp',
-                    'Wonder',
-                    'Digital illustration'
-                )"
-            >
-
-                <img
-                    src="images/portfolio/illustration4.webp"
-                    alt="Wonder"
-                    loading="lazy"
-                >
-
-            </div>
-
-
-            <!--
-            =================================================
-            ADD MORE IMAGES HERE
-
-            Just copy this:
-
-            <div
-                class="gallery-item"
-                onclick="openImage(
-                    'images/portfolio/YOUR-IMAGE.webp',
-                    'TITLE',
-                    'DESCRIPTION'
-                )"
-            >
-
-                <img
-                    src="images/portfolio/YOUR-IMAGE.webp"
-                    alt="TITLE"
-                    loading="lazy"
-                >
-
-            </div>
-
-            =================================================
-            -->
-
-        </div>
-
+      <!-- Duplicate Set for Seamless Loop -->
+      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=600&q=80" alt="Design 1"></div>
+      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Design 2"></div>
+      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Design 3"></div>
+      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Design 4"></div>
+      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=600&q=80" alt="Design 5"></div>
     </div>
-
-
-
-    <!-- =================================================
-         ROW TWO
-         
-         This row automatically moves in the opposite
-         direction.
-    ================================================== -->
-
-    <div class="gallery-row gallery-row-two">
-
-        <div class="gallery-track">
-
-
-            <div
-                class="gallery-item"
-                onclick="openImage(
-                    'images/portfolio/illustration5.webp',
-                    'The Night',
-                    'Digital illustration'
-                )"
-            >
-
-                <img
-                    src="images/portfolio/illustration5.webp"
-                    alt="The Night"
-                    loading="lazy"
-                >
-
-            </div>
-
-
-            <div
-                class="gallery-item"
-                onclick="openImage(
-                    'images/portfolio/illustration6.webp',
-                    'The Adventure',
-                    'Picture book illustration'
-                )"
-            >
-
-                <img
-                    src="images/portfolio/illustration6.webp"
-                    alt="The Adventure"
-                    loading="lazy"
-                >
-
-            </div>
-
-
-            <div
-                class="gallery-item"
-                onclick="openImage(
-                    'images/portfolio/illustration7.webp',
-                    'The Creature',
-                    'Character illustration'
-                )"
-            >
-
-                <img
-                    src="images/portfolio/illustration7.webp"
-                    alt="The Creature"
-                    loading="lazy"
-                >
-
-            </div>
-
-
-            <div
-                class="gallery-item"
-                onclick="openImage(
-                    'images/portfolio/illustration8.webp',
-                    'Wonderland',
-                    'Digital illustration'
-                )"
-            >
-
-                <img
-                    src="images/portfolio/illustration8.webp"
-                    alt="Wonderland"
-                    loading="lazy"
-                >
-
-            </div>
-
-
-            <!--
-            =================================================
-            ADD MORE IMAGES HERE
-
-            Copy the same gallery-item snippet.
-            =================================================
-            -->
-
-        </div>
-
-    </div>
-
+  </div>
 </section>
-
-
-
-<!-- =====================================================
-     IMAGE POPUP
-===================================================== -->
 
 <div
     id="imageModal"
