@@ -83,38 +83,6 @@
 
 </header>
 
-
-
-<!-- =====================================================
-     CHARACTER SCROLL SECTION
-     
-     Replace the two PNG filenames below with your
-     character images.
-===================================================== -->
-
-<section class="character-stage">
-
-    <!-- LEFT CHARACTER -->
-
-    <img
-        src="images/cat.webp"
-        alt=""
-        class="scroll-character character-left"
-    >
-
-
-    <!-- RIGHT CHARACTER -->
-
-    <img
-        src="images/portfolio/character-right.png"
-        alt=""
-        class="scroll-character character-right"
-    >
-
-</section>
-
-
-
 <!-- =========================================================
      GALLERY SECTION CODE (Paste this inside your HTML body)
      ========================================================= -->
@@ -135,11 +103,11 @@
       <div class="gallery-card"><img src="images/monstercover.webp" alt="Abstract 5"></div>
 
       <!-- Duplicate Set for Seamless Loop -->
-      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Abstract 1"></div>
-      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80" alt="Abstract 2"></div>
-      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=600&q=80" alt="Abstract 3"></div>
-      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=600&q=80" alt="Abstract 4"></div>
-      <div class="gallery-card" aria-hidden="true"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Abstract 5"></div>
+      <div class="gallery-card"><img src="images/carcomingoverhill.webp" alt="A car from Miles to Go coming over the hill"></div>
+      <div class="gallery-card"><img src="images/duckandcatinwater.webp" alt="Duck and Cat ride in the rapids"></div>
+      <div class="gallery-card"><img src="images/familyincar.webp" alt="Page 6 from The Adventures of You"></div>
+      <div class="gallery-card"><img src="images/jumpingcat.webp" alt="Cat and Duck jump down from a tree"></div>
+      <div class="gallery-card"><img src="images/monstercover.webp" alt="Abstract 5"></div>
     </div>
   </div>
 
@@ -518,6 +486,21 @@ updateCharacters();
 
 </script>
 
+    <!-- Lightbox Popup Modal -->
+<dialog id="lightbox-modal" class="lightbox">
+  <div class="lightbox-content">
+    <button class="lightbox-close" aria-label="Close modal">&times;</button>
+    
+    <div class="lightbox-media">
+      <img id="lightbox-img" src="" alt="" />
+    </div>
+
+    <div class="lightbox-info">
+      <h3 id="lightbox-title">Project Title</h3>
+      <p id="lightbox-caption">Project description goes here...</p>
+    </div>
+  </div>
+</dialog>
 
 </body>
 
