@@ -1433,52 +1433,92 @@ header {
   }
 }
 
-/* Media Container */
-.lightbox-media {
-  flex: 1 1 65%;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Modal Overlay Base */
+.lightbox {
+  border: none;
+  padding: 0;
+  background: transparent;
+  width: min(66vw, 800px); /* Caps width at 2/3 screen (or 800px) */
+  max-height: 66vh;         /* Caps height at 2/3 screen */
+  border-radius: 20px;     /* Rounded corners */
   overflow: hidden;
-  max-height: 60vh;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
 }
 
-@media (min-width: 768px) {
-  .lightbox-media {
-    max-height: 80vh;
+/* Screen Darkening Backdrop */
+.lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.45); /* Slight darkening instead of heavy black */
+  backdrop-filter: blur(4px);        /* Soft subtle background blur */
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Modal Layout Box */
+.lightbox-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #18181b;
+  color: #f4f4f5;
+  border-radius: 20px;
+  max-height: 66vh;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .lightbox-content {
+    flex-direction: row;
+    align-items: center;
   }
 }
 
+/* Image Container with Margin/Padding */
+.lightbox-media {
+  flex: 1 1 60%;
+  background: #09090b;
+  padding: 1.25rem; /* Margin spacing around the image */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  max-height: 66vh;
+  overflow: hidden;
+}
+
+/* Image Sizing & Fitting */
 .lightbox-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  max-width: 100%;
+  max-height: calc(66vh - 2.5rem); /* Ensures full image fits within padding constraints */
+  width: auto;
+  height: auto;
+  object-fit: contain;              /* Ensures no part of the photo is cropped */
+  border-radius: 10px;               /* Gentle rounded corners on image itself */
   display: block;
 }
 
-/* Info Side Panel */
+/* Text Info Panel */
 .lightbox-info {
-  flex: 1 1 35%;
-  padding: 2rem 1.75rem;
+  flex: 1 1 40%;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
+  max-height: 66vh;
+  overflow-y: auto; /* Adds scrollbar if text exceeds available height */
 }
 
 .lightbox-info h3 {
   margin: 0 0 0.5rem 0;
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
   color: #ffffff;
 }
 
 .lightbox-info p {
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
   color: #a1a1aa;
 }
 
@@ -1488,14 +1528,13 @@ header {
   top: 12px;
   right: 12px;
   z-index: 10;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  width: 36px;
-  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  font-size: 1.25rem;
-  line-height: 1;
+  font-size: 1.2rem;
   cursor: pointer;
   display: flex;
   align-items: center;
