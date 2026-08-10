@@ -617,4 +617,631 @@ header {
         height: 75vh;
     }
 
+
+/* =========================================================
+   PORTFOLIO HEADER
+========================================================= */
+
+.portfolio-header {
+    min-height: 55vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 150px 20px 80px;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.45),
+            rgba(0, 0, 0, 0.9)
+        ),
+        url("images/portfolio-header.webp");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.portfolio-header-content {
+    max-width: 850px;
+}
+
+.portfolio-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: clamp(3.5rem, 8vw, 7rem);
+
+    font-weight: 500;
+
+    letter-spacing: 4px;
+
+    line-height: 0.95;
+
+    margin: 10px 0 25px;
+}
+
+.portfolio-header p {
+    font-size: 1rem;
+
+    letter-spacing: 1px;
+
+    opacity: 0.75;
+}
+
+.portfolio-eyebrow {
+    font-size: 0.75rem !important;
+
+    letter-spacing: 4px !important;
+
+    text-transform: uppercase;
+
+    opacity: 0.6 !important;
+}
+
+
+/* =========================================================
+   PORTFOLIO INTRO
+========================================================= */
+
+.portfolio-intro {
+    max-width: 850px;
+
+    margin: 0 auto;
+
+    padding: 90px 25px 70px;
+
+    text-align: center;
+}
+
+.portfolio-intro p {
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    opacity: 0.75;
+}
+
+
+/* =========================================================
+   CHARACTER SCROLL SECTION
+========================================================= */
+
+.character-stage {
+
+    position: relative;
+
+    min-height: 600px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    padding: 120px 20px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.02),
+            rgba(0,0,0,0.12)
+        );
+
+    border-top:
+        1px solid rgba(255,255,255,0.06);
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.06);
+}
+
+
+/* =========================================================
+   CHARACTER IMAGES
+
+   IMPORTANT:
+   transform-origin is what makes the character
+   "lean" rather than simply rotate around its center.
+========================================================= */
+
+.scroll-character {
+
+    position: absolute;
+
+    bottom: -10px;
+
+    z-index: 1;
+
+    max-height: 520px;
+
+    width: auto;
+
+    pointer-events: none;
+
+    will-change: transform;
+
+    transform-origin: 50% 100%;
+
+    transition:
+        transform 0.08s linear;
+}
+
+
+/* LEFT CHARACTER */
+
+.character-left {
+
+    left: 4%;
+
+    transform:
+        translateX(-35px)
+        rotate(-0deg);
+}
+
+
+/* RIGHT CHARACTER */
+
+.character-right {
+
+    right: 4%;
+
+    transform:
+        translateX(35px)
+        rotate(0deg);
+}
+
+
+/* =========================================================
+   CHARACTER SECTION TEXT
+
+   Keeps the text above the characters.
+========================================================= */
+
+.character-stage-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 600px;
+
+    text-align: center;
+
+    padding: 40px;
+}
+
+.character-stage-content p:last-child {
+
+    opacity: 0.7;
+
+    max-width: 500px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.illustration-gallery {
+
+    width: 100%;
+
+    overflow: hidden;
+
+    padding: 100px 0 130px;
+}
+
+.gallery-heading {
+
+    text-align: center;
+
+    padding:
+        0 20px
+        60px;
+}
+
+
+/* =========================================================
+   HORIZONTAL ROWS
+========================================================= */
+
+.gallery-row {
+
+    width: 100%;
+
+    overflow: hidden;
+
+    margin-bottom: 30px;
+}
+
+
+/*
+ * The track contains the artwork.
+
+ * Its width is determined automatically by
+ * the contents.
+ */
+
+.gallery-track {
+
+    display: flex;
+
+    width: max-content;
+
+    gap: 30px;
+
+    will-change: transform;
+}
+
+
+/* =========================================================
+   ROW ONE
+
+   Moves LEFT.
+========================================================= */
+
+.gallery-row-one .gallery-track {
+
+    animation:
+        portfolio-scroll-left
+        55s
+        linear
+        infinite;
+}
+
+
+/* =========================================================
+   ROW TWO
+
+   Moves RIGHT.
+========================================================= */
+
+.gallery-row-two .gallery-track {
+
+    animation:
+        portfolio-scroll-right
+        65s
+        linear
+        infinite;
+}
+
+
+/* =========================================================
+   INDIVIDUAL IMAGES
+========================================================= */
+
+.gallery-item {
+
+    flex: 0 0 auto;
+
+    height: 360px;
+
+    width: auto;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    background: #171717;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+.gallery-item:hover {
+
+    transform: scale(1.025);
+
+    z-index: 10;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,0.45);
+}
+
+
+.gallery-item img {
+
+    display: block;
+
+    height: 100%;
+
+    width: auto;
+
+    max-width: none;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   MARQUEE ANIMATIONS
+========================================================= */
+
+@keyframes portfolio-scroll-left {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+
+}
+
+
+@keyframes portfolio-scroll-right {
+
+    from {
+        transform: translateX(-50%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+
+}
+
+
+/* =========================================================
+   PAUSE GALLERY WHEN MOUSE IS OVER IT
+
+   This makes clicking artwork much easier.
+========================================================= */
+
+.gallery-row:hover .gallery-track {
+
+    animation-play-state: paused;
+
+}
+
+
+/* =========================================================
+   IMAGE POPUP
+========================================================= */
+
+.portfolio-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    display: none;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 40px;
+
+    background:
+        rgba(0,0,0,0.94);
+}
+
+
+.portfolio-modal.active {
+
+    display: flex;
+
+}
+
+
+.portfolio-modal-content {
+
+    width: min(1200px, 95vw);
+
+    max-height: 90vh;
+
+    background: #171717;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.12);
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,0.7);
+
+    overflow: hidden;
+}
+
+
+.portfolio-modal-image-wrapper {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 35px;
+
+    background: #111;
+}
+
+
+.portfolio-modal-content > .portfolio-modal-image-wrapper > img {
+
+    display: block;
+
+    max-width: 100%;
+
+    max-height: 70vh;
+
+    width: auto;
+
+    height: auto;
+
+    object-fit: contain;
+}
+
+
+.portfolio-modal-info {
+
+    padding: 25px 35px 30px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,0.08);
+}
+
+
+.portfolio-modal-info h2 {
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 2.2rem;
+
+    font-weight: 500;
+
+    margin-bottom: 5px;
+}
+
+
+.portfolio-modal-info p {
+
+    opacity: 0.65;
+
+    font-size: 0.9rem;
+}
+
+
+.portfolio-modal-close {
+
+    position: fixed;
+
+    top: 20px;
+
+    right: 30px;
+
+    z-index: 2100;
+
+    width: 45px;
+
+    height: 45px;
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 2rem;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+
+    .portfolio-header {
+
+        min-height: 45vh;
+
+        padding-top: 130px;
+
+    }
+
+
+    .character-stage {
+
+        min-height: 450px;
+
+        padding: 100px 20px;
+
+    }
+
+
+    .scroll-character {
+
+        max-height: 330px;
+
+    }
+
+
+    .character-left {
+
+        left: -80px;
+
+    }
+
+
+    .character-right {
+
+        right: -80px;
+
+    }
+
+
+    .character-stage-content {
+
+        padding: 20px;
+
+    }
+
+
+    .gallery-item {
+
+        height: 240px;
+
+    }
+
+
+    .gallery-track {
+
+        gap: 20px;
+
+    }
+
+
+    .illustration-gallery {
+
+        padding-bottom: 90px;
+
+    }
+
+
+    .portfolio-modal {
+
+        padding: 15px;
+
+    }
+
+
+    .portfolio-modal-image-wrapper {
+
+        padding: 15px;
+
+    }
+
+
+    .portfolio-modal-info {
+
+        padding: 20px;
+
+    }
+
+}
+
 }
