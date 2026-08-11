@@ -125,10 +125,8 @@ footer {
 header {
     position: relative;
     height: 100vh;
-    height: 100dvh; /* Mobile browser height fix */
     width: 100%;
     display: flex;
-    flex-direction: column; /* Prevents side-by-side flex layout */
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -148,14 +146,12 @@ header {
     object-fit: cover;
 }
 
-/* Handles horizontal flip without breaking absolute centering on mobile or desktop */
-.hero-video.flipped {
-    transform: translate(-50%, -50%) scaleX(-1);
-}
-
 .video-overlay {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.6);
     z-index: 1;
 }
