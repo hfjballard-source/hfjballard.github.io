@@ -800,40 +800,40 @@ header {
     transform: translate(-50%, -50%) scaleX(-1);
 }
 
-
 /* =========================================================
-   MOBILE HERO VIDEO ONLY (Width 100%, 40% cropped height)
+   MOBILE BACKGROUND HERO VIDEO
 ========================================================= */
 @media (max-width: 768px) {
   header {
-    height: auto;
-    min-height: auto;
-    padding: 0;
-    display: block;
-  }
-
-  .video-overlay {
-    display: none;
+    position: relative;
+    height: 100dvh; /* Adapts dynamically to mobile browser address bars */
+    width: 100%;
+    overflow: hidden;
+    background-color: #000;
   }
 
   .hero-video {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    
-    /* 16:9 height reduced by 40% (9 * 0.6 = 5.4) */
-    aspect-ratio: 16 / 5.4;
+    height: 100%;
     object-fit: cover;
     object-position: center;
+    z-index: 0;
+    transform: none; /* Resets desktop transform offsets */
   }
 
-  /* Removes desktop translate(-50%, -50%) so horizontal flip works smoothly */
+  /* Ensures horizontal flip script works on mobile full-screen video */
   .hero-video.flipped {
     transform: scaleX(-1);
   }
-}
 
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+}
 
 </style>
