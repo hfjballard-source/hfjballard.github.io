@@ -794,4 +794,10 @@ header {
     background: #ffffff;
     color: #000000;
   }
+
+/* Flips the video horizontally while maintaining absolute centering */
+.hero-video.flipped {
+    transform: translate(-50%, -50%) scaleX(-1);
+}
+
 </style>
