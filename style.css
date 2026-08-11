@@ -652,7 +652,9 @@ header {
   }
 
   .scroll-left { animation: scrollLeft 35s linear infinite; }
-  .scroll-right { animation: scrollRight 35s linear infinite; }
+  .scroll-right { animation: scrollRight 34s linear infinite; }
+.scroll-left2 { animation: scrollLeft 33s linear infinite; }
+.scroll-right2 { animation: scrollRight 32s linear infinite; }
 
   @keyframes scrollLeft {
     0% { transform: translateX(0); }
