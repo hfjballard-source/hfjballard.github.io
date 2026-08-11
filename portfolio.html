@@ -33,6 +33,16 @@
             <h1>ART &amp; STORY</h1>
             <p>Illustration for picture books, stories, and strange little worlds.</p>
         </div>
+
+        <header>
+  <video id="heroVideo" class="hero-video" autoplay muted playsinline>
+    <source src="videos/duckwalks.mp4" type="video/mp4" />
+  </video>
+  <div class="video-overlay"></div>
+  <div class="hero-content">
+  </div>
+</header>
+        
     </header>
 
     <!-- =====================================================
@@ -235,6 +245,17 @@
                 if (!isInDialog) modal.close();
             });
         });
+
+        const heroVideo = document.getElementById('heroVideo');
+
+heroVideo.addEventListener('ended', () => {
+  // Toggle the flipped class on each completion
+  heroVideo.classList.toggle('flipped');
+  
+  // Replay the video
+  heroVideo.play();
+});
+        
     </script>
 </body>
 </html>
