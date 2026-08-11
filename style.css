@@ -125,8 +125,10 @@ footer {
 header {
     position: relative;
     height: 100vh;
+    height: 100dvh; /* Mobile browser height fix */
     width: 100%;
     display: flex;
+    flex-direction: column; /* Prevents side-by-side flex layout */
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -146,12 +148,14 @@ header {
     object-fit: cover;
 }
 
+/* Handles horizontal flip without breaking absolute centering on mobile or desktop */
+.hero-video.flipped {
+    transform: translate(-50%, -50%) scaleX(-1);
+}
+
 .video-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0, 0, 0, 0.6);
     z-index: 1;
 }
@@ -798,42 +802,6 @@ header {
 /* Flips the video horizontally while maintaining absolute centering */
 .hero-video.flipped {
     transform: translate(-50%, -50%) scaleX(-1);
-}
-
-/* =========================================================
-   MOBILE BACKGROUND HERO VIDEO
-========================================================= */
-@media (max-width: 768px) {
-  header {
-    position: relative;
-    height: 100dvh; /* Adapts dynamically to mobile browser address bars */
-    width: 100%;
-    overflow: hidden;
-    background-color: #000;
-  }
-
-  .hero-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    z-index: 0;
-    transform: none; /* Resets desktop transform offsets */
-  }
-
-  /* Ensures horizontal flip script works on mobile full-screen video */
-  .hero-video.flipped {
-    transform: scaleX(-1);
-  }
-
-  .video-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
 }
 
 </style>
