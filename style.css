@@ -121,6 +121,56 @@ footer {
     border-radius: 8px;
 }
 
+
+/* =========================================================
+   HOMEPAGE HEADER (#home)
+========================================================= */
+
+header#home {
+    position: relative;
+    min-height: 80vh; /* Adjust height as needed (e.g., 100vh for full screen) */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: #111;
+}
+
+/* Background video covers the entire header */
+#home .hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+}
+
+/* Dark tint over full video for text contrast */
+#home .video-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Text sits above video and overlay */
+#home .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+}
+
+
+/* =========================================================
+   PORTFOLIO HEADER (DESKTOP: Split Layout / Video Left)
+========================================================= */
+
 /* =========================================================
    PORTFOLIO HEADER (DESKTOP: Split Layout / Video Left)
 ========================================================= */
@@ -130,38 +180,37 @@ footer {
     min-height: 70vh;
     width: 100%;
     display: flex;
-    justify-content: flex-end; /* Aligns text container to the right half */
+    justify-content: flex-end;
     align-items: center;
     background: #111;
     overflow: hidden;
     padding: 0;
 }
 
-/* Left Half: Video Container (Pinned to left, removed from height flow) */
-.hero-video-container {
+.portfolio-header .hero-video-container {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     width: 50%;
-    height: 100%; /* Strictly matches the height driven by header/text */
+    height: 100%;
     overflow: hidden;
 }
 
-.hero-video {
+.portfolio-header .hero-video {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Fills height & width completely, clipping excess video edges */
+    object-fit: cover;
     object-position: center;
     display: block;
+    transition: transform 0.4s ease;
 }
 
-/* Optional horizontal flip */
-.hero-video.flipped {
+.portfolio-header .hero-video.flipped {
     transform: scaleX(-1);
 }
 
-.video-overlay {
+.portfolio-header .video-overlay {
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.25);
@@ -169,7 +218,6 @@ footer {
     z-index: 1;
 }
 
-/* Right Half: Text Content */
 .portfolio-header-content {
     width: 50%;
     padding: 120px 5% 60px;
