@@ -143,5 +143,134 @@
         <p style="margin-top: 20px; font-size: 0.8rem; color: #555;">&copy; 2024 HFJ Ballard.</p>
     </footer>
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // Input your list of first lines here
+    const firstLines = [
+        "The story didn't start with a murder; it started with a missing shoe.",
+        "There are three things you should know before reading this book.",
+        "The sky was the color of a bruised plum when the train finally arrived.",
+        "Nobody leaves the valley after sundown, but tonight was different.",
+        "It was a quiet morning until the lake decided to vanish."
+    ];
+
+    const textElement = document.getElementById('typewriterText');
+    if (!textElement) return;
+
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+    let lastIndex = -1;
+
+    // Pick a line at random without repeating the exact same line twice in a row
+    function getNextLineIndex() {
+        if (firstLines.length <= 1) return 0;
+        let newIndex;
+        do {
+            newIndex = Math.floor(Math.random() * firstLines.length);
+        } while (newIndex === lastIndex);
+        lastIndex = newIndex;
+        return newIndex;
+    }
+
+    async function typeText(targetText) {
+        let currentText = "";
+
+        for (let i = 0; i < targetText.length; i++) {
+            // ~7% chance of making a human typing mistake (starts after character 3)
+            const shouldMakeMistake = i > 3 && Math.random() < 0.07;
+
+            if (shouldMakeMistake) {
+                // Type 1 or 2 wrong characters
+                const wrongCharsCount = Math.random() < 0.35 ? 2 : 1;
+                for (let k = 0; k < wrongCharsCount; k++) {
+                    const wrongChar = String.fromCharCode(getRandom(97, 122));
+                    currentText += wrongChar;
+                    textElement.textContent = currentText;
+                    await sleep(getRandom(70, 160));
+                }
+
+                // Pause when "realizing" the mistake
+                await sleep(getRandom(280, 580));
+
+                // Backspace the mistake
+                for (let k = 0; k < wrongCharsCount; k++) {
+                    currentText = currentText.slice(0, -1);
+                    textElement.textContent = currentText;
+                    await sleep(getRandom(60, 130));
+                }
+
+                // Brief hesitation before typing the correct character
+                await sleep(getRandom(140, 320));
+            }
+
+            // Type the correct character
+            const char = targetText[i];
+            currentText += char;
+            textElement.textContent = currentText;
+
+            // Uneven, natural delays based on character type
+            let delay = getRandom(40, 130);
+
+            if (['.', '!', '?', ';'].includes(char)) {
+                delay += getRandom(350, 700); // Thinking pause after full stops
+            } else if ([',', ':'].includes(char)) {
+                delay += getRandom(180, 350); // Pause after punctuation
+            } else if (char === ' ') {
+                delay += getRandom(20, 70);
+            }
+
+            // Occasional human hesitation (~4% chance)
+            if (Math.random() < 0.04) {
+                delay += getRandom(250, 550);
+            }
+
+            await sleep(delay);
+        }
+    }
+
+    async function eraseText() {
+        let currentText = textElement.textContent;
+
+        while (currentText.length > 0) {
+            currentText = currentText.slice(0, -1);
+            textElement.textContent = currentText;
+
+            // Backspacing is uneven and generally faster than typing
+            let delay = getRandom(25, 75);
+
+            // Occasional momentary pause while backspacing (~3% chance)
+            if (Math.random() < 0.03) {
+                delay += getRandom(120, 260);
+            }
+
+            await sleep(delay);
+        }
+    }
+
+    async function startTypewriter() {
+        while (true) {
+            const lineIndex = getNextLineIndex();
+            const currentLine = firstLines[lineIndex];
+
+            // 1. Type the line
+            await typeText(currentLine);
+
+            // 2. Pause while full sentence is displayed (2.5 to 4.5 seconds)
+            await sleep(getRandom(2500, 4500));
+
+            // 3. Backspace the line
+            await eraseText();
+
+            // 4. Pause before typing the next line (0.8 to 1.6 seconds)
+            await sleep(getRandom(800, 1600));
+        }
+    }
+
+    startTypewriter();
+});
+
+</script>
+    
 </body>
 </html>
