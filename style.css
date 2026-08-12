@@ -130,29 +130,29 @@ footer {
     min-height: 70vh;
     width: 100%;
     display: flex;
-    flex-direction: row;
-    align-items: stretch; /* Forces left container to match full section height */
-    justify-content: space-between;
+    justify-content: flex-end; /* Aligns text container to the right half */
+    align-items: center;
     background: #111;
     overflow: hidden;
     padding: 0;
 }
 
-/* Left Half: Video Container */
+/* Left Half: Video Container (Pinned to left, removed from height flow) */
 .hero-video-container {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
     width: 50%;
-    display: flex;
-    align-items: center;     /* Centers video vertically */
-    justify-content: center;  /* Centers video horizontally */
+    height: 100%; /* Strictly matches the height driven by header/text */
     overflow: hidden;
 }
 
 .hero-video {
-    height: 100%;            /* Sized directly to section height */
-    width: auto;             /* Maintains intrinsic aspect ratio based on height */
-    max-width: none;
-    object-fit: contain;     /* Prevents horizontal cropping or stretching */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fills height & width completely, clipping excess video edges */
+    object-position: center;
     display: block;
 }
 
@@ -164,7 +164,7 @@ footer {
 .video-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.25); /* Subtle dark tint on desktop */
+    background: rgba(0, 0, 0, 0.25);
     pointer-events: none;
     z-index: 1;
 }
@@ -173,9 +173,6 @@ footer {
 .portfolio-header-content {
     width: 50%;
     padding: 120px 5% 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;  /* Keeps right-side text centered vertically */
     text-align: left;
     z-index: 2;
 }
