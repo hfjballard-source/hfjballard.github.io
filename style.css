@@ -4,7 +4,7 @@
     --accent-color: #d4af37; /* Gold accent */
     --text-main: #f4f4f4;
     --text-muted: #b0b0b0;
-    --typewriter-color: #e0e0e0; /* Grayish off-white */
+    --typewriter-color: #3f3f3f; /* Grayish off-white */
 }
 
 * { 
@@ -776,7 +776,7 @@ dialog.lightbox::backdrop {
 
 .typewriter-wrapper {
     font-style: normal;
-    color: var(--typewriter-color, #e0e0e0);
+    color: var(--typewriter-color, #3f3f3f);
     font-size: 2.2rem;
     margin-top: 15px;
     min-height: 1.8em;
@@ -786,7 +786,7 @@ dialog.lightbox::backdrop {
 .typewriter-cursor {
     display: inline-block;
     margin-left: 3px;
-    color: var(--typewriter-color, #e0e0e0);
+    color: var(--typewriter-color, #3f3f3f);
     font-weight: 300;
     animation: typewriter-blink 0.75s step-end infinite;
 }
