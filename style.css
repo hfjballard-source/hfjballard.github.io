@@ -869,3 +869,30 @@ dialog.lightbox::backdrop {
     .illustration-gallery { padding-bottom: 90px; }
     .portfolio-modal-image-wrapper { padding: 15px; }
 }
+
+
+/* =========================================================
+   TYPEWRITER EFFECT & CURSOR
+========================================================= */
+
+.typewriter-wrapper {
+    font-style: italic;
+    color: var(--accent-color, #d4af37);
+    font-size: 1.1rem;
+    margin-top: 15px;
+    min-height: 1.8em; /* Holds space so header doesn't jump when line is erased */
+    display: inline-block;
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    margin-left: 3px;
+    color: var(--accent-color, #d4af37);
+    font-weight: 300;
+    animation: typewriter-blink 0.75s step-end infinite;
+}
+
+@keyframes typewriter-blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
