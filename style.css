@@ -121,70 +121,64 @@ footer {
     border-radius: 8px;
 }
 
-/* Hero Header & Video */
-header {
+/* =========================================================
+   PORTFOLIO HEADER (DESKTOP: Split Layout / Video Left)
+========================================================= */
+
+.portfolio-header {
     position: relative;
-    height: 100vh;
+    min-height: 70vh;
     width: 100%;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    background: #111;
     overflow: hidden;
-    background-color: black;
+    padding: 0;
+}
+
+/* Left Half: Video Container */
+.hero-video-container {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    min-height: 70vh;
+    overflow: hidden;
 }
 
 .hero-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: 0;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* Optional horizontal flip */
+.hero-video.flipped {
+    transform: scaleX(-1);
 }
 
 .video-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25); /* Subtle dark tint on desktop */
+    pointer-events: none;
     z-index: 1;
 }
 
-.hero-content {
-    position: relative;
+/* Right Half: Text Content */
+.portfolio-header-content {
+    width: 50%;
+    padding: 120px 5% 60px;
+    text-align: left;
     z-index: 2;
-    text-align: center;
 }
-
-/* =========================================================
-   ILLUSTRATION PORTFOLIO
-========================================================= */
-
-.portfolio-header {
-    min-height: 55vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 150px 20px 80px;
-    background:
-        linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.9)),
-        url("images/portfolio-header.webp");
-    background-size: cover;
-    background-position: center;
-}
-
-.portfolio-header-content { max-width: 850px; }
 
 .portfolio-header h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-size: clamp(3rem, 5.5vw, 5.5rem);
     font-weight: 500;
     letter-spacing: 4px;
     line-height: 0.95;
@@ -412,8 +406,111 @@ header {
     animation-play-state: paused;
 }
 
+/* Infinite Gallery Base */
+.infinite-gallery {
+    padding: 80px 0;
+    background-color: #faf9f6;
+    overflow: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 0 20px;
+}
+
+.gallery-header h2 {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.02em;
+}
+
+.gallery-header p {
+    font-size: 1.05rem;
+    color: #666;
+    margin: 0;
+}
+
+.marquee-wrapper {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    margin-bottom: 24px;
+    mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 90%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.marquee-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    will-change: transform;
+}
+
+.marquee-wrapper:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+.gallery-card {
+    width: 320px;
+    height: 240px;
+    flex-shrink: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    cursor: pointer;
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gallery-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+}
+
+.gallery-card:hover img {
+    transform: scale(1.05);
+}
+
+.scroll-left { animation: scrollLeft 35s linear infinite; }
+.scroll-right { animation: scrollRight 31s linear infinite; }
+.scroll-left2 { animation: scrollLeft 26s linear infinite; }
+.scroll-right2 { animation: scrollRight 22s linear infinite; }
+
+@keyframes scrollLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollRight {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
 /* =========================================================
-   IMAGE POPUP & MODALS (Desktop & Universal Styles)
+   IMAGE POPUP, MODALS & LIGHTBOX
 ========================================================= */
 
 .portfolio-modal {
@@ -532,18 +629,173 @@ header {
     opacity: 0.4;
 }
 
+/* LightBox Dialog */
+dialog.lightbox {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    border: none;
+    padding: 0;
+    background: transparent;
+    width: min(66vw, 850px);
+    height: min(66vh, 550px);
+    max-width: 66vw;
+    max-height: 66vh;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+dialog.lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.lightbox-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    height: 100%;
+    background-color: #121214;
+    color: #f4f4f5;
+    position: relative;
+    box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+    .lightbox-content {
+        grid-template-columns: 1fr 260px;
+    }
+}
+
+.lightbox-media {
+    background-color: #09090b;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+}
+
+.lightbox-media img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.lightbox-info {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #18181b;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-sizing: border-box;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+@media (min-width: 640px) {
+    .lightbox-info {
+        border-top: none;
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+    }
+}
+
+.lightbox-info h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.lightbox-info p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #a1a1aa;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 20;
+    background: rgba(24, 24, 27, 0.8);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.lightbox-close:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
 /* =========================================================
-   RESPONSIVE BREAKPOINTS (Mobile Overrides Only)
+   RESPONSIVE BREAKPOINTS (Mobile Overrides)
 ========================================================= */
 
 @media (max-width: 768px) {
     #about { flex-direction: column; text-align: center; }
     .author-img { width: 100%; height: auto; }
     header h1 { font-size: 2.5rem; }
+    
+    /* MOBILE HEADER: Full-Bleed Background Video behind Text */
+    .portfolio-header {
+        position: relative;
+        min-height: 75vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 100px 20px 60px;
+    }
+
+    .hero-video-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        z-index: 0;
+    }
+
+    .video-overlay {
+        background: rgba(0, 0, 0, 0.6); /* Slightly darkened tint on mobile for readability */
+        z-index: 1;
+    }
+
+    .portfolio-header-content {
+        position: relative;
+        width: 100%;
+        padding: 0 15px;
+        text-align: center;
+        z-index: 2;
+    }
+
+    .gallery-card { width: 240px; height: 180px; }
+    .marquee-track { gap: 16px; }
+    .infinite-gallery { padding: 50px 0; }
 }
 
 @media (max-width: 700px) {
-    .portfolio-header { min-height: 45vh; padding-top: 130px; }
     .portfolio-grid { grid-template-columns: 1fr; }
     .portfolio-item { aspect-ratio: 4 / 3; }
     .portfolio-overlay { transform: translateY(0); opacity: 1; }
@@ -561,243 +813,3 @@ header {
     .illustration-gallery { padding-bottom: 90px; }
     .portfolio-modal-image-wrapper { padding: 15px; }
 }
-
-<style>
-  /* Infinite Gallery Base */
-  .infinite-gallery {
-    padding: 80px 0;
-    background-color: #faf9f6;
-    overflow: hidden;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-
-  .gallery-header {
-    text-align: center;
-    margin-bottom: 40px;
-    padding: 0 20px;
-  }
-
-  .gallery-header h2 {
-    font-size: 2.25rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin: 0 0 8px 0;
-    letter-spacing: -0.02em;
-  }
-
-  .gallery-header p {
-    font-size: 1.05rem;
-    color: #666;
-    margin: 0;
-  }
-
-  .marquee-wrapper {
-    display: flex;
-    overflow: hidden;
-    user-select: none;
-    margin-bottom: 24px;
-    mask-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 1) 10%,
-      rgba(0, 0, 0, 1) 90%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    -webkit-mask-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 1) 10%,
-      rgba(0, 0, 0, 1) 90%,
-      rgba(0, 0, 0, 0) 100%
-    );
-  }
-
-  .marquee-track {
-    display: flex;
-    gap: 24px;
-    width: max-content;
-    will-change: transform;
-  }
-
-  .marquee-wrapper:hover .marquee-track {
-    animation-play-state: paused;
-  }
-
-  .gallery-card {
-    width: 320px;
-    height: 240px;
-    flex-shrink: 0;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-    cursor: pointer;
-  }
-
-  .gallery-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
-  }
-
-  .gallery-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
-  }
-
-  .gallery-card:hover img {
-    transform: scale(1.05);
-  }
-
-  .scroll-left { animation: scrollLeft 35s linear infinite; }
-  .scroll-right { animation: scrollRight 31s linear infinite; }
-.scroll-left2 { animation: scrollLeft 26s linear infinite; }
-.scroll-right2 { animation: scrollRight 22s linear infinite; }
-
-  @keyframes scrollLeft {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  @keyframes scrollRight {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0); }
-  }
-
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
-    .gallery-card { width: 240px; height: 180px; }
-    .marquee-track { gap: 16px; }
-    .infinite-gallery { padding: 50px 0; }
-  }
-
-  /* ==========================================================================
-     LightBox Popup Dialog (Base & Desktop Styles)
-     ========================================================================== */
-
-  dialog.lightbox {
-    position: fixed;
-    inset: 0;
-    margin: auto;
-    border: none;
-    padding: 0;
-    background: transparent;
-    width: min(66vw, 850px);
-    height: min(66vh, 550px);
-    max-width: 66vw;
-    max-height: 66vh;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  }
-
-  dialog.lightbox::backdrop {
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-  }
-
-  .lightbox-content {
-    display: grid;
-    grid-template-columns: 1fr;
-    width: 100%;
-    height: 100%;
-    background-color: #121214;
-    color: #f4f4f5;
-    position: relative;
-    box-sizing: border-box;
-  }
-
-  @media (min-width: 640px) {
-    .lightbox-content {
-      grid-template-columns: 1fr 260px;
-    }
-  }
-
-  .lightbox-media {
-    background-color: #09090b;
-    padding: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    overflow: hidden;
-    min-width: 0;
-    min-height: 0;
-  }
-
-  .lightbox-media img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-  }
-
-  .lightbox-info {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: #18181b;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    box-sizing: border-box;
-    overflow-y: auto;
-    min-height: 0;
-  }
-
-  @media (min-width: 640px) {
-    .lightbox-info {
-      border-top: none;
-      border-left: 1px solid rgba(255, 255, 255, 0.08);
-    }
-  }
-
-  .lightbox-info h3 {
-    margin: 0 0 8px 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #ffffff;
-  }
-
-  .lightbox-info p {
-    margin: 0;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    color: #a1a1aa;
-  }
-
-  .lightbox-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 20;
-    background: rgba(24, 24, 27, 0.8);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    font-size: 1.1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s ease;
-  }
-
-  .lightbox-close:hover {
-    background: #ffffff;
-    color: #000000;
-  }
-
-/* Flips the video horizontally while maintaining absolute centering */
-.hero-video.flipped {
-    transform: translate(-50%, -50%) scaleX(-1);
-}
-
-</style>
