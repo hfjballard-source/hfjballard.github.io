@@ -801,7 +801,7 @@ dialog.lightbox::backdrop {
     .author-img { width: 100%; height: auto; }
     header h1 { font-size: 2.5rem; }
     
-    /* MOBILE HEADER: Full-Bleed Background Video behind Text */
+    /* PORTFOLIO MOBILE HEADER: Full-Bleed Background Video */
     .portfolio-header {
         position: relative;
         min-height: 75vh;
@@ -811,7 +811,7 @@ dialog.lightbox::backdrop {
         padding: 100px 20px 60px;
     }
 
-    .hero-video-container {
+    .portfolio-header .hero-video-container {
         position: absolute;
         top: 0;
         left: 0;
@@ -821,12 +821,14 @@ dialog.lightbox::backdrop {
         z-index: 0;
     }
 
-    .video-overlay {
-        background: rgba(0, 0, 0, 0.6); /* Slightly darkened tint on mobile for readability */
+    .portfolio-header .video-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6); /* Slightly darker tint for text contrast on phones */
         z-index: 1;
     }
 
-    .portfolio-header-content {
+    .portfolio-header .portfolio-header-content {
         position: relative;
         width: 100%;
         padding: 0 15px;
