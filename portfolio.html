@@ -29,9 +29,11 @@
     ===================================================== -->
  <header class="portfolio-header">
     <div class="hero-video-container">
-        <video id="heroVideo" class="hero-video" autoplay muted playsinline loop>
-            <source src="videos/duckwalks.mp4" type="video/mp4" />
-        </video>
+
+        <video id="heroVideo" class="hero-video" autoplay muted playsinline>
+    <source src="videos/duckwalks.mp4" type="video/mp4" />
+</video>
+        
         <div class="video-overlay"></div>
     </div>
 
@@ -243,14 +245,17 @@
             });
         });
 
-        const heroVideo = document.getElementById('heroVideo');
+        document.addEventListener('DOMContentLoaded', () => {
+    const heroVideo = document.getElementById('heroVideo');
 
-heroVideo.addEventListener('ended', () => {
-  // Toggle the flipped class on each completion
-  heroVideo.classList.toggle('flipped');
-  
-  // Replay the video
-  heroVideo.play();
+    if (heroVideo) {
+        heroVideo.addEventListener('ended', () => {
+            // Toggle the horizontal flip class
+            heroVideo.classList.toggle('flipped');
+            // Play the video again
+            heroVideo.play();
+        });
+    }
 });
         
     </script>
