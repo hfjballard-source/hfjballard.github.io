@@ -4,9 +4,14 @@
     --accent-color: #d4af37; /* Gold accent */
     --text-main: #f4f4f4;
     --text-muted: #b0b0b0;
+    --typewriter-color: #e0e0e0; /* Grayish off-white */
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
 body {
     font-family: 'Lato', sans-serif;
@@ -16,9 +21,14 @@ body {
     scroll-behavior: smooth;
 }
 
-h1, h2, h3 { font-family: 'Playfair Display', serif; }
+h1, h2, h3 { 
+    font-family: 'Playfair Display', serif; 
+}
 
-/* Navigation */
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
 nav {
     background: rgba(26, 26, 26, 0.95);
     padding: 1rem 5%;
@@ -31,27 +41,92 @@ nav {
     border-bottom: 1px solid #333;
 }
 
-.logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; color: var(--accent-color); }
+.logo { 
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    letter-spacing: 2px; 
+    color: var(--accent-color); 
+}
 
-nav ul { display: flex; list-style: none; }
-nav ul li { margin-left: 20px; }
-nav ul li a { text-decoration: none; color: var(--text-main); font-size: 0.9rem; transition: 0.3s; }
-nav ul li a:hover { color: var(--accent-color); }
+nav ul { 
+    display: flex; 
+    list-style: none; 
+}
+
+nav ul li { 
+    margin-left: 20px; 
+}
+
+nav ul li a { 
+    text-decoration: none; 
+    color: var(--text-main); 
+    font-size: 0.9rem; 
+    transition: 0.3s; 
+}
+
+nav ul li a:hover { 
+    color: var(--accent-color); 
+}
 
 /* Header Elements */
-header h1 { font-size: 4rem; margin-bottom: 10px; }
-header p { font-size: 1.2rem; font-style: italic; color: var(--accent-color); }
+header h1 { 
+    font-size: 4rem; 
+    margin-bottom: 10px; 
+}
 
-/* Sections */
-section { padding: 80px 10%; }
-.section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; border-bottom: 2px solid var(--accent-color); display: inline-block; left: 50%; position: relative; transform: translateX(-50%); }
+header p { 
+    font-size: 1.2rem; 
+    font-style: italic; 
+    color: var(--accent-color); 
+}
+
+/* =========================================================
+   SECTIONS & ABOUT
+========================================================= */
+
+section { 
+    padding: 80px 10%; 
+}
+
+.section-title { 
+    text-align: center; 
+    margin-bottom: 50px; 
+    font-size: 2.5rem; 
+    border-bottom: 2px solid var(--accent-color); 
+    display: inline-block; 
+    left: 50%; 
+    position: relative; 
+    transform: translateX(-50%); 
+}
 
 /* Author Section */
-#about { display: flex; align-items: center; gap: 50px; background: var(--secondary-bg); }
-.author-img { width: 400px; height: 400px; object-fit: cover; border-radius: 5px; border: 5px solid #3d3d3d; }
-.quote { font-style: italic; color: var(--accent-color); margin-top: 20px; border-left: 3px solid var(--accent-color); padding-left: 20px; }
+#about { 
+    display: flex; 
+    align-items: center; 
+    gap: 50px; 
+    background: var(--secondary-bg); 
+}
 
-/* Books Grid */
+.author-img { 
+    width: 400px; 
+    height: 400px; 
+    object-fit: cover; 
+    border-radius: 5px; 
+    border: 5px solid #3d3d3d; 
+}
+
+.quote { 
+    font-style: italic; 
+    color: var(--accent-color); 
+    margin-top: 20px; 
+    border-left: 3px solid var(--accent-color); 
+    padding-left: 20px; 
+}
+
+/* =========================================================
+   BOOKS GRID
+========================================================= */
+
 .books-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -71,10 +146,30 @@ section { padding: 80px 10%; }
     transform: translateY(-10px); 
     border-color: var(--accent-color);
 }
-.book-cover { width: 100%; height: 350px; object-fit: cover; margin-bottom: 15px; }
-.book-date { font-size: 0.8rem; color: var(--accent-color); text-transform: uppercase; }
 
-/* Footer */
+.book-cover { 
+    width: 100%; 
+    height: 350px; 
+    object-fit: cover; 
+    margin-bottom: 15px; 
+}
+
+.book-date { 
+    font-size: 0.8rem; 
+    color: var(--accent-color); 
+    text-transform: uppercase; 
+}
+
+.book-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* =========================================================
+   FOOTER & BUTTONS
+========================================================= */
+
 footer {
     background: #111;
     padding: 50px 10%;
@@ -100,12 +195,8 @@ footer {
     transition: 0.3s;
 }
 
-.btn:hover { background: #b8962e; }
-
-.book-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
+.btn:hover { 
+    background: #b8962e; 
 }
 
 /* Substack Container */
@@ -121,14 +212,13 @@ footer {
     border-radius: 8px;
 }
 
-
 /* =========================================================
    HOMEPAGE HEADER (#home)
 ========================================================= */
 
 header#home {
     position: relative;
-    min-height: 80vh; /* Adjust height as needed (e.g., 100vh for full screen) */
+    min-height: 80vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -141,7 +231,7 @@ header#home {
 /* Background video covers the entire header */
 #home .hero-video {
     position: absolute;
-    top: -100;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
@@ -166,9 +256,8 @@ header#home {
     padding: 0 20px;
 }
 
-
 /* =========================================================
-   PORTFOLIO HEADER (DESKTOP: Split Layout / Video Left)
+   PORTFOLIO HEADER
 ========================================================= */
 
 .portfolio-header {
@@ -204,7 +293,7 @@ header#home {
 }
 
 .portfolio-header .hero-video.flipped {
-    transform: scale(-1.4, 1.4); /* Flipped and kept at 140% scale */
+    transform: scale(-1.4, 1.4);
 }
 
 .portfolio-header .video-overlay {
@@ -258,7 +347,10 @@ header#home {
     opacity: 0.75;
 }
 
-/* Portfolio Grid */
+/* =========================================================
+   PORTFOLIO GRID
+========================================================= */
+
 .illustration-portfolio {
     max-width: 1400px;
     margin: 0 auto;
@@ -271,7 +363,6 @@ header#home {
     gap: 28px;
 }
 
-/* Portfolio Items */
 .portfolio-item {
     position: relative;
     overflow: hidden;
@@ -380,79 +471,10 @@ header#home {
     margin: 0 auto;
 }
 
-/* Gallery Marquee */
-.illustration-gallery {
-    width: 100%;
-    overflow: hidden;
-    padding: 100px 0 130px;
-}
+/* =========================================================
+   INFINITE GALLERY & MARQUEE
+========================================================= */
 
-.gallery-heading {
-    text-align: center;
-    padding: 0 20px 60px;
-}
-
-.gallery-row {
-    width: 100%;
-    overflow: hidden;
-    margin-bottom: 30px;
-}
-
-.gallery-track {
-    display: flex;
-    width: max-content;
-    gap: 30px;
-    will-change: transform;
-}
-
-.gallery-row-one .gallery-track {
-    animation: portfolio-scroll-left 55s linear infinite;
-}
-
-.gallery-row-two .gallery-track {
-    animation: portfolio-scroll-right 65s linear infinite;
-}
-
-.gallery-item {
-    flex: 0 0 auto;
-    height: 360px;
-    width: auto;
-    cursor: pointer;
-    overflow: hidden;
-    background: #171717;
-    border: 1px solid rgba(255,255,255,0.08);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.gallery-item:hover {
-    transform: scale(1.025);
-    z-index: 10;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.45);
-}
-
-.gallery-item img {
-    display: block;
-    height: 100%;
-    width: auto;
-    max-width: none;
-    object-fit: contain;
-}
-
-@keyframes portfolio-scroll-left {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-}
-
-@keyframes portfolio-scroll-right {
-    from { transform: translateX(-50%); }
-    to { transform: translateX(0); }
-}
-
-.gallery-row:hover .gallery-track {
-    animation-play-state: paused;
-}
-
-/* Infinite Gallery Base */
 .infinite-gallery {
     padding: 80px 0;
     background-color: #faf9f6;
@@ -629,52 +651,6 @@ header#home {
     cursor: pointer;
 }
 
-/* Picture Book Flipbook Modal */
-.book-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 3000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    padding: 70px 30px;
-    background: rgba(0, 0, 0, 0.96);
-}
-
-.book-modal.active { display: flex; }
-
-.flipbook-wrapper {
-    width: min(1100px, 95vw);
-    height: min(750px, 80vh);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#flipbook { width: 100%; height: 100%; }
-
-.book-modal-close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    z-index: 3100;
-    border: none;
-    background: transparent;
-    color: white;
-    font-size: 2rem;
-    cursor: pointer;
-}
-
-.flipbook-instructions {
-    position: absolute;
-    bottom: 18px;
-    left: 0; right: 0;
-    text-align: center;
-    font-size: 0.7rem;
-    letter-spacing: 1px;
-    opacity: 0.4;
-}
-
 /* LightBox Dialog */
 dialog.lightbox {
     position: fixed;
@@ -693,7 +669,7 @@ dialog.lightbox {
 }
 
 dialog.lightbox::backdrop {
-    background: rgba(0, 0, 0, 0.55);
+    background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 }
@@ -795,6 +771,32 @@ dialog.lightbox::backdrop {
 }
 
 /* =========================================================
+   TYPEWRITER EFFECT & CURSOR
+========================================================= */
+
+.typewriter-wrapper {
+    font-style: normal;
+    color: var(--typewriter-color, #e0e0e0);
+    font-size: 2.2rem;
+    margin-top: 15px;
+    min-height: 1.8em;
+    display: inline-block;
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    margin-left: 3px;
+    color: var(--typewriter-color, #e0e0e0);
+    font-weight: 300;
+    animation: typewriter-blink 0.75s step-end infinite;
+}
+
+@keyframes typewriter-blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* =========================================================
    RESPONSIVE BREAKPOINTS (Mobile Overrides)
 ========================================================= */
 
@@ -804,14 +806,13 @@ dialog.lightbox::backdrop {
     header h1 { font-size: 2.5rem; }
 
     .portfolio-header .hero-video {
-        transform: scale(1); /* 100% size on mobile */
+        transform: scale(1);
     }
 
     .portfolio-header .hero-video.flipped {
-        transform: scaleX(-1); /* Normal 100% scale horizontal flip */
+        transform: scaleX(-1);
     }
     
-    /* PORTFOLIO MOBILE HEADER: Full-Bleed Background Video */
     .portfolio-header {
         position: relative;
         min-height: 75vh;
@@ -834,7 +835,7 @@ dialog.lightbox::backdrop {
     .portfolio-header .video-overlay {
         position: absolute;
         inset: 0;
-        background: rgba(0, 0, 0, 0.6); /* Slightly darker tint for text contrast on phones */
+        background: rgba(0, 0, 0, 0.6);
         z-index: 1;
     }
 
@@ -849,6 +850,7 @@ dialog.lightbox::backdrop {
     .gallery-card { width: 240px; height: 180px; }
     .marquee-track { gap: 16px; }
     .infinite-gallery { padding: 50px 0; }
+    .typewriter-wrapper { font-size: 1.5rem; }
 }
 
 @media (max-width: 700px) {
@@ -857,42 +859,10 @@ dialog.lightbox::backdrop {
     .portfolio-overlay { transform: translateY(0); opacity: 1; }
     .portfolio-modal { padding: 15px; }
     .portfolio-modal-info { padding: 20px; }
-    .book-modal { padding: 60px 5px; }
-    .flipbook-wrapper { width: 98vw; height: 75vh; }
     .character-stage { min-height: 450px; padding: 100px 20px; }
     .scroll-character { max-height: 330px; }
     .character-left { left: -80px; }
     .character-right { right: -80px; }
     .character-stage-content { padding: 20px; }
-    .gallery-item { height: 240px; }
-    .gallery-track { gap: 20px; }
-    .illustration-gallery { padding-bottom: 90px; }
     .portfolio-modal-image-wrapper { padding: 15px; }
-}
-
-
-/* =========================================================
-   TYPEWRITER EFFECT & CURSOR
-========================================================= */
-
-.typewriter-wrapper {
-    font-style: regular;
-    color: var(--accent-color, #000000);
-    font-size: 2.2rem;
-    margin-top: 15px;
-    min-height: 1.8em; /* Holds space so header doesn't jump when line is erased */
-    display: inline-block;
-}
-
-.typewriter-cursor {
-    display: inline-block;
-    margin-left: 3px;
-    color: var(--accent-color, #000000);
-    font-weight: 300;
-    animation: typewriter-blink 0.75s step-end infinite;
-}
-
-@keyframes typewriter-blink {
-    from, to { opacity: 1; }
-    50% { opacity: 0; }
 }
