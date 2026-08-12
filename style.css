@@ -876,9 +876,9 @@ dialog.lightbox::backdrop {
 ========================================================= */
 
 .typewriter-wrapper {
-    font-style: italic;
-    color: var(--accent-color, #d4af37);
-    font-size: 1.1rem;
+    font-style: regular;
+    color: var(--accent-color, #D6D5CB);
+    font-size: 3.3rem;
     margin-top: 15px;
     min-height: 1.8em; /* Holds space so header doesn't jump when line is erased */
     display: inline-block;
@@ -887,7 +887,7 @@ dialog.lightbox::backdrop {
 .typewriter-cursor {
     display: inline-block;
     margin-left: 3px;
-    color: var(--accent-color, #d4af37);
+    color: var(--accent-color, #D6D5CB);
     font-weight: 300;
     animation: typewriter-blink 0.75s step-end infinite;
 }
