@@ -203,7 +203,6 @@ header#home {
     object-fit: cover;
     object-position: center;
     display: block;
-    transition: transform 0.4s ease;
 }
 
 .portfolio-header .hero-video.flipped {
