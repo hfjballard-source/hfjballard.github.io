@@ -131,7 +131,7 @@ footer {
     width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch; /* Forces left container to match full section height */
     justify-content: space-between;
     background: #111;
     overflow: hidden;
@@ -142,16 +142,17 @@ footer {
 .hero-video-container {
     position: relative;
     width: 50%;
-    height: 100%;
-    min-height: 70vh;
+    display: flex;
+    align-items: center;     /* Centers video vertically */
+    justify-content: center;  /* Centers video horizontally */
     overflow: hidden;
 }
 
 .hero-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+    height: 100%;            /* Sized directly to section height */
+    width: auto;             /* Maintains intrinsic aspect ratio based on height */
+    max-width: none;
+    object-fit: contain;     /* Prevents horizontal cropping or stretching */
     display: block;
 }
 
@@ -172,6 +173,9 @@ footer {
 .portfolio-header-content {
     width: 50%;
     padding: 120px 5% 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Keeps right-side text centered vertically */
     text-align: left;
     z-index: 2;
 }
