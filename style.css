@@ -171,10 +171,6 @@ header#home {
    PORTFOLIO HEADER (DESKTOP: Split Layout / Video Left)
 ========================================================= */
 
-/* =========================================================
-   PORTFOLIO HEADER (DESKTOP: Split Layout / Video Left)
-========================================================= */
-
 .portfolio-header {
     position: relative;
     min-height: 70vh;
@@ -199,7 +195,7 @@ header#home {
 
 .portfolio-header .hero-video {
     width: 100%;
-    height: 100%;
+    height: 150%;
     object-fit: cover;
     object-position: center;
     display: block;
