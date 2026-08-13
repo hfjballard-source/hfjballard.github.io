@@ -29,9 +29,10 @@
     ===================================================== -->
     <header class="portfolio-header">
         <div class="hero-video-container">
-<video class="hero-video" autoplay muted playsinline webkit-playsinline preload="auto">
-    <source src="your-video.mp4" type="video/mp4">
-</video>
+            <video class="hero-video" autoplay muted playsinline webkit-playsinline preload="auto">
+                <!-- IMPORTANT: Replace "your-video.mp4" with your actual video file path -->
+                <source src="videos/duckwalks.mp4" type="video/mp4">
+            </video>
             <div class="video-overlay"></div>
         </div>
 
@@ -145,13 +146,13 @@
     ===================================================== -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            /* 1. Lightbox Modal Logic */
             const modal = document.getElementById('lightbox-modal');
             const lightboxImg = document.getElementById('lightbox-img');
             const lightboxCaption = document.getElementById('lightbox-caption');
             const closeBtn = document.querySelector('.lightbox-close');
 
             if (modal && lightboxImg) {
-                // Attach click listeners to all gallery cards to open Lightbox
                 document.querySelectorAll('.gallery-card').forEach(card => {
                     card.addEventListener('click', () => {
                         const img = card.querySelector('img');
@@ -170,7 +171,6 @@
                     });
                 });
 
-                // Close Lightbox function
                 const closeModal = () => {
                     if (typeof modal.close === 'function') {
                         modal.close();
@@ -183,40 +183,32 @@
                     closeBtn.addEventListener('click', closeModal);
                 }
 
-                // Close modal when clicking backdrop
                 modal.addEventListener('click', (e) => {
                     if (e.target === modal) {
                         closeModal();
                     }
                 });
             }
-        });
 
-        document.addEventListener('DOMContentLoaded', () => {
-    const heroVideo = document.querySelector('.portfolio-header .hero-video');
+            /* 2. Hero Video Flip & Loop Logic */
+            const heroVideo = document.querySelector('.portfolio-header .hero-video');
 
-    if (heroVideo) {
-        // Enforce mute programmatically so browsers allow silent auto-playback
-        heroVideo.muted = true;
-        
-        // Start initial play
-        heroVideo.play().catch(() => {
-            // Fallback: retry play if browser initially restricted it
-            heroVideo.muted = true;
-            heroVideo.play();
-        });
+            if (heroVideo) {
+                heroVideo.muted = true;
 
-        heroVideo.addEventListener('ended', () => {
-            // Toggle horizontal flip
-            heroVideo.classList.toggle('flipped');
-            
-            // Reset position and replay
-            heroVideo.currentTime = 0;
-            heroVideo.play().catch(err => console.error("Video playback failed:", err));
+                const attemptPlay = () => {
+                    heroVideo.play().catch(err => console.log('Autoplay deferred:', err));
+                };
+
+                attemptPlay();
+
+                heroVideo.addEventListener('ended', () => {
+                    heroVideo.classList.toggle('flipped');
+                    heroVideo.currentTime = 0;
+                    attemptPlay();
+                });
+            }
         });
-    }
-});
-        
     </script>
 </body>
 
