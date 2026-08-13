@@ -29,7 +29,7 @@
     ===================================================== -->
     <header class="portfolio-header">
         <div class="hero-video-container">
-<video class="hero-video" autoplay muted playsinline>
+<video class="hero-video" autoplay muted playsinline webkit-playsinline preload="auto">
     <source src="your-video.mp4" type="video/mp4">
 </video>
             <div class="video-overlay"></div>
@@ -191,6 +191,32 @@
                 });
             }
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const heroVideo = document.querySelector('.portfolio-header .hero-video');
+
+    if (heroVideo) {
+        // Enforce mute programmatically so browsers allow silent auto-playback
+        heroVideo.muted = true;
+        
+        // Start initial play
+        heroVideo.play().catch(() => {
+            // Fallback: retry play if browser initially restricted it
+            heroVideo.muted = true;
+            heroVideo.play();
+        });
+
+        heroVideo.addEventListener('ended', () => {
+            // Toggle horizontal flip
+            heroVideo.classList.toggle('flipped');
+            
+            // Reset position and replay
+            heroVideo.currentTime = 0;
+            heroVideo.play().catch(err => console.error("Video playback failed:", err));
+        });
+    }
+});
+        
     </script>
 </body>
 
