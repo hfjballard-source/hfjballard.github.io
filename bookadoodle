@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bookadoodle Privacy Policy</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #3b3041;
+      --berry: #e85d75;
+      --paper: #fff8ee;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+    }
+
+    h1 {
+      color: var(--berry);
+      font-size: clamp(2rem, 6vw, 3rem);
+      line-height: 1.1;
+      margin: 0 0 10px;
+    }
+
+    h2 {
+      margin: 34px 0 8px;
+      font-size: 1.25rem;
+    }
+
+    p {
+      margin: 0 0 18px;
+    }
+
+    .effective-date {
+      color: #695d6b;
+      margin-bottom: 32px;
+    }
+
+    a {
+      color: #b83f57;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Bookadoodle Privacy Policy</h1>
+    <p class="effective-date">Effective date: October 1, 2026</p>
+
+    <p>
+      Bookadoodle does not collect, transmit, sell, or share personal information.
+      The app has no accounts, advertising, analytics, or tracking.
+    </p>
+
+    <h2>Information stored on your device</h2>
+    <p>
+      Your library, book progress, settings, and any parent narration recordings stay
+      on your device. Bookadoodle does not upload them to a server or send them to
+      anyone else.
+    </p>
+
+    <h2>Microphone permission</h2>
+    <p>
+      Bookadoodle requests microphone permission only when a parent chooses to record
+      narration for a book. The microphone is not used for any other purpose. You may
+      decline or revoke this permission in Android settings; only narration recording
+      will be unavailable.
+    </p>
+
+    <h2>Imported books</h2>
+    <p>
+      Parents choose which PDF and EPUB files to import. Those files remain on the
+      device unless a parent deletes them from Bookadoodle.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      If this policy changes, the updated policy will be shown in the app before the
+      change takes effect.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      For questions about this privacy policy, contact
+      <a href="mailto:YOUR-EMAIL@example.com">YOUR-EMAIL@example.com</a>.
+    </p>
+  </main>
+</body>
+</html>
