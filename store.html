@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bookstore | HFJ Ballard</title>
+  <meta name="description" content="Ebooks and audiobooks, direct from author HFJ Ballard. Browse the collection and revisit your digital library.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/store.css"><script type="module" src="assets/store.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" aria-label="Main navigation"><a class="logo" href="index.html">HFJ BALLARD</a><div class="nav-links"><a href="index.html#about">About</a><a href="index.html#books">Books</a><a href="portfolio.html">Portfolio</a><a href="store.html" aria-current="page">Store</a><a href="distribution.html">My library</a></div><button class="bag-button" id="open-bag">Bag <span id="bag-count">0</span></button></nav>
+  <main id="main">
+    <header class="store-hero"><div><p class="eyebrow">The author's bookstore</p><h1>A little wonder.<br>A world to get lost in.</h1><p class="hero-copy">Stories for your bookshelf, your headphones, and wherever the next chapter takes you.</p><div class="hero-actions"><a class="button" href="#collection">Explore the collection <span aria-hidden="true">↗</span></a><a class="text-link" href="distribution.html">Already own a book?</a></div></div><div class="hero-mark" aria-hidden="true"><span>HFJ</span><i>Stories beyond<br>the ordinary.</i><span class="mark-star">✦</span></div></header>
+    <section class="featured-section" aria-labelledby="featured-title"><div class="section-heading"><p class="eyebrow">In the spotlight</p><h2 id="featured-title">A story to start with</h2></div><div id="featured" class="featured-content"><p>Loading the featured story…</p></div></section>
+    <div class="reader-strip"><span>Direct from the author</span><span>Read or listen your way</span><a href="distribution.html">Your purchases, always in one place ↗</a></div>
+    <section class="collection-section" id="collection" aria-labelledby="collection-title"><div class="collection-heading"><div><p class="eyebrow">The digital bookshelf</p><h2 id="collection-title">Find your next chapter</h2></div><div class="filters" role="group" aria-label="Filter books by format"><button data-filter="all" aria-pressed="true">All stories</button><button data-filter="ebook" aria-pressed="false">Ebooks</button><button data-filter="audio" aria-pressed="false">Audiobooks</button></div></div><p id="store-status" class="status" role="status" aria-live="polite"></p><div id="products" class="product-grid"></div></section>
+    <section class="news-section" aria-labelledby="news-title"><div class="section-heading"><p class="eyebrow">Notes from the writing desk</p><h2 id="news-title">The next page is taking shape.</h2></div><div id="news" class="news-grid"></div></section>
+    <section class="library-callout"><div><p class="eyebrow">Welcome back</p><h2>Your stories are waiting.</h2><p>Use the email from checkout to return to your library whenever you like.</p></div><a class="button button-light" href="distribution.html">Open my library ↗</a></section>
+  </main>
+  <footer class="site-footer"><a class="logo" href="index.html">HFJ BALLARD</a><p>Local Author in Utah</p><a href="mailto:hfjballard@gmail.com">hfjballard@gmail.com</a><p class="fine-print">© <span class="year"></span> HFJ Ballard · Digital editions for personal use.</p></footer>
+  <dialog id="bag" aria-labelledby="bag-title"><div class="dialog-heading"><h2 id="bag-title">Your book bag</h2><button id="close-bag" class="icon-button" aria-label="Close book bag">×</button></div><div id="bag-items"></div><p id="bag-total" class="bag-total"></p><p class="fine-print">Secure checkout with Stripe. Use the email you'd like to use for your library. Any applicable tax is shown at checkout.</p><p id="checkout-status" class="status" role="status"></p><button id="checkout" class="button full-width">Continue to checkout ↗</button><button id="continue-browsing" class="text-button">Keep exploring</button></dialog>
+  <noscript><p class="status">Please enable JavaScript to browse formats and use checkout.</p></noscript>
+</body></html>
