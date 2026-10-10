@@ -1,0 +1,33 @@
+{
+  "currency": "usd",
+  "featuredId": "monster",
+  "products": [
+    {
+      "id": "monster", "title": "Monster", "cover": "images/monstercover.webp",
+      "eyebrow": "From the author's bookshelf", "description": "The boy found what it was to be frozen with wonder.",
+      "formats": [
+        { "id": "monster-ebook", "label": "Ebook", "kind": "ebook", "detail": "EPUB + PDF", "previewPrice": 5.99, "saleEnabled": false },
+        { "id": "monster-audio", "label": "Audiobook", "kind": "audio", "detail": "MP3 download", "previewPrice": 14.99, "saleEnabled": false }
+      ]
+    },
+    {
+      "id": "west", "title": "The Name of the West", "cover": "images/thenameofthewestcover.webp",
+      "eyebrow": "Explore the collection", "description": "A story from the HFJ Ballard collection, ready for your next reading adventure.",
+      "formats": [{ "id": "west-ebook", "label": "Ebook", "kind": "ebook", "detail": "EPUB + PDF", "previewPrice": 5.99, "saleEnabled": false }]
+    },
+    {
+      "id": "adventures", "title": "The Adventures of You (And Us Too)", "cover": "images/theadventuresofyoucover.webp",
+      "eyebrow": "Find your next read", "description": "Make room on your digital bookshelf for another adventure.",
+      "formats": [{ "id": "adventures-ebook", "label": "Ebook", "kind": "ebook", "detail": "EPUB + PDF", "previewPrice": 4.99, "saleEnabled": false }]
+    },
+    {
+      "id": "fortunes", "title": "Fortunes and Sacred Honor", "cover": "images/flag.webp",
+      "eyebrow": "Coming soon", "description": "A new story is on the horizon. Watch this space for release news.", "formats": []
+    }
+  ],
+  "news": [
+    { "label": "On the horizon", "title": "Fortunes and Sacred Honor", "text": "Coming soon. Follow along for release announcements." },
+    { "label": "An ongoing adventure", "title": "Miles to Go", "text": "Keep up with the ongoing comic on Instagram.", "url": "https://www.instagram.com/miles_to_go_the_comic/", "linkLabel": "Read along" },
+    { "label": "Meet the author", "title": "Stay tuned", "text": "Upcoming appearances and event details will be posted here." }
+  ]
+}
