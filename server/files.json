@@ -1,0 +1,6 @@
+{
+  "monster-ebook": [{ "label": "EPUB", "path": "monster/monster.epub" }, { "label": "PDF", "path": "monster/monster.pdf" }],
+  "monster-audio": [{ "label": "MP3 audiobook (ZIP)", "path": "monster/monster-audiobook.zip" }],
+  "west-ebook": [{ "label": "EPUB", "path": "west/the-name-of-the-west.epub" }, { "label": "PDF", "path": "west/the-name-of-the-west.pdf" }],
+  "adventures-ebook": [{ "label": "EPUB", "path": "adventures/the-adventures-of-you.epub" }, { "label": "PDF", "path": "adventures/the-adventures-of-you.pdf" }]
+}
