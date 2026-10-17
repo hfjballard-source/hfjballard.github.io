@@ -3,7 +3,11 @@ import { createHmac } from 'node:crypto';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { normalizeEmail, libraryItems } from './logic.mjs';
-export function env(name) { const value = process.env[name]; if (!value) throw new Error(`Missing environment setting: ${name}`); return value; }
+export function env(name) {
+  const value = process.env[name];
+  if (!value) throw Object.assign(new Error(`Missing environment setting: ${name}`), { name: 'StoreConfigurationError' });
+  return value;
+}
 export function site() { return env('SITE_URL').replace(/\/$/, ''); }
 export function db() { return createClient(env('SUPABASE_URL'), env('SUPABASE_SERVICE_ROLE_KEY'), { auth: { persistSession: false, autoRefreshToken: false } }); }
 export function authClient() { return createClient(env('SUPABASE_URL'), env('SUPABASE_ANON_KEY'), { auth: { persistSession: false, autoRefreshToken: false } }); }
@@ -28,10 +32,15 @@ export function route(method, handler) {
     try {
       // The public pages and API run on the same Netlify domain. No wildcard CORS.
       const origin = event.headers.origin;
-      if (origin && origin !== new URL(site()).origin) return json(403, { error: 'Request not allowed.' });
+      if (origin) {
+        const expectedOrigin = new URL(site()).origin;
+        if (origin !== expectedOrigin) return json(403, {
+          error: `Website address mismatch. This page is using ${origin}, but the server's SITE_URL is configured for ${expectedOrigin}.`
+        });
+      }
       return json(200, await handler(event));
     } catch (error) {
-      if (!error.status) console.error('Store operation failed:', error.code || error.name || 'Error');
+      if (!error.status) console.error('Store operation failed:', error.name === 'StoreConfigurationError' ? error.message : (error.code || error.name || 'Error'));
       return json(error.status || 503, { error: error.status ? error.message : 'The service is temporarily unavailable. Please try again or contact the author.' });
     }
   };
