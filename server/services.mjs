@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { createHmac } from 'node:crypto';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
-import { normalizeEmail, libraryItems } from './logic.mjs';
+import { normalizeEmail, libraryItems, DOWNLOADABLE_ORDER_STATUSES } from './logic.mjs';
 export function env(name) {
   const value = process.env[name];
   if (!value) throw Object.assign(new Error(`Missing environment setting: ${name}`), { name: 'StoreConfigurationError' });
@@ -62,7 +62,7 @@ export async function entitlements(email) {
   const database = db(); const orders = [];
   // Page past the API's default 1,000-row cap; a lifetime library includes every order.
   for (let offset = 0; ; offset += 500) {
-    const page = check(await database.from('store_orders').select('status,entitlements').eq('email', email).eq('status', 'paid').order('sheet_row', { ascending: false }).range(offset, offset + 499));
+    const page = check(await database.from('store_orders').select('status,entitlements').eq('email', email).in('status', DOWNLOADABLE_ORDER_STATUSES).order('sheet_row', { ascending: false }).range(offset, offset + 499));
     orders.push(...page); if (page.length < 500) break;
   }
   return libraryItems(orders);

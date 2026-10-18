@@ -1,4 +1,6 @@
 // Pure decisions kept separate so payment/access rules can be tested without accounts.
+// A refund returns the payment; the customer keeps their digital library access.
+export const DOWNLOADABLE_ORDER_STATUSES = ['paid', 'refunded'];
 export const normalizeEmail = value => String(value || '').trim().toLowerCase();
 export function validEmail(value) { return typeof value === 'string' && value.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value); }
 export function selectedSkus(items, allowed) {
@@ -13,7 +15,7 @@ export function paymentState(charge) {
 export function libraryItems(orders) {
   const bySku = new Map();
   for (const order of orders) {
-    if (order.status !== 'paid') continue;
+    if (!DOWNLOADABLE_ORDER_STATUSES.includes(order.status)) continue;
     for (const item of order.entitlements) if (!bySku.has(item.sku)) bySku.set(item.sku, item);
   }
   return [...bySku.values()];
