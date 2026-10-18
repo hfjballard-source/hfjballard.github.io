@@ -20,7 +20,13 @@ export const handler = route('POST', async event => {
     billing_address_collection: 'required', automatic_tax: { enabled: process.env.ENABLE_STRIPE_TAX === 'true' },
     metadata: { store: 'hfj-store-v1' },
     success_url: `${site()}/distribution.html?checkout=returned`, cancel_url: `${site()}/store.html`,
-    payment_intent_data: { metadata: { store: 'hfj-store-v1' } },
+    payment_intent_data: {
+  description:
+    'HFJ Ballard digital books. ' +
+    'Open your library: https://hfjballard.com/distribution.html ' +
+    'Use your checkout email to sign in and download your books.',
+  metadata: { store: 'hfj-store-v1' }
+},
     custom_text: { submit: { message: 'Your digital books will be available at the My Library page using the email entered here.' } }
   }, { idempotencyKey: `hfj-checkout-${requestId}` });
   return { url: session.url };
