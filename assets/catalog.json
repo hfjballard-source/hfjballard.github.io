@@ -6,7 +6,7 @@
       "id": "monster", "title": "Monster", "cover": "images/monstercover.webp",
       "eyebrow": "From the author's bookshelf", "description": "The boy found what it was to be frozen with wonder.",
       "formats": [
-        { "id": "monster-ebook", "label": "Ebook", "kind": "ebook", "detail": "EPUB + PDF", "previewPrice": 5.99, "saleEnabled": false },
+        { "id": "monster-ebook", "label": "Ebook", "kind": "ebook", "detail": "PDF download", "previewPrice": 5.99, "saleEnabled": false },
         { "id": "monster-audio", "label": "Audiobook", "kind": "audio", "detail": "MP3 download", "previewPrice": 14.99, "saleEnabled": false }
       ]
     },
