@@ -6,6 +6,13 @@ const bag = document.querySelector('#bag');
 const storeStatus = document.querySelector('#store-status');
 const checkoutStatus = document.querySelector('#checkout-status');
 const checkout = document.querySelector('#checkout');
+const newsletterChoice = el('input'); newsletterChoice.type = 'checkbox';
+newsletterChoice.style.cssText = 'width:auto;margin:0 .6rem 0 0;accent-color:#d4af37';
+const newsletterLabel = el('label', 'fine-print');
+newsletterLabel.style.cssText = 'display:block;margin:1rem 0;cursor:pointer';
+newsletterLabel.append(newsletterChoice, document.createTextNode('Email me HFJ Ballard’s monthly newsletter with new stories, book news, and upcoming events. Optional; unsubscribe anytime.'));
+checkout.before(newsletterLabel);
+newsletterChoice.addEventListener('change', () => { requestId = crypto.randomUUID(); });
 function buyCard(product, featured = false) {
   const root = el(featured ? 'div' : 'article', featured ? 'featured-copy' : 'product-card');
   if (!featured) { const art = el('div', 'product-art'); art.append(cover(product)); root.append(art); }
@@ -68,7 +75,7 @@ checkout.addEventListener('click', async () => {
   if (!cart.size) return;
   checkout.disabled = true; status(checkoutStatus, 'Opening secure checkoutâ€¦');
   try {
-    const { url } = await api('checkout', { items: [...cart.keys()], requestId });
+    const { url } = await api('checkout', { items: [...cart.keys()], requestId, newsletterOptIn: newsletterChoice.checked });
     const destination = new URL(url);
     if (destination.protocol !== 'https:' || destination.hostname !== 'checkout.stripe.com') throw new Error('Checkout is temporarily unavailable.');
     location.assign(destination.href);

@@ -58,9 +58,45 @@ async function loadLibrary() {
       }); content.append(downloads); book.append(content); list.append(book);
     }
     status(message, '');
+    loadNewsletter();
   } catch (error) {
     if (/verify|expired|sign in/i.test(error.message)) signOut();
     status(message, error.message, true);
   }
 }
+
+
+// Newsletter errors do not block library access.
+const newsletterPanel = el('section', 'notice'); newsletterPanel.style.marginTop = '2rem';
+newsletterPanel.append(el('h3', '', 'Your monthly newsletter'));
+const newsletterForm = el('form');
+const newsletterBox = el('input'); newsletterBox.type = 'checkbox'; newsletterBox.disabled = true;
+newsletterBox.style.cssText = 'width:auto;margin:0 .6rem 0 0;accent-color:#d4af37';
+const newsletterLabel = el('label');
+newsletterLabel.append(newsletterBox, document.createTextNode('Email me HFJ Ballard’s monthly newsletter with new stories, book news, and upcoming events.'));
+const newsletterSave = el('button', 'button', 'Save preferences'); newsletterSave.type = 'submit'; newsletterSave.disabled = true; newsletterSave.style.marginTop = '1rem';
+const newsletterMessage = el('p', 'fine-print'); newsletterMessage.setAttribute('role', 'status');
+newsletterForm.append(newsletterLabel, el('br'), newsletterSave);
+newsletterPanel.append(newsletterForm, newsletterMessage); library.append(newsletterPanel);
+async function loadNewsletter() {
+  const currentToken = token;
+  newsletterBox.disabled = true; newsletterSave.disabled = true;
+  newsletterMessage.textContent = 'Checking newsletter preferences…';
+  try {
+    const data = await api('newsletter', undefined, currentToken);
+    if (token !== currentToken) return;
+    newsletterBox.checked = data.subscribed;
+    newsletterMessage.textContent = data.pending ? 'Your preference is saved and will sync shortly. Refresh your library in a few minutes to check.' : data.confirmationNeeded ? 'Please contact the author for a fresh newsletter signup link to confirm your subscription. Your book access is unaffected.' : 'Optional. Uncheck to leave the monthly newsletter. Your books remain available.';
+    newsletterBox.disabled = false; newsletterSave.disabled = false;
+  } catch { if (token === currentToken) newsletterMessage.textContent = 'Newsletter settings are unavailable. Refresh your library to try again. Your downloads still work.'; }
+}
+newsletterForm.addEventListener('submit', async event => {
+  event.preventDefault(); const currentToken = token;
+  newsletterBox.disabled = true; newsletterSave.disabled = true;
+  try {
+    await api('newsletter', { subscribed: newsletterBox.checked }, currentToken);
+    if (token === currentToken) newsletterMessage.textContent = 'Preference saved. Please allow about five minutes for MailerLite to update.';
+  } catch (error) { if (token === currentToken) newsletterMessage.textContent = error.message; }
+  finally { if (token === currentToken) { newsletterBox.disabled = false; newsletterSave.disabled = false; } }
+});
 if (token) loadLibrary();
