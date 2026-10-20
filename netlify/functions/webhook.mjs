@@ -23,6 +23,12 @@ async function fulfill(id, client, database) {
     p_status: paymentState(charge), p_refunded: charge.amount_refunded,
     p_items: items, p_purchased: new Date(session.created * 1000).toISOString()
   }));
+  if (session.metadata?.newsletter_opt_in === 'yes') {
+    check(await database.rpc('queue_store_newsletter', {
+      p_email: email, p_desired: true, p_event: session.id,
+      p_at: new Date(session.created * 1000).toISOString()
+    }));
+  }
 }
 export async function handler(event) {
   if (event.httpMethod !== 'POST') return json(405, { error: 'Method not allowed.' });

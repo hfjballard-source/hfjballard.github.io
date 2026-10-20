@@ -2,7 +2,7 @@ import { route, parse, allSkus, readCatalog, stripe, db, check, site, rateLimit 
 import { selectedSkus } from '../../server/logic.mjs';
 export const handler = route('POST', async event => {
   await rateLimit(event, 'checkout', 15);
-  const { items, requestId } = parse(event), skus = allSkus();
+  const { items, requestId, newsletterOptIn } = parse(event), skus = allSkus();
   if (!/^[0-9a-f-]{36}$/i.test(requestId || '')) throw Object.assign(new Error('Please refresh your book bag.'), { status: 400 });
   let selected;
   try { selected = selectedSkus(items, new Set([...skus].filter(([, sku]) => sku.saleEnabled && sku.priceId && sku.files.length).map(([id]) => id))); }
@@ -18,15 +18,12 @@ export const handler = route('POST', async event => {
   const session = await client.checkout.sessions.create({
     mode: 'payment', payment_method_types: ['card'], line_items: prices,
     billing_address_collection: 'required', automatic_tax: { enabled: process.env.ENABLE_STRIPE_TAX === 'true' },
-    metadata: { store: 'hfj-store-v1' },
+    metadata: { store: 'hfj-store-v1', newsletter_opt_in: newsletterOptIn === true ? 'yes' : 'no' },
     success_url: `${site()}/distribution.html?checkout=returned`, cancel_url: `${site()}/store.html`,
     payment_intent_data: {
-  description:
-    'HFJ Ballard digital books. ' +
-    'Open your library: https://hfjballard.com/distribution.html ' +
-    'Use your checkout email to sign in and download your books.',
-  metadata: { store: 'hfj-store-v1' }
-},
+      description: `HFJ Ballard digital books. Open your library: ${site()}/distribution.html . Use the email entered at checkout to sign in and download your books.`,
+      metadata: { store: 'hfj-store-v1' }
+    },
     custom_text: { submit: { message: 'Your digital books will be available at the My Library page using the email entered here.' } }
   }, { idempotencyKey: `hfj-checkout-${requestId}` });
   return { url: session.url };
