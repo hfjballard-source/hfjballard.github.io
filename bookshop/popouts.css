@@ -1,0 +1,29 @@
+/* Let the physical objects speak for themselves; keep names for screen readers. */
+#panel{border:0;background:transparent;box-shadow:none;border-radius:6px}
+#panel .panel-head{height:0;padding:0;border:0;background:transparent;overflow:visible;z-index:30}
+#panel #close-panel{position:absolute;right:10px;top:10px;width:36px;height:36px;display:grid;place-items:center;padding:0;border:1px solid #a59a6a;border-radius:50%;background:#1c2b23ed;color:#efdfb4;font-size:18px;box-shadow:0 3px 12px #0005}
+#panel #panel-body{padding:32px;background:#1c2722;border:1px solid #7e7753;border-radius:6px;min-height:100px}
+#panel.immersive #panel-body{padding:0;border:0;background:transparent}
+#panel .shelf-stage{min-height:0;padding-top:30px;padding-bottom:30px}
+#panel .scene-actions{background:#1c2722;margin:0;padding:12px 22px;justify-content:flex-end}
+#panel .scene-actions:empty{display:none}
+#panel .counter-closeup{padding:40px}
+#panel .signing-options,#panel .author-bio{background:#1c2722;margin:0;padding:20px 32px}
+#panel .signing-options:empty{display:none}
+#panel .author-bio{border:0;padding-top:0;padding-bottom:26px}
+#panel .wall-viewport{height:min(72dvh,620px)}
+#panel .wall-controls{background:#1c2722;margin:0;padding:12px 18px}
+#panel .bathroom-scene{min-height:min(80dvh,720px)}
+#panel .bathroom-scene .shelf-arm{z-index:3}
+#panel .bathroom-scene .magazine-rack{z-index:2}
+#panel .bathroom-scene.grabbing .magazine-rack{transform:rotate(1deg) translateY(-9px)}
+#panel .bathroom-scene.magazine-held .shelf-arm{z-index:4}
+#panel .bathroom-scene .magazine-on-lap{z-index:5}
+#panel .framed-detail{margin:0 auto}
+#panel .framed-detail~.body-copy{margin:0;padding:24px 32px;background:#1c2722}
+#panel .back{padding:12px 8px 20px}
+#panel.immersive>#panel-body>.back{display:block;margin:0;background:#1c2722;padding:18px 24px;width:100%;text-align:left}
+#panel .signed-page{margin-top:0}
+#panel .checkout-success{padding-top:10px}
+@media(max-width:720px){#panel #panel-body{padding:26px 18px}#panel .counter-closeup{padding:35px 16px 20px}#panel .signing-options,#panel .author-bio{padding:18px}#panel .author-bio{padding-top:0}#panel .bathroom-scene{min-height:610px}#panel .scene-actions{padding:12px}#panel .wall-controls{padding:10px}#panel .wall-viewport{height:65dvh}#panel #close-panel{width:32px;height:32px;right:8px;top:8px}}
+@media(prefers-reduced-motion:reduce){#panel .bathroom-scene.grabbing .magazine-rack{transform:rotate(8deg)}}

@@ -1,0 +1,34 @@
+/* Quiet discoveries in the room; physical page handling and author conversation. */
+.room-wrap .spot{position:absolute;transform:none;padding:0;border:0;border-radius:3px;background:transparent;box-shadow:none;opacity:0;pointer-events:none;transition:opacity .18s ease;cursor:pointer}
+.room-wrap .spot span,.room-wrap .spot b{display:none}
+.room-wrap .spot.is-near{opacity:1;pointer-events:auto;outline:2px solid #e2c986;outline-offset:3px;background:#e8cd7710;box-shadow:0 0 18px #efd28566,inset 0 0 12px #ead18f22}
+.room-wrap .spot:focus-visible{outline:3px solid #f4df9d}
+.room-interact #interact{font-size:17px;width:40px;height:40px;padding:0;border-radius:50%}
+#panel .bathroom-scene.magazine-held .shelf-arm{z-index:12}
+#panel .bathroom-scene.dragging-page .shelf-arm{z-index:15}
+.magazine-book{touch-action:pan-y;user-select:none;cursor:grab}
+.magazine-book.page-dragging{cursor:grabbing}
+.magazine-book button{cursor:pointer}
+.drag-leaf{position:absolute;top:0;bottom:0;width:50%;min-height:0!important;z-index:9;pointer-events:none;backface-visibility:hidden;box-shadow:4px 0 18px #4d402f66}
+.drag-forward{left:50%;transform-origin:left center}
+.drag-back{left:0;transform-origin:right center}
+.drag-cover{width:100%;left:0}
+.drag-cover.drag-forward{transform-origin:left center}
+.drag-cover.drag-back{transform-origin:right center}
+.drag-underlay{position:absolute;inset:0;z-index:8;pointer-events:none;overflow:hidden;border-radius:4px;background:#e5d9b9}
+.drag-underlay .magazine-book{width:100%;height:100%;max-width:100%;margin:0;transform:none;filter:none}
+.drag-underlay .magazine-closed{border:0}
+.author-conversation{display:grid;grid-template-columns:1.05fr 1fr;overflow:hidden;border:8px ridge #87673d;background:#1d3025}
+.author-image{background:#273e31;min-width:0}
+.author-image img{display:block;width:100%;height:100%;object-fit:cover;min-height:510px;object-position:50% 50%}
+.conversation-panel{padding:45px 30px 28px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(ellipse at top left,#55634644,transparent 70%),#1f3026;min-width:0}
+.author-reply{border-left:2px solid #b6a16b;padding:2px 0 2px 18px;margin-bottom:24px}
+.author-reply .speaker{font-size:9px;color:#c6b17c;letter-spacing:2px;text-transform:uppercase}
+.author-reply p{font:20px/1.65 Georgia,serif;color:#e4ddc8;margin:12px 0 6px;white-space:pre-line}
+.conversation-choices{display:flex;flex-direction:column;gap:10px}
+.conversation-choices button{font:15px/1.5 Georgia,serif;color:#d9c69d;border:1px solid #6b7152;border-radius:3px;padding:12px 14px;text-align:left;background:#2c3c2e}
+.conversation-choices button:before{content:'›';color:#b9a46b;margin-right:10px}
+.conversation-choices button:hover{border-color:#d4bb7b;background:#3a4b36}
+.conversation-choices button:first-child{border-color:#9f925f}
+@media(max-width:720px){.author-conversation{grid-template-columns:1fr;border-width:5px}.author-image img{height:260px;min-height:0;object-fit:cover;object-position:50% 30%}.conversation-panel{padding:22px 18px}.author-reply p{font-size:17px}.conversation-choices button{font-size:14px;padding:11px}.conversation-view #close-panel{background:#17271ff0}}
+@media(prefers-reduced-motion:reduce){.room-wrap .spot{transition:none}}

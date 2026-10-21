@@ -1,0 +1,32 @@
+/* The shop is the page. Controls sit over its dark surroundings. */
+html,body{width:100%;height:100%;overflow:hidden;background:#111a17}
+body{background:radial-gradient(ellipse at center,#243027,#111a17 75%)}
+main{position:fixed;inset:0;max-width:none;margin:0;padding:0;display:grid;place-items:center}
+.shop{position:absolute;inset:0;border:0;border-radius:0;box-shadow:none;background:transparent;overflow:hidden;display:grid;place-items:center}
+.room-wrap{position:absolute;left:50%;top:50%;max-width:none;background:transparent;width:min(116vw,192dvh);height:auto;aspect-ratio:8/5;transform:translate(-50%,-54.7%)}
+canvas{width:100%;height:100%;background:transparent}
+.room-menu{position:fixed;z-index:8;right:max(18px,env(safe-area-inset-right));top:max(18px,env(safe-area-inset-top));border:1px solid #7b7953;border-radius:5px;background:#19261fef;box-shadow:0 5px 22px #0004;min-width:82px}
+.room-menu summary{list-style:none;padding:12px 15px;cursor:pointer;color:#ddc68f;font-size:12px;user-select:none}
+.room-menu summary::-webkit-details-marker,.room-help summary::-webkit-details-marker{display:none}
+.room-menu nav{display:flex;flex-direction:column;gap:0;align-items:stretch;margin:0;padding:4px 10px 12px;border-top:1px solid #4d5940;min-width:180px}
+.room-menu nav button{text-align:left;font-size:12px;padding:11px 12px;border-radius:3px}
+.room-menu nav button:hover{background:#364431}
+.room-menu nav .library-link{margin:5px 0;border:1px solid #63705b;padding:10px 12px}
+.room-interact{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:3;white-space:nowrap}
+.room-interact #interact{background:#1b2c22ef;border:1px solid #8b8156;color:#e0c78e;border-radius:4px;font-size:11px;padding:11px 16px;box-shadow:0 5px 16px #0004}
+.room-interact #interact:disabled{visibility:hidden}
+.room-help{position:fixed;z-index:8;left:max(18px,env(safe-area-inset-left));bottom:max(18px,env(safe-area-inset-bottom));background:#19261fef;border:1px solid #7b7953;border-radius:50%;color:#d8c28c}
+.room-help summary{list-style:none;display:grid;place-items:center;width:36px;height:36px;cursor:pointer;font:18px Georgia,serif}
+.room-help[open]{border-radius:5px}
+.room-help>div{padding:0 16px 15px;font-size:12px;line-height:1.8;color:#cad0b9;max-width:280px}
+.room-help p{margin-top:0}
+.room-help button{font-size:11px;padding:7px 0;color:#d7bf85;border-bottom:1px dashed #72815e}
+.room-help small{display:block;font-size:9px;color:#92a18c;margin-top:10px}
+.touch-controls{position:fixed;bottom:max(18px,env(safe-area-inset-bottom));right:max(18px,env(safe-area-inset-right));z-index:4;margin:0;display:none;filter:drop-shadow(0 5px 10px #0004)}
+.dpad{grid-template-columns:repeat(3,42px);gap:4px}.dpad button{background:#273c2de8;height:42px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.couch{left:23%;top:62%}
+.spot{font-size:clamp(8px,.8vw,12px)}
+@media(max-width:720px){.gallery{left:16%}}
+@media(pointer:coarse),(max-width:720px){.touch-controls{display:flex}.room-wrap{width:min(116vw,192dvh)}.spot{font-size:8px;padding:6px}.room-menu{right:12px;top:12px}.room-help{left:12px;bottom:15px}.room-interact{bottom:170px}.room-interact #interact{font-size:10px;padding:10px 12px}.room-menu nav{gap:0}.couch{top:62%}}
+@media(max-height:500px){.room-wrap{width:min(116vw,184dvh)}.room-menu{top:10px;right:10px}.room-menu summary{padding:8px 12px}.room-menu nav{padding:0 6px 6px;max-height:75dvh;overflow-y:auto}.room-menu nav button{padding:8px 10px;font-size:11px}.room-help{bottom:10px}.room-interact{bottom:12px}.touch-controls{bottom:10px;right:10px}.dpad{grid-template-columns:repeat(3,34px)}.dpad button{height:34px}}

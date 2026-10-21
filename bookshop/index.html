@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Explore HFJ Ballard’s books, artwork and digital library in the Afterhours pixel bookshop.">
+  <title>The Afterhours Bookshop · HFJ Ballard</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cellipse cx='20' cy='20' rx='12' ry='17' fill='%23b49457'/%3E%3Cellipse cx='20' cy='20' rx='8' ry='13' fill='%232b253b'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="experiences.css">
+  <link rel="stylesheet" href="room.css">
+  <link rel="stylesheet" href="popouts.css">
+  <link rel="stylesheet" href="discovery.css">
+  <link rel="stylesheet" href="integration.css"><script defer src="/assets/bookshop-portal.js"></script>
+  <script defer src="local-profile.js"></script><script defer src="site-content.js"></script><script defer src="game.js"></script><script defer src="experiences.js"></script><script defer src="app.js"></script>
+</head>
+<body><noscript><p>Please enable JavaScript for the bookshop, or <a href="/">visit the regular website</a>.</p></noscript>
+  <details class="room-menu" id="room-menu"><summary aria-label="Open bookshop menu">☰ <span>Menu</span></summary>
+    <nav aria-label="Bookshop navigation"><button data-panel="store">Store</button><button data-panel="checkout">Checkout <span id="bag-count"></span></button><button data-panel="about">About the author</button><button data-panel="portfolio">Portfolio</button><button data-panel="magazine">The bathroom</button><button class="library-link" data-panel="library">▤ <span>My Library</span></button><button id="fan-menu-join">Meet a fellow fan</button></nav>
+  </details>
+  <main aria-label="HFJ Ballard’s Afterhours Bookshop">
+    <section class="shop" aria-label="Interactive pixel bookshop">
+      <div class="room-wrap" id="room-wrap">
+        <canvas id="room" width="960" height="600" tabindex="0" aria-label="Top-down bookshop. Use arrow keys to walk, E or Enter near a location to interact. All locations are also available in the navigation."></canvas>
+        <button class="spot shelves" data-panel="store" aria-label="Browse the bookshelves"><span>Browse the shelves</span><b>↗</b></button>
+        <button class="spot counter" data-panel="checkout" aria-label="Checkout at the counter"><span>Checkout</span><b>↗</b></button>
+        <button class="spot signing" data-panel="about" aria-label="Meet the author"><span>About the author</span><b>↗</b></button>
+        <button class="spot gallery" data-panel="portfolio" aria-label="View the portfolio wall"><span>The display wall</span><b>↗</b></button>
+        <button class="spot bathroom" data-panel="magazine" aria-label="Sit in the bathroom"><span>The bathroom</span><b>↗</b></button>
+        <button class="spot couch" data-panel="library" aria-label="Read My Library on the couch"><span>My Library</span><b>↗</b></button>
+        <button id="meet-fan" class="fan-sign" aria-pressed="false">Meet a<br>fellow fan</button>
+        <div class="speech-bubble" id="speech-self" role="status" aria-live="polite" aria-label="Your speech" hidden></div>
+        <div class="speech-bubble peer" id="speech-peer" role="status" aria-live="polite" aria-label="Fellow reader’s speech" hidden></div>
+        <div id="arrival" hidden></div>
+      </div>
+      <div class="room-interact"><span class="sr-only" id="location" role="status">A quiet corner of somewhere</span><button id="interact" disabled>Explore the shop</button></div>
+    </section>
+    <details class="room-help"><summary aria-label="Show movement controls">?</summary><div><p>Mouse or ↑ ↓ ← → to walk<br>E / Enter to interact · Esc to close<br>On touch screens, use the arrow pad.<br>Nearby objects glow. Select one, or use Menu.</p><button id="mouse-toggle" aria-pressed="true">Mouse follow: on</button><small>Books and downloads use the existing secure store.</small></div></details>
+    <div class="touch-controls" aria-label="Touch movement controls"><div class="dpad"><button data-dir="up" aria-label="Walk up">↑</button><button data-dir="left" aria-label="Walk left">←</button><button data-dir="down" aria-label="Walk down">↓</button><button data-dir="right" aria-label="Walk right">→</button></div></div>
+  </main>
+  <section id="fan-hud" class="fan-hud" aria-label="Fellow fan encounter" hidden>
+    <div class="fan-heading"><span id="fan-status" role="status"></span><span class="fan-mode">LOCAL DEMO · SAME BROWSER</span></div>
+    <div id="fan-waiting" hidden><p class="fan-waiting-note">Open another reader in this browser, then click their “Meet a fellow fan” sign too.</p><button id="fan-cancel">Cancel waiting</button><button id="fan-open-reader">Open another reader</button></div>
+    <div id="fan-active" hidden><div id="fan-controls"><span aria-label="Two readers, green and purple coats"><i class="coat-dot"></i><i class="coat-dot other"></i></span><button id="fan-leave">Leave encounter</button><button id="fan-mute" aria-pressed="false">Mute reader</button></div><form id="fan-speech-form" aria-label="Say something to your fellow reader"><label class="sr-only" for="fan-speech-input">Message, up to 100 characters. Enter to speak.</label><input id="fan-speech-input" type="text" maxlength="200" autocomplete="off" spellcheck="false" placeholder="Say something…" aria-describedby="fan-count"><span id="fan-count">0 / 100</span><button id="fan-send" type="submit">Send</button></form></div>
+  </section>
+  <section id="fan-ended" class="fan-ended" aria-label="Encounter status" hidden><p id="fan-ended-text" role="status"></p><button id="fan-again">Meet another reader</button><button id="fan-dismiss">Dismiss</button></section>
+  <dialog id="panel" aria-labelledby="panel-title"><div class="panel-head"><button id="close-panel" aria-label="Close panel">✕</button></div><div id="panel-body"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
