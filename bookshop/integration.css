@@ -9,3 +9,14 @@
 .encounter-panel-controls{position:sticky;top:0;z-index:50;display:flex;gap:10px;justify-content:flex-start;padding:12px 55px 12px 12px;background:#18241e;border-bottom:1px solid #b7a16a}.encounter-panel-controls[hidden]{display:none!important}.encounter-panel-controls button{padding:10px 12px;background:#bca36b;color:#17241b;border:1px solid #e4ce92}.encounter-panel-controls button:last-child{background:#263b2d;color:#ead7a4}
 
 #dedication-name{display:block;width:min(100%,420px);padding:12px;margin:8px 0 20px;background:#1c2b22;color:#efdfb9;border:1px solid #b69e67;font:inherit}
+
+/* Each grid row is a complete shelf; covers retain their original image proportions. */
+.physical-shelf{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))!important;grid-auto-rows:250px;gap:0 24px!important;padding:0 16px!important;align-items:end;background:linear-gradient(to bottom,transparent 220px,#d0a16a 220px 223px,#9f7142 223px 228px,#704c2e 228px 238px,#38261b 238px 242px,#0005 242px 250px);background-size:100% 250px;background-repeat:repeat-y}
+.physical-shelf:after{display:none}
+.physical-shelf .book-button{width:100%;height:250px;align-self:end;display:flex;align-items:center;justify-content:flex-end;flex-direction:column;padding:0 0 30px;transform:none!important;min-width:0}
+.physical-shelf .cover.real-cover{width:auto;height:auto;min-height:0;max-width:100%;aspect-ratio:auto;padding:0;border:0;background:transparent;overflow:visible;box-shadow:5px 0 7px #0007;flex:none}
+.physical-shelf .real-cover img{display:block;width:auto;height:auto;max-width:160px;max-height:200px;object-fit:contain}
+.cover.real-cover:after{display:none}
+.book-detail>.cover.real-cover{height:auto;min-height:0;aspect-ratio:auto;background:transparent;align-self:start}
+.book-detail>.real-cover img{height:auto}
+@media(max-width:600px){.physical-shelf{grid-template-columns:repeat(auto-fit,minmax(115px,1fr))!important;grid-auto-rows:210px;column-gap:12px!important;padding:0 4px!important;background:linear-gradient(to bottom,transparent 180px,#d0a16a 180px 183px,#9f7142 183px 188px,#704c2e 188px 198px,#38261b 198px 202px,#0005 202px 210px);background-size:100% 210px}.physical-shelf .book-button{width:100%;height:210px;flex:none}.physical-shelf .real-cover img{max-width:115px;max-height:160px}}

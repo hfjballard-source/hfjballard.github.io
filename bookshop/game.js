@@ -72,15 +72,15 @@
     ctx.drawImage(art,0,0,960,600);requestAnimationFrame(frame)}requestAnimationFrame(frame);
   function clear(){target=null;keys.clear()}
   function interact(){if(!nearest)return;if(nearest.id==='community')window.bookshopCommunity?.join();else window.openPanel?.(nearest.id)}
-  canvas.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||!mouseFollow||paused||typing)return;const r=canvas.getBoundingClientRect();target={x:(e.clientX-r.left)/r.width*480,y:(e.clientY-r.top)/r.height*300}});
-  canvas.addEventListener('pointerleave',()=>target=null);
+  document.querySelector('#room-wrap').addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||!mouseFollow||paused||typing)return;const r=canvas.getBoundingClientRect();target={x:(e.clientX-r.left)/r.width*480,y:(e.clientY-r.top)/r.height*300}},{capture:true});
+  document.querySelector('#room-wrap').addEventListener('pointerleave',()=>target=null);
   canvas.addEventListener('pointerdown',()=>canvas.focus());
   document.addEventListener('keydown',e=>{if(paused||typing||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key.startsWith('Arrow')&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();target=null;keys.add(e.key);document.querySelector('#arrival').hidden=true}if((e.key.toLowerCase()==='e'||e.key==='Enter')&&nearest&&(document.activeElement===canvas||document.activeElement===document.body)){e.preventDefault();interact()}});
   document.addEventListener('keyup',e=>keys.delete(e.key));window.addEventListener('blur',clear);document.addEventListener('visibilitychange',clear);
   document.querySelectorAll('[data-dir]').forEach(b=>{const key='Arrow'+b.dataset.dir[0].toUpperCase()+b.dataset.dir.slice(1);b.addEventListener('pointerdown',e=>{if(paused)return;e.preventDefault();target=null;b.setPointerCapture(e.pointerId);keys.add(key);document.querySelector('#arrival').hidden=true});['pointerup','pointercancel','lostpointercapture'].forEach(type=>b.addEventListener(type,()=>keys.delete(key)))});
   document.querySelector('#interact').addEventListener('click',interact);
   document.querySelector('#mouse-toggle').addEventListener('click',e=>{mouseFollow=!mouseFollow;target=null;e.currentTarget.textContent='Mouse follow: '+(mouseFollow?'on':'off');e.currentTarget.setAttribute('aria-pressed',String(mouseFollow))});
-  document.querySelectorAll('.spot').forEach(b=>b.addEventListener('pointerenter',()=>target=null));
+  // Highlighted hotspots remain part of the room, so hovering them keeps mouse-follow active.
   // Keep the public interface tiny; it is also used by the prototype checks.
   window.bookshopGame={player,solids,zones,blocked,move,pause(value){paused=value;clear()},seat(value){player.seated=value},lounge(value){player.reading=value},typing(value){typing=value;clear()},
     startEncounter(role){clear();encounter=true;coat=role===0?'#537961':'#8a719e';remote=null;player.x=role===0?226:254;player.y=246},
