@@ -62,7 +62,7 @@
       finally{this.polling=false}
     }
     connect(p){
-      this.room=p.room;this.peer=p.peer;this.role=p.role;this.state='connecting';this.peerSeq=-1;this.seq=0;
+      this.room=p.room;this.peer=p.peer;this.role=p.role;this.state='connecting';this.peerSeq=-1;this.seq=0;this.peerPoint=null;this.outgoingFive=this.incomingFive=null;this.lastFive=this.lastPeerFive=-Infinity;
       this.lastSpeech=this.lastPeerSpeech=-Infinity;this.peerSeen=this.pairedAt=Date.now();this.lastSent=null;
       this.events.state?.('connecting',this.role);this.events.prepare?.(this.role);
       const start=this.events.position();this.lastSent={x:Math.round(start.x*4)/4,y:Math.round(start.y*4)/4};
@@ -111,7 +111,7 @@
       const attempt=this.attempt,channel=this.channel;
       if(notify)this.post('leave');
       this.state='idle';this.attempt=null;this.generation++;this.channel=null;this.channelReady=false;
-      clearInterval(this.pulse);clearInterval(this.motion);this.room=this.peer=null;this.lastSent=null;
+      clearInterval(this.pulse);clearInterval(this.motion);this.room=this.peer=null;this.peerPoint=null;this.outgoingFive=this.incomingFive=null;this.lastSent=null;
       if(channel)this.client.removeChannel(channel).catch(()=>{});
       // Best effort on unload; peer heartbeat and expiring membership cover dropped requests.
       if(attempt&&this.client)this.rpc('leave',attempt).catch(()=>{});

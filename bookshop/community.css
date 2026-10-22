@@ -34,3 +34,19 @@
 @media(pointer:coarse),(max-width:720px){.touch-controls{bottom:calc(80px + env(safe-area-inset-bottom));margin:0}.fan-hud,.fan-ended{bottom:calc(182px + env(safe-area-inset-bottom))}}
 @media(max-height:500px){.fan-history{top:12px;left:12px;width:min(190px,38vw);box-sizing:border-box}.fan-history ol{max-height:32dvh}.fan-hud,.fan-ended{bottom:auto;top:12px;left:auto;right:12px;width:min(430px,56vw);transform:none}.touch-controls{bottom:calc(66px + env(safe-area-inset-bottom))}}
 #room{touch-action:manipulation}
+
+/* The southwest café is part of the shop, with its matching button on the signboard. */
+.fan-sign{left:23.55%;top:auto;bottom:9%;transform:translateX(-50%);width:15.4%;height:11%;min-height:44px;display:flex;align-items:flex-end;justify-content:center;font:clamp(6px,.75vw,11px)/1.05 Georgia,serif;padding:0 0 1px;border:0;background:transparent;box-shadow:none}.fan-sign span{display:block;width:100%;text-align:center}
+.walk-joystick{position:relative;width:112px;height:112px;border-radius:50%;background:radial-gradient(circle,#50664b8c,#192b22e8 70%);border:2px solid #9b9566;box-shadow:inset 0 0 0 9px #15251e77,0 4px 16px #0006;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+.walk-joystick:focus-visible{outline:3px solid #efd391;outline-offset:4px}.walk-joystick.is-held{cursor:grabbing;border-color:#e6c983}
+.joystick-cross{position:absolute;inset:17px;border:1px solid #b4b58e33;border-radius:50%;pointer-events:none}.joystick-cross:before,.joystick-cross:after{content:'';position:absolute;background:#a8b08744;left:50%;top:50%;transform:translate(-50%,-50%)}.joystick-cross:before{width:1px;height:100%}.joystick-cross:after{height:1px;width:100%}
+.joystick-knob{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:2px solid #d3bd83;background:radial-gradient(circle at 35% 25%,#97a47a,#526d53 65%);box-shadow:0 4px 6px #0006,inset 0 0 0 4px #b7bf8b33;transform:translate(var(--stick-x,0px),var(--stick-y,0px));pointer-events:none}
+.fan-history-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.fan-history-heading .fan-history-title{margin:0;flex:1;min-width:0}
+#fan-history-toggle,#fan-chat-toggle{flex:none;min-height:32px;padding:6px 9px;border:1px solid #8b845a;border-radius:4px;background:#2c3b2c;color:#e6ce91;font:10px/1.2 Georgia,serif;cursor:pointer;margin:0}
+#fan-history-toggle:focus-visible,#fan-chat-toggle:focus-visible,#fan-highfive:focus-visible{outline:2px solid #f0d590;outline-offset:2px}
+#fan-chat-body[hidden],#fan-history-list[hidden],#fan-chat-toggle[hidden]{display:none!important}
+.fan-hud.is-collapsed .fan-mode{display:none}.fan-hud.is-collapsed .fan-heading{margin-bottom:4px}.fan-hud.is-collapsed{padding-top:8px;padding-bottom:8px}
+.fan-gesture-status{font:12px/1.5 Georgia,serif;margin:7px 0 0;color:#efdc9e}.fan-gesture-status:empty{display:none}
+#fan-highfive{border-color:#c7ad69;color:#ffe0a0}
+@media(pointer:coarse),(max-width:720px){.fan-hud,.fan-ended{bottom:calc(208px + env(safe-area-inset-bottom))}.fan-heading{flex-direction:row;align-items:center;flex-wrap:wrap}.fan-heading .fan-mode{display:none}.fan-history-heading{gap:4px}.fan-sign{font-size:6px}}
+@media(max-height:500px){.walk-joystick{width:96px;height:96px}.fan-hud,.fan-ended{bottom:auto;top:12px}.fan-history-heading{flex-wrap:wrap}.fan-history-heading .fan-history-title{flex-basis:100%}}
