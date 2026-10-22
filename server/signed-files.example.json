@@ -1,0 +1,9 @@
+{
+  "monster-ebook": {
+    "signaturePage": "signing/monster-title-page.pdf",
+    "placeholder": false,
+    "version": "signed-1",
+    "label": "Signed PDF",
+    "personalization": { "page": 0, "x": 96, "y": 405, "size": 18 }
+  }
+}

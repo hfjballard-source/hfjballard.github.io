@@ -1,0 +1,35 @@
+{
+  "monster-ebook": {
+    "placeholder": true,
+    "version": "preview-1",
+    "label": "Personalized PDF preview",
+    "personalization": {
+      "page": 0,
+      "x": 96,
+      "y": 405,
+      "size": 18
+    }
+  },
+  "west-ebook": {
+    "placeholder": true,
+    "version": "preview-1",
+    "label": "Personalized PDF preview",
+    "personalization": {
+      "page": 0,
+      "x": 96,
+      "y": 405,
+      "size": 18
+    }
+  },
+  "adventures-ebook": {
+    "placeholder": true,
+    "version": "preview-1",
+    "label": "Personalized PDF preview",
+    "personalization": {
+      "page": 0,
+      "x": 96,
+      "y": 405,
+      "size": 18
+    }
+  }
+}
