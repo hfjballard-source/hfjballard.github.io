@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="popouts.css">
   <link rel="stylesheet" href="discovery.css">
   <link rel="stylesheet" href="community.css"><link rel="stylesheet" href="integration.css"><script defer src="/assets/bookshop-portal.js"></script>
-  <script defer src="site-content.js"></script><script defer src="game.js"></script><script defer src="experiences.js"></script><script defer src="app.js"></script><script defer src="community-config.js"></script><script defer src="vendor/supabase-2.118.0.js"></script><script defer src="encounter-protocol.js"></script><script defer src="encounter-supabase.js"></script><script defer src="community.js"></script>
+  <script defer src="site-content.js"></script><script defer src="game.js"></script><script defer src="experiences.js"></script><script defer src="app.js"></script><script defer src="community-config.js"></script><script defer src="vendor/supabase-2.118.0.js"></script><script defer src="encounter-protocol.js"></script><script defer src="encounter-supabase.js"></script><script defer src="encounter-history.js"></script><script defer src="community.js"></script>
 </head>
 <body><noscript><p>Please enable JavaScript for the bookshop, or <a href="/">visit the regular website</a>.</p></noscript>
   <details class="room-menu" id="room-menu"><summary aria-label="Open bookshop menu">☰ <span>Menu</span></summary>
@@ -20,7 +20,7 @@
   <main aria-label="HFJ Ballard’s Afterhours Bookshop">
     <section class="shop" aria-label="Interactive pixel bookshop">
       <div class="room-wrap" id="room-wrap">
-        <canvas id="room" width="960" height="600" tabindex="0" aria-label="Top-down bookshop. Use arrow keys to walk, E or Enter near a location to interact. All locations are also available in the navigation."></canvas>
+        <canvas id="room" width="960" height="600" tabindex="0" aria-label="Top-down bookshop. Use arrow keys to walk, E or Enter near a location to interact. Tap the floor on touch screens to walk there. All locations are also available in the navigation."></canvas>
         <button class="spot shelves" data-panel="store" aria-label="Browse the bookshelves"><span>Browse the shelves</span><b>↗</b></button>
         <button class="spot counter" data-panel="checkout" aria-label="Checkout at the counter"><span>Checkout</span><b>↗</b></button>
         <button class="spot signing" data-panel="about" aria-label="Meet the author"><span>About the author</span><b>↗</b></button>
@@ -34,7 +34,7 @@
       </div>
       <div class="room-interact"><span class="sr-only" id="location" role="status">A quiet corner of somewhere</span><button id="interact" disabled>Explore the shop</button></div>
     </section>
-    <details class="room-help"><summary aria-label="Show movement controls">?</summary><div><p>Mouse or ↑ ↓ ← → to walk<br>E / Enter to interact · Esc to close<br>On touch screens, use the arrow pad.<br>Nearby objects glow. Select one, or use Menu.</p><button id="mouse-toggle" aria-pressed="true">Mouse follow: on</button><small>Books and downloads use the existing secure store.</small></div></details>
+    <details class="room-help"><summary aria-label="Show movement controls">?</summary><div><p>Mouse or ↑ ↓ ← → to walk<br>E / Enter to interact · Esc to close<br>On touch screens, tap the floor to walk there, or use the arrow pad.<br>Nearby objects glow. Select one, or use Menu.</p><button id="mouse-toggle" aria-pressed="true">Mouse follow: on</button><small>Books and downloads use the existing secure store.</small></div></details>
     <div class="touch-controls" aria-label="Touch movement controls"><div class="dpad"><button data-dir="up" aria-label="Walk up">↑</button><button data-dir="left" aria-label="Walk left">←</button><button data-dir="down" aria-label="Walk down">↓</button><button data-dir="right" aria-label="Walk right">→</button></div></div>
   </main>
   <section id="fan-hud" class="fan-hud" aria-label="Fellow fan encounter" hidden>

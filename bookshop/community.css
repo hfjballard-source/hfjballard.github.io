@@ -18,3 +18,19 @@
 @media(max-width:720px){.fan-sign{font-size:7px;border-width:1px;line-height:1.1}.fan-hud,.fan-ended{bottom:122px;width:calc(100% - 24px);padding:12px}.fan-heading{font-size:11px;align-items:flex-start;flex-direction:column;gap:5px}.fan-mode{font-size:7px}.fan-hud button,.fan-ended button{font-size:10px;padding:8px}#fan-speech-form{gap:5px}#fan-speech-input{font-size:12px;padding:10px 7px}#fan-count{font-size:8px}#fan-send{min-width:42px}.speech-bubble{font-size:10px;max-width:44%;padding:6px 8px}.fan-waiting-note{font-size:10px}}
 @media(max-height:500px){.fan-hud,.fan-ended{bottom:9px;max-width:60%;padding:8px 12px}.fan-heading{flex-direction:row;margin-bottom:3px}#fan-speech-form{margin-top:5px}#fan-speech-input{padding:7px}.fan-waiting-note{margin:3px 0}}
 @media(max-width:720px){#fan-speech-input{font-size:16px}}
+
+/* A bounded, local-only trail. Scroll only when four long messages need more room. */
+.fan-history{position:fixed;left:max(12px,env(safe-area-inset-left));top:max(72px,env(safe-area-inset-top));z-index:8;width:min(255px,38vw);padding:10px;background:#14261ded;border:1px solid #8b845a;border-radius:7px;color:#e6dcbb;box-shadow:0 5px 20px #0005}
+.fan-history[hidden]{display:none!important}
+.fan-history-title{font:8px/1.5 ui-monospace,monospace;letter-spacing:.8px;margin:0 0 8px;color:#bdbb9d}
+.fan-history ol{display:flex;flex-direction:column;gap:7px;list-style:none;margin:0;padding:0;max-height:min(45dvh,390px);overflow:auto;overscroll-behavior:contain}
+.fan-message{box-sizing:border-box;max-width:94%;padding:8px 10px;background:#dce4cf;color:#263b2d;border-left:3px solid #537961;border-radius:7px;font:13px/1.4 Georgia,serif;overflow-wrap:anywhere;white-space:pre-wrap;flex-shrink:0}
+.fan-message.self{align-self:flex-end}.fan-message.peer{align-self:flex-start;background:#e7dfed;color:#3b2946;border-color:#8a719e}
+.fan-message strong{display:block;font:9px/1.5 ui-monospace,monospace;margin-bottom:3px}.fan-message span{display:block}
+.fan-message-flight{position:fixed;z-index:940;pointer-events:none;box-sizing:border-box;padding:9px 12px;border-radius:9px;background:#f1e4bd;color:#283b2b;font:14px/1.4 Georgia,serif;white-space:pre-wrap;overflow-wrap:anywhere;transform-origin:top left}
+.fan-message-flight.peer{background:#e7dfed;color:#3b2946}
+@media(max-width:720px){.fan-history{top:68px;width:min(230px,52vw);padding:7px}.fan-history ol{max-height:28dvh}.fan-history-title{font-size:7px}.fan-message{font-size:12px;padding:6px 8px}}
+/* Leave a bottom strip for the hosting badge, and keep the chat above the arrow pad. */
+@media(pointer:coarse),(max-width:720px){.touch-controls{bottom:calc(80px + env(safe-area-inset-bottom));margin:0}.fan-hud,.fan-ended{bottom:calc(182px + env(safe-area-inset-bottom))}}
+@media(max-height:500px){.fan-history{top:12px;left:12px;width:min(190px,38vw);box-sizing:border-box}.fan-history ol{max-height:32dvh}.fan-hud,.fan-ended{bottom:auto;top:12px;left:auto;right:12px;width:min(430px,56vw);transform:none}.touch-controls{bottom:calc(66px + env(safe-area-inset-bottom))}}
+#room{touch-action:manipulation}

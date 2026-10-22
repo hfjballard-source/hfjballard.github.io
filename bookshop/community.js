@@ -14,12 +14,47 @@
   const online=true;
   document.querySelector('.fan-mode').textContent='TWO READERS · PRIVATE ROOM';
   document.querySelector('.fan-waiting-note').textContent='Waiting for someone else to choose “Meet a fellow fan.” You can cancel at any time.';
-  function clearBubble(el,which){clearTimeout(which==='self'?selfTimer:peerTimer);deadlines.delete(el);el.hidden=true;el.textContent=''}
-  function bubble(el,text,ttl,which){clearBubble(el,which);deadlines.set(el,Date.now()+ttl);el.textContent=text;el.hidden=false;layoutBubbles();const timer=setTimeout(()=>clearBubble(el,which),ttl);if(which==='self')selfTimer=timer;else peerTimer=timer}
-  function clearSpeech(){clearBubble(selfBubble,'self');clearBubble(peerBubble,'peer');input.value='';counter.textContent='0 / 100';clearTimeout(cooldownTimer);cooldown=0;send.disabled=false;send.textContent='Send';game.typing(false)}
+  const history=new BookshopEncounterHistory(),pending=new WeakMap(),flights=new Set();
+  const trail=document.createElement('aside');trail.id='fan-history';trail.className='fan-history';trail.hidden=true;trail.setAttribute('aria-label','Last four encounter messages');
+  const trailTitle=document.createElement('p');trailTitle.className='fan-history-title';trailTitle.textContent='LAST FOUR · THIS ENCOUNTER ONLY';
+  const trailList=document.createElement('ol');trailList.setAttribute('aria-label','Recent messages, oldest first');
+  trail.append(trailTitle,trailList);document.body.append(trail);
+  const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+  function renderHistory(){
+    const entries=history.entries;trailList.replaceChildren();
+    for(const entry of entries){
+      const item=document.createElement('li');item.className='fan-message '+entry.who;item.dataset.message=String(entry.id);
+      const label=document.createElement('strong');label.textContent=entry.who==='self'?'You':'Fellow reader';
+      const text=document.createElement('span');text.textContent=entry.text;item.append(label,text);trailList.append(item);
+    }
+    trail.hidden=!entries.length;trailList.scrollTop=trailList.scrollHeight;
+  }
+  function settleBubble(el){
+    const id=pending.get(el);pending.delete(el);if(!id||!history.settle(id))return;
+    const from=el.getBoundingClientRect();renderHistory();
+    const destination=trailList.querySelector('[data-message="'+id+'"]');
+    if(!destination||reducedMotion.matches||document.hidden||document.querySelector('#panel').open||!el.animate)return;
+    const to=destination.getBoundingClientRect(),flight=document.createElement('div');
+    flight.className='fan-message-flight '+(el===peerBubble?'peer':'self');flight.textContent=el.textContent;
+    Object.assign(flight.style,{left:from.left+'px',top:from.top+'px',width:from.width+'px'});
+    document.body.append(flight);const motion=flight.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${to.left-from.left}px,${to.top-from.top}px) scale(.65)`,opacity:0}],{duration:350,easing:'ease-in',fill:'forwards'});
+    const activeFlight={motion,flight};flights.add(activeFlight);
+    const remove=()=>{flight.remove();flights.delete(activeFlight)};motion.onfinish=remove;motion.oncancel=remove;
+  }
+  function clearBubble(el,which,keep=false){clearTimeout(which==='self'?selfTimer:peerTimer);if(keep)settleBubble(el);else pending.delete(el);deadlines.delete(el);el.hidden=true;el.textContent=''}
+  function bubble(el,text,ttl,which){
+    clearBubble(el,which,true);pending.set(el,history.add(text,which));renderHistory();
+    deadlines.set(el,Date.now()+ttl);el.textContent=text;el.hidden=false;layoutBubbles();
+    const timer=setTimeout(()=>clearBubble(el,which,true),ttl);if(which==='self')selfTimer=timer;else peerTimer=timer;
+  }
+  function clearSpeech(){
+    clearBubble(selfBubble,'self');clearBubble(peerBubble,'peer');history.clear();renderHistory();
+    for(const {motion,flight} of flights){motion.cancel();flight.remove()}flights.clear();
+    input.value='';counter.textContent='0 / 100';clearTimeout(cooldownTimer);cooldown=0;send.disabled=false;send.textContent='Send';game.typing(false);
+  }
   function layoutBubbles(){
-    if(!selfBubble.hidden&&Date.now()>=(deadlines.get(selfBubble)||0))clearBubble(selfBubble,'self');
-    if(!peerBubble.hidden&&Date.now()>=(deadlines.get(peerBubble)||0))clearBubble(peerBubble,'peer');
+    if(!selfBubble.hidden&&Date.now()>=(deadlines.get(selfBubble)||0))clearBubble(selfBubble,'self',true);
+    if(!peerBubble.hidden&&Date.now()>=(deadlines.get(peerBubble)||0))clearBubble(peerBubble,'peer',true);
     if(selfBubble.hidden&&peerBubble.hidden)return;
     const poses=game.encounterPositions(),r=document.querySelector('#room-wrap').getBoundingClientRect(),boxes=[];
     for(const [el,p,other] of [[selfBubble,poses.self,poses.peer],[peerBubble,poses.peer,poses.self]]){
@@ -44,12 +79,13 @@
   function join(){document.querySelector('#room-menu').open=false;endCard.hidden=true;if(!client.join()){endText.textContent='Visitor encounters could not load. Please reload in a current browser.';endCard.hidden=false}}
   document.querySelector('#meet-fan').addEventListener('click',join);document.querySelector('#fan-menu-join').addEventListener('click',join);document.querySelector('#fan-again').addEventListener('click',join);document.querySelector('#fan-cancel').addEventListener('click',()=>client.cancel());document.querySelector('#fan-leave').addEventListener('click',()=>client.leave());document.querySelector('#fan-dismiss').addEventListener('click',()=>endCard.hidden=true);
 
-  document.querySelector('#fan-mute').addEventListener('click',e=>{muted=!muted;clearBubble(peerBubble,'peer');e.currentTarget.setAttribute('aria-pressed',String(muted));e.currentTarget.textContent=muted?'Unmute reader':'Mute reader';panelMute.textContent=e.currentTarget.textContent;panelMute.setAttribute('aria-pressed',String(muted))});
+  document.querySelector('#fan-mute').addEventListener('click',e=>{muted=!muted;clearBubble(peerBubble,'peer',true);e.currentTarget.setAttribute('aria-pressed',String(muted));e.currentTarget.textContent=muted?'Unmute reader':'Mute reader';panelMute.textContent=e.currentTarget.textContent;panelMute.setAttribute('aria-pressed',String(muted))});
   input.addEventListener('focus',()=>game.typing(true));input.addEventListener('blur',()=>game.typing(false));input.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();input.blur();document.querySelector('#room').focus()}});
   input.addEventListener('input',()=>{const chars=Array.from(input.value);if(chars.length>100)input.value=chars.slice(0,100).join('');counter.textContent=Array.from(input.value).length+' / 100'});
   form.addEventListener('submit',e=>{e.preventDefault();const text=input.value.replace(/[\u0000-\u001f\u007f]/g,' ').trim();if(!text||performance.now()<cooldown||!client.say(text))return;bubble(selfBubble,text,3000,'self');input.value='';counter.textContent='0 / 100';cooldown=performance.now()+1200;send.disabled=true;send.textContent='…';cooldownTimer=setTimeout(()=>{send.disabled=false;send.textContent='Send'},1200)});
   new MutationObserver(()=>{if(!document.querySelector('#panel').open&&client.state==='active'&&document.activeElement===input)game.typing(true)}).observe(document.querySelector('#panel'),{attributes:true,attributeFilter:['open']});
   window.addEventListener('pageshow',e=>{if(e.persisted)location.reload()});
-  // No transcript is retained; these diagnostics contain only state and counters.
+  // Only the last four messages live in page memory; diagnostics expose no message text.
+  window.addEventListener('pagehide',clearSpeech);
   window.bookshopCommunity={join,leave:()=>client.leave(),mode:online?'supabase':'local',get state(){return client.state},get muted(){return muted},get metrics(){return {...client.metrics}}};
 })();

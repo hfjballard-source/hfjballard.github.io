@@ -5,7 +5,7 @@
   const art = document.createElement('canvas'); art.width=480; art.height=300;
   const g = art.getContext('2d'); ctx.imageSmoothingEnabled=false;
   const player={x:240,y:246,dir:0,seated:false,reading:false};
-  const keys=new Set(); let target=null, paused=false, mouseFollow=true, last=0, nearest=null, step=0;
+  const keys=new Set(); let waypoints=[],target=null, paused=false, mouseFollow=true, last=0, nearest=null, step=0;
   let typing=false,coat='#537961',remote=null,encounter=false;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)');
   const solids=[
@@ -66,20 +66,66 @@
   }
   background();const scenery=g.getImageData(0,0,480,300);
   function blocked(x,y){return x<51||x>428||y<97&&x<230||y<72||y>268||solids.some(r=>x+5>r.x&&x-5<r.x+r.w&&y+2>r.y&&y-6<r.y+r.h)}
+  // Tap destinations route around furniture instead of stopping against it.
+  function clearLine(a,b){
+    const steps=Math.ceil(Math.hypot(b.x-a.x,b.y-a.y)/2);
+    for(let i=1;i<=steps;i++)if(blocked(a.x+(b.x-a.x)*i/steps,a.y+(b.y-a.y)*i/steps))return false;
+    return true;
+  }
+  function tapRoute(destination){
+    if(clearLine(player,destination))return [];
+    const point=(x,y)=>({x:56+x*8,y:72+y*8}),queue=[],previous=new Map();
+    const sx=Math.round((player.x-56)/8),sy=Math.round((player.y-72)/8);
+    for(let x=sx-1;x<=sx+1;x++)for(let y=sy-1;y<=sy+1;y++){
+      const p=point(x,y),key=x+','+y;
+      if(x<0||x>46||y<0||y>24||blocked(p.x,p.y)||!clearLine(player,p))continue;
+      previous.set(key,null);queue.push({x,y,key});
+    }
+    for(let i=0;i<queue.length;i++){
+      const current=queue[i],p=point(current.x,current.y);
+      if(Math.hypot(p.x-destination.x,p.y-destination.y)<=16&&clearLine(p,destination)){
+        const path=[];let key=current.key;
+        while(key!==null){const [x,y]=key.split(',').map(Number);path.push(point(x,y));key=previous.get(key)}
+        return path.reverse();
+      }
+      for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+        const x=current.x+dx,y=current.y+dy,key=x+','+y,next=point(x,y);
+        if(x<0||x>46||y<0||y>24||previous.has(key)||blocked(next.x,next.y)||!clearLine(p,next))continue;
+        previous.set(key,current.key);queue.push({x,y,key});
+      }
+    }
+    return null;
+  }
   function move(dx,dy){if(!blocked(player.x+dx,player.y))player.x+=dx;if(!blocked(player.x,player.y+dy))player.y+=dy;step+=Math.hypot(dx,dy)*.25;}
   function updateNear(){const sorted=zones.map(z=>({...z,d:Math.hypot(player.x-z.x,player.y-z.y)})).sort((a,b)=>a.d-b.d);nearest=sorted[0].d<42?sorted[0]:null;const active=nearest&&!paused?nearest:null;const b=document.querySelector('#interact');b.disabled=!active;b.textContent='✦';b.setAttribute('aria-label',active?active.label:'Explore the shop');const location=document.querySelector('#location'),text=active?active.label:'A quiet corner of somewhere';if(location.textContent!==text)location.textContent=text;document.querySelector("#meet-fan").classList.toggle("is-near",active?.id==="community");spots.forEach(button=>{const near=active?.id===button.dataset.panel;button.classList.toggle('is-near',near);button.disabled=!near;button.tabIndex=near?0:-1})}
-  function frame(time){let dt=Math.min((time-last)/1000,.04);last=time;let dx=0,dy=0;if(!paused&&!typing&&!player.seated){dx=Number(keys.has('ArrowRight'))-Number(keys.has('ArrowLeft'));dy=Number(keys.has('ArrowDown'))-Number(keys.has('ArrowUp'));if(!dx&&!dy&&target){const dist=Math.hypot(target.x-player.x,target.y-player.y);if(dist>3){dx=(target.x-player.x)/dist;dy=(target.y-player.y)/dist}}if(dx||dy){const length=Math.hypot(dx,dy);move(dx/Math.max(1,length)*72*dt,dy/Math.max(1,length)*72*dt)}}updateNear();g.putImageData(scenery,0,0);if(remote){const dx=remote.targetX-remote.x,dy=remote.targetY-remote.y,t=Math.min(1,dt*14);if(!blocked(remote.x+dx*t,remote.y))remote.x+=dx*t;if(!blocked(remote.x,remote.y+dy*t))remote.y+=dy*t;remote.step+=Math.hypot(dx*t,dy*t)*.25;if(remote.y<=player.y)person(remote.x,remote.y,false,reduce.matches?0:remote.step,remote.coat);}if(player.seated){person(398,232,false,0,coat);rect(391,226,14,7,'#d8c995');rect(398,226,1,7,'#9e8b60')}else if(player.reading){person(111,204,false,0,coat);rect(104,193,15,8,"#ded0aa");rect(111,193,1,8,"#aa9262")}else person(player.x,player.y,false,reduce.matches?0:(dx||dy?step:0),coat);if(remote&&remote.y>player.y)person(remote.x,remote.y,false,reduce.matches?0:remote.step,remote.coat);if(nearest&&!paused){rect(player.x-2,player.y-36,5,5,'#ead08b');rect(player.x,player.y-38,1,9,'#ead08b')}
+  function frame(time){let dt=Math.min((time-last)/1000,.04);last=time;let dx=0,dy=0;if(!paused&&!typing&&!player.seated){dx=Number(keys.has('ArrowRight'))-Number(keys.has('ArrowLeft'));dy=Number(keys.has('ArrowDown'))-Number(keys.has('ArrowUp'));if(!dx&&!dy&&target){while(waypoints.length&&Math.hypot(waypoints[0].x-player.x,waypoints[0].y-player.y)<1.5)waypoints.shift();const aim=waypoints[0]||target,dist=Math.hypot(aim.x-player.x,aim.y-player.y);if(dist>(waypoints.length?1:2)){const speed=Math.min(1,dist/(72*dt||1));dx=(aim.x-player.x)/dist*speed;dy=(aim.y-player.y)/dist*speed}}if(dx||dy){const length=Math.hypot(dx,dy);move(dx/Math.max(1,length)*72*dt,dy/Math.max(1,length)*72*dt)}}updateNear();g.putImageData(scenery,0,0);if(remote){const dx=remote.targetX-remote.x,dy=remote.targetY-remote.y,t=Math.min(1,dt*14);if(!blocked(remote.x+dx*t,remote.y))remote.x+=dx*t;if(!blocked(remote.x,remote.y+dy*t))remote.y+=dy*t;remote.step+=Math.hypot(dx*t,dy*t)*.25;if(remote.y<=player.y)person(remote.x,remote.y,false,reduce.matches?0:remote.step,remote.coat);}if(player.seated){person(398,232,false,0,coat);rect(391,226,14,7,'#d8c995');rect(398,226,1,7,'#9e8b60')}else if(player.reading){person(111,204,false,0,coat);rect(104,193,15,8,"#ded0aa");rect(111,193,1,8,"#aa9262")}else person(player.x,player.y,false,reduce.matches?0:(dx||dy?step:0),coat);if(remote&&remote.y>player.y)person(remote.x,remote.y,false,reduce.matches?0:remote.step,remote.coat);if(nearest&&!paused){rect(player.x-2,player.y-36,5,5,'#ead08b');rect(player.x,player.y-38,1,9,'#ead08b')}
     ctx.drawImage(art,0,0,960,600);requestAnimationFrame(frame)}requestAnimationFrame(frame);
-  function clear(){target=null;keys.clear()}
+  function clear(){waypoints=[];target=null;touchStart=null;keys.clear()}
   function interact(){if(!nearest)return;if(nearest.id==='community')window.bookshopCommunity?.join();else window.openPanel?.(nearest.id)}
-  document.querySelector('#room-wrap').addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||!mouseFollow||paused||typing)return;const r=canvas.getBoundingClientRect();target={x:(e.clientX-r.left)/r.width*480,y:(e.clientY-r.top)/r.height*300}},{capture:true});
-  document.querySelector('#room-wrap').addEventListener('pointerleave',()=>target=null);
-  canvas.addEventListener('pointerdown',()=>canvas.focus());
-  document.addEventListener('keydown',e=>{if(paused||typing||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key.startsWith('Arrow')&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();target=null;keys.add(e.key);document.querySelector('#arrival').hidden=true}if((e.key.toLowerCase()==='e'||e.key==='Enter')&&nearest&&(document.activeElement===canvas||document.activeElement===document.body)){e.preventDefault();interact()}});
+  document.querySelector('#room-wrap').addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||!mouseFollow||paused||typing)return;const r=canvas.getBoundingClientRect();waypoints=[];target={x:(e.clientX-r.left)/r.width*480,y:(e.clientY-r.top)/r.height*300}},{capture:true});
+  document.querySelector('#room-wrap').addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){target=null;waypoints=[]}});
+  canvas.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')canvas.focus()});
+  // A touch destination survives the pointerleave browsers emit after lifting a finger.
+  const roomWrap=document.querySelector('#room-wrap');let touchStart=null;
+  roomWrap.addEventListener('pointerdown',e=>{
+    if(!['touch','pen'].includes(e.pointerType)||paused||typing||e.isPrimary===false)return;
+    if(e.target.closest?.('button:not(:disabled),a,input,textarea,summary'))return;
+    touchStart={id:e.pointerId,x:e.clientX,y:e.clientY,time:performance.now()};
+  },{capture:true});
+  roomWrap.addEventListener('pointerup',e=>{
+    const start=touchStart;if(!start||start.id!==e.pointerId)return;touchStart=null;
+    if(paused||typing||performance.now()-start.time>600||Math.hypot(e.clientX-start.x,e.clientY-start.y)>12)return;
+    const r=canvas.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width*480,y=(e.clientY-r.top)/r.height*300;
+    if(x<0||x>480||y<0||y>300||blocked(x,y))return;
+    const route=tapRoute({x,y});if(route===null)return;waypoints=route;target={x,y};document.querySelector('#arrival').hidden=true;
+  },{capture:true});
+  roomWrap.addEventListener('pointercancel',()=>touchStart=null,{capture:true});
+  document.addEventListener('keydown',e=>{if(paused||typing||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key.startsWith('Arrow')&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();target=null;waypoints=[];keys.add(e.key);document.querySelector('#arrival').hidden=true}if((e.key.toLowerCase()==='e'||e.key==='Enter')&&nearest&&(document.activeElement===canvas||document.activeElement===document.body)){e.preventDefault();interact()}});
   document.addEventListener('keyup',e=>keys.delete(e.key));window.addEventListener('blur',clear);document.addEventListener('visibilitychange',clear);
-  document.querySelectorAll('[data-dir]').forEach(b=>{const key='Arrow'+b.dataset.dir[0].toUpperCase()+b.dataset.dir.slice(1);b.addEventListener('pointerdown',e=>{if(paused)return;e.preventDefault();target=null;b.setPointerCapture(e.pointerId);keys.add(key);document.querySelector('#arrival').hidden=true});['pointerup','pointercancel','lostpointercapture'].forEach(type=>b.addEventListener(type,()=>keys.delete(key)))});
+  document.querySelectorAll('[data-dir]').forEach(b=>{const key='Arrow'+b.dataset.dir[0].toUpperCase()+b.dataset.dir.slice(1);b.addEventListener('pointerdown',e=>{if(paused)return;e.preventDefault();target=null;waypoints=[];b.setPointerCapture(e.pointerId);keys.add(key);document.querySelector('#arrival').hidden=true});['pointerup','pointercancel','lostpointercapture'].forEach(type=>b.addEventListener(type,()=>keys.delete(key)))});
   document.querySelector('#interact').addEventListener('click',interact);
-  document.querySelector('#mouse-toggle').addEventListener('click',e=>{mouseFollow=!mouseFollow;target=null;e.currentTarget.textContent='Mouse follow: '+(mouseFollow?'on':'off');e.currentTarget.setAttribute('aria-pressed',String(mouseFollow))});
+  document.querySelector('#mouse-toggle').addEventListener('click',e=>{mouseFollow=!mouseFollow;target=null;waypoints=[];e.currentTarget.textContent='Mouse follow: '+(mouseFollow?'on':'off');e.currentTarget.setAttribute('aria-pressed',String(mouseFollow))});
   // Highlighted hotspots remain part of the room, so hovering them keeps mouse-follow active.
   // Keep the public interface tiny; it is also used by the prototype checks.
   window.bookshopGame={player,solids,zones,blocked,move,pause(value){paused=value;clear()},seat(value){player.seated=value},lounge(value){player.reading=value},typing(value){typing=value;clear()},
