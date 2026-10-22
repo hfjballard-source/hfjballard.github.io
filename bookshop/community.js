@@ -60,7 +60,7 @@
   function clearBubble(el,which,keep=false){clearTimeout(which==='self'?selfTimer:peerTimer);if(keep)settleBubble(el);else pending.delete(el);deadlines.delete(el);el.hidden=true;el.textContent=''}
   function bubble(el,text,ttl,which){
     clearBubble(el,which,true);pending.set(el,history.add(text,which));renderHistory();
-    deadlines.set(el,Date.now()+ttl);el.textContent=text;el.hidden=false;layoutBubbles();
+    deadlines.set(el,performance.now()+ttl);el.textContent=text;el.hidden=false;layoutBubbles();
     const timer=setTimeout(()=>clearBubble(el,which,true),ttl);if(which==='self')selfTimer=timer;else peerTimer=timer;
   }
   function clearSpeech(){
@@ -70,8 +70,8 @@
     input.value='';counter.textContent='0 / 100';clearTimeout(cooldownTimer);cooldown=0;send.disabled=false;send.textContent='Send';game.typing(false);
   }
   function layoutBubbles(){
-    if(!selfBubble.hidden&&Date.now()>=(deadlines.get(selfBubble)||0))clearBubble(selfBubble,'self',true);
-    if(!peerBubble.hidden&&Date.now()>=(deadlines.get(peerBubble)||0))clearBubble(peerBubble,'peer',true);
+    if(!selfBubble.hidden&&performance.now()>=(deadlines.get(selfBubble)||0))clearBubble(selfBubble,'self',true);
+    if(!peerBubble.hidden&&performance.now()>=(deadlines.get(peerBubble)||0))clearBubble(peerBubble,'peer',true);
     if(selfBubble.hidden&&peerBubble.hidden)return;
     const poses=game.encounterPositions(),r=document.querySelector('#room-wrap').getBoundingClientRect(),boxes=[];
     for(const [el,p,other] of [[selfBubble,poses.self,poses.peer],[peerBubble,poses.peer,poses.self]]){
@@ -83,7 +83,7 @@
     for(const box of boxes){box.el.style.left=(box.left-r.left)/r.width*100+'%';box.el.style.top=(box.top-r.top)/r.height*100+'%';box.el.classList.toggle('speech-left',box.onLeft)}
   }
   function updateHighFive(){
-    const now=Date.now(),incoming=client.incomingFive&&now<=client.incomingFive.expires,outgoing=client.outgoingFive&&now<=client.outgoingFive.expires;
+    const now=performance.now(),incoming=client.incomingFive&&now<=client.incomingFive.expires,outgoing=client.outgoingFive&&now<=client.outgoingFive.expires;
     fiveButton.disabled=muted||!client.canHighFive()||(!incoming&&now-client.lastFive<2500);
     fiveButton.textContent=incoming?'High five back':outgoing?'Hand raised…':'High five';
     fiveButton.setAttribute('aria-label',incoming?'Return the other reader’s high five':'Offer a high five to the nearby reader');
@@ -101,7 +101,7 @@
       if(muted)return;
       game.highFive(event.kind,event.actor);
       gestureStatus.textContent=event.kind==='complete'?'✋ High five!':event.actor==='peer'?'A high five? Tap “High five back.”':'Hand raised. Waiting for a high five…';
-      gestureUntil=Date.now()+(event.kind==='complete'?2400:5000);updateHighFive();
+      gestureUntil=performance.now()+(event.kind==='complete'?2400:5000);updateHighFive();
     },
     speech:(text,ttl)=>{if(!muted)bubble(peerBubble,text,ttl,'peer')},
     end:message=>{cancelAnimationFrame(animation);animation=0;clearSpeech();game.endEncounter(savedPosition);savedPosition=null;endText.textContent=message;endCard.hidden=false;document.querySelector('#room').focus()},
