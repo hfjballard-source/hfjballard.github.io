@@ -1,0 +1,9 @@
+{
+  "welcome": {"text":"Welcome to my corner of the bookshop. What would you like to ask?","choices":[{"question":"Could you tell me about yourself?","next":"about"},{"question":"Which books can I explore?","next":"books"},{"question":"What are you working on?","next":"news"}]},
+  "about": {"source":"bio","choices":[{"question":"What can I read?","next":"books"},{"question":"Where can I see your illustrations?","next":"art"}]},
+  "books": {"source":"books","choices":[{"question":"May I browse the shelves?","action":"store"},{"question":"Are there short stories I can read?","next":"stories"}]},
+  "stories": {"text":"You'll find Rat and Facing Winter in the reading room. Take a seat and choose a story.","choices":[{"question":"Show me the reading room.","action":"magazine"}]},
+  "news": {"source":"news","choices":[{"question":"Where can I hear more?","next":"contact"},{"question":"May I browse your books?","action":"store"}]},
+  "art": {"text":"My illustrations are displayed in frames along the gallery wall. You can choose any frame for a closer look.","choices":[{"question":"Show me the gallery.","action":"portfolio"}]},
+  "contact": {"text":"You can reach me at hfjballard@gmail.com. My monthly newsletter shares book news, stories and upcoming events. You can manage your newsletter preference in My Library.","choices":[{"question":"Open My Library.","action":"library"}]}
+}

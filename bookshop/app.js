@@ -38,8 +38,41 @@
       } catch(error){status.textContent=error.message;button.disabled=false;}
     });
   }
-  function about() {
-    show(title('Meet HFJ Ballard')+`<div class="real-about">${content.author.image?`<img src="${esc(content.author.image)}" alt="HFJ Ballard">`:''}<p>${esc(content.author.bio || 'Visit the main website to meet the author.')}</p><a href="/index.html#about">About the author on the regular site ↗</a><h3>From the writing desk</h3>${content.news.map(n=>`<article><h4>${esc(n.title)}</h4><p>${esc(n.text)}</p></article>`).join('')}<a href="/index.html#contact">Contact & newsletter signup ↗</a></div>`, 'immersive');
+  let authorTree={};
+  try {const response=await fetch('author-dialogue.json');if(response.ok)authorTree=await response.json();} catch {}
+  function about(nodeId='welcome') {
+    const node=authorTree[nodeId]||authorTree.welcome||{text:'Welcome. What would you like to explore?',choices:[]};
+    let reply=node.text||'';
+    if(node.source==='bio')reply=content.author.bio;
+    if(node.source==='books')reply=content.books.map(b=>b.title).join('\n');
+    if(node.source==='news')reply=content.news.map(n=>n.title+' — '+n.text).join('\n\n');
+    show(title('A conversation with HFJ Ballard')+`<div class="retro-conversation"><img class="dialogue-portrait" src="art/author-pixel.png" alt="Pixel portrait of HFJ Ballard"><div class="retro-dialogue"><p class="dialogue-speaker">HFJ BALLARD</p><p class="dialogue-reply" tabindex="-1" role="status">${esc(reply)}</p><div class="dialogue-choices" role="group" aria-label="Questions to ask">${(node.choices||[]).map(c=>`<button ${c.next?`data-talk="${esc(c.next)}"`:`data-switch="${esc(c.action)}"`}>▸ ${esc(c.question)}</button>`).join('')}<button id="ask-sign-book">✎ Would you sign my book?</button>${nodeId==='welcome'?'':'<button data-talk="welcome">↩ May I ask something else?</button>'}</div></div></div>`,'immersive conversation-view');
+    if(nodeId!=='welcome')body.querySelector('.dialogue-reply').focus();
+  }
+  async function signing() {
+    show(title('A signature for your bookshelf')+'<p id="signing-status" role="status">Finding your purchased books…</p><div id="signing-books"></div><button data-talk="welcome" class="back">← Back to our conversation</button>','immersive');
+    const status=body.querySelector('#signing-status'),list=body.querySelector('#signing-books');
+    const token=sessionStorage.getItem('hfj-library-token');
+    if(!token){status.textContent='Please verify your library email first, then return to ask for a signature.';list.innerHTML='<button class="action" data-switch="library">Open My Library</button>';return;}
+    try {
+      const r=await fetch('/.netlify/functions/sign-book',{headers:{Authorization:`Bearer ${token}`}}),data=await r.json();
+      if(!r.ok)throw new Error(data.error||'Signing is unavailable.');
+      if(!status.isConnected)return;
+      status.textContent=data.items.length?'Choose a purchased edition. Preview pages are clearly labeled and will be replaced with the author’s signed pages later.':'No purchased books are linked to this library email yet.';
+      const nameLabel=document.createElement('label');nameLabel.textContent='Name for the dedication (optional)';const nameInput=document.createElement('input');nameInput.id='dedication-name';nameInput.type='text';nameInput.maxLength=60;nameInput.autocomplete='off';nameLabel.append(nameInput);list.before(nameLabel);
+      list.innerHTML=data.items.map(item=>`<div class="signing-book"><strong>${esc(item.title)}</strong><span>${esc(item.format)}</span><button class="action" data-sign="${esc(item.sku)}" ${item.signed||!item.available?'disabled':''}>${item.signed?(item.preview?'Preview already in library':'Already signed'):item.available?(item.preview?'Try the placeholder signed page':'Please sign this book'):'Signed edition not available yet'}</button></div>`).join('');
+    }catch(error){status.textContent=error.message;list.innerHTML='<button class="action" data-switch="library">Verify my library email</button>';}
+  }
+  async function signBook(sku,button) {
+    button.disabled=true;const token=sessionStorage.getItem('hfj-library-token');
+    try {
+      const r=await fetch('/.netlify/functions/sign-book',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({sku,name:body.querySelector('#dedication-name')?.value||''})}),data=await r.json();
+      if(!r.ok)throw new Error(data.error||'Signing is unavailable.');
+      if(!button.isConnected)return;
+      body.querySelector('#signing-status').textContent=data.preview?`Your personalized preview of ${data.title} is waiting in My Library. Its first page is a placeholder, not an autograph.`:`There you are. Your signed edition of ${data.title} is waiting in My Library.`;
+      button.textContent=data.preview?'Preview ready in My Library':'Signed — ready in My Library';
+      const link=document.createElement('button');link.className='action';link.dataset.switch='library';link.textContent='Open My Library';body.querySelector('#signing-books').append(link);
+    }catch(error){toast(error.message);button.disabled=false;}
   }
   function artImage(p) { return `<img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">`; }
   function portfolio() {
@@ -57,7 +90,7 @@
       }
       if(activePanel!=='library')return;
       body.querySelector('#library-loading')?.remove();body.append(libraryNode);
-      if(!libraryInit)libraryInit=import('./library-session.js'); await libraryInit;
+      const alreadyInitialized=!!libraryInit;if(!libraryInit)libraryInit=import('./library-session.js');await libraryInit;if(alreadyInitialized&&sessionStorage.getItem('hfj-library-token'))libraryNode.querySelector('#refresh')?.click();
     } catch { if(activePanel==='library')body.innerHTML=title('Your library')+'<p>Please <a href="/distribution.html">open your secure library here</a> to sign in and download your books.</p>'; }
   }
   function magazine(){magazinePage=0;magazineHeld=false;
@@ -93,7 +126,7 @@
   });
   body.addEventListener('click',async e=>{
     const button=e.target.closest('button');if(!button||button.disabled)return;const d=button.dataset;
-    if(d.switch){openPanel(d.switch);return;}if(d.book){const stage=body.querySelector('.shelf-stage');if(stage){if(stage.dataset.grabbing)return;stage.dataset.grabbing='true';button.classList.add('book-grabbed');stage.classList.add('grabbing');if(!reduced.matches)await new Promise(r=>setTimeout(r,320));if(!dialog.open||!stage.isConnected)return;}book(d.book);}if(d.back)views[d.back]();if(d.art!==undefined)artDetail(Number(d.art));
+    if(d.talk){about(d.talk);return;}if(button.id==='ask-sign-book'){signing();return;}if(d.sign){signBook(d.sign,button);return;}if(d.switch){openPanel(d.switch);return;}if(d.book){const stage=body.querySelector('.shelf-stage');if(stage){if(stage.dataset.grabbing)return;stage.dataset.grabbing='true';button.classList.add('book-grabbed');stage.classList.add('grabbing');if(!reduced.matches)await new Promise(r=>setTimeout(r,320));if(!dialog.open||!stage.isConnected)return;}book(d.book);}if(d.back)views[d.back]();if(d.art!==undefined)artDetail(Number(d.art));
     if(d.add){const f=sku(d.add);if(f?.available){bag.set(f.id,true);persist();toast('Book set aside at the counter.');book(content.books.find(b=>b.formats.some(x=>x.id===f.id)).id);}}
     if(d.remove){bag.delete(d.remove);persist();checkout();}
     if(button.id==='pick-magazine'){magazineHeld=true;button.hidden=true;body.querySelector('.bathroom-scene').classList.add('magazine-held');renderMagazine(0);body.querySelector('.cover-open')?.focus();}

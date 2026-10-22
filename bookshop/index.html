@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="room.css">
   <link rel="stylesheet" href="popouts.css">
   <link rel="stylesheet" href="discovery.css">
-  <link rel="stylesheet" href="integration.css"><script defer src="/assets/bookshop-portal.js"></script>
-  <script defer src="local-profile.js"></script><script defer src="site-content.js"></script><script defer src="game.js"></script><script defer src="experiences.js"></script><script defer src="app.js"></script>
+  <link rel="stylesheet" href="community.css"><link rel="stylesheet" href="integration.css"><script defer src="/assets/bookshop-portal.js"></script>
+  <script defer src="site-content.js"></script><script defer src="game.js"></script><script defer src="experiences.js"></script><script defer src="app.js"></script><script defer src="community-config.js"></script><script defer src="vendor/supabase-2.118.0.js"></script><script defer src="encounter-protocol.js"></script><script defer src="encounter-supabase.js"></script><script defer src="community.js"></script>
 </head>
 <body><noscript><p>Please enable JavaScript for the bookshop, or <a href="/">visit the regular website</a>.</p></noscript>
   <details class="room-menu" id="room-menu"><summary aria-label="Open bookshop menu">☰ <span>Menu</span></summary>
@@ -38,8 +38,8 @@
     <div class="touch-controls" aria-label="Touch movement controls"><div class="dpad"><button data-dir="up" aria-label="Walk up">↑</button><button data-dir="left" aria-label="Walk left">←</button><button data-dir="down" aria-label="Walk down">↓</button><button data-dir="right" aria-label="Walk right">→</button></div></div>
   </main>
   <section id="fan-hud" class="fan-hud" aria-label="Fellow fan encounter" hidden>
-    <div class="fan-heading"><span id="fan-status" role="status"></span><span class="fan-mode">LOCAL DEMO · SAME BROWSER</span></div>
-    <div id="fan-waiting" hidden><p class="fan-waiting-note">Open another reader in this browser, then click their “Meet a fellow fan” sign too.</p><button id="fan-cancel">Cancel waiting</button><button id="fan-open-reader">Open another reader</button></div>
+    <div class="fan-heading"><span id="fan-status" role="status"></span><span class="fan-mode">TWO READERS · PRIVATE ROOM</span></div>
+    <div id="fan-waiting" hidden><p class="fan-waiting-note">Waiting for another willing reader. You can cancel at any time.</p><button id="fan-cancel">Cancel waiting</button></div>
     <div id="fan-active" hidden><div id="fan-controls"><span aria-label="Two readers, green and purple coats"><i class="coat-dot"></i><i class="coat-dot other"></i></span><button id="fan-leave">Leave encounter</button><button id="fan-mute" aria-pressed="false">Mute reader</button></div><form id="fan-speech-form" aria-label="Say something to your fellow reader"><label class="sr-only" for="fan-speech-input">Message, up to 100 characters. Enter to speak.</label><input id="fan-speech-input" type="text" maxlength="200" autocomplete="off" spellcheck="false" placeholder="Say something…" aria-describedby="fan-count"><span id="fan-count">0 / 100</span><button id="fan-send" type="submit">Send</button></form></div>
   </section>
   <section id="fan-ended" class="fan-ended" aria-label="Encounter status" hidden><p id="fan-ended-text" role="status"></p><button id="fan-again">Meet another reader</button><button id="fan-dismiss">Dismiss</button></section>
