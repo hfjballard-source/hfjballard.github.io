@@ -1,4 +1,5 @@
-import mapping from './signed-files.json' with { type: 'json' };
+import { readFileSync } from 'node:fs';
+const mapping = JSON.parse(readFileSync('server/signed-files.json', 'utf8'));
 import { db, check, entitlements } from './services.mjs';
 import { applySignedEditions } from './edition-logic.mjs';
 export { mapping as signedFiles };
@@ -15,3 +16,5 @@ export async function editionItems(email) {
   }
   return applySignedEditions(items,new Map(rows.map(row=>[row.sku,row])),mapping);
 }
+
+
