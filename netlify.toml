@@ -6,7 +6,7 @@
   NODE_VERSION = "22"
 [functions]
   node_bundler = "esbuild"
-  included_files = ["assets/catalog.json", "server/files.json"]
+  included_files = ["assets/catalog.json", "server/files.json", "server/signed-files.json"]
 [functions."sync-sheet"]
   schedule = "*/5 * * * *"
 [[headers]]
@@ -21,3 +21,5 @@
     Cache-Control = "no-store"
     [functions."sync-newsletter"]
   schedule = "*/5 * * * *"
+
+
