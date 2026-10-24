@@ -9,23 +9,35 @@
       "size": 18
     }
   },
-  "west-ebook": {
-    "placeholder": true,
-    "version": "preview-1-page-two-v2",
-    "label": "Personalized PDF preview",
+  "Duck-And-Cat-ebook": {
+  "signaturePage": "signing/Duck-And-Cat-signature-page.pdf",
+"placeholder": false,
+"version": "signed-title-1",
+"label": "Signed PDF"
     "personalization": {
       "x": 96,
       "y": 405,
       "size": 18
     }
   },
-  "adventures-ebook": {
-    "placeholder": true,
-    "version": "preview-1-page-two-v2",
-    "label": "Personalized PDF preview",
+ "Theopolis-Turtopolis-ebook": {
+  "signaturePage": "signing/Theopois-Turtopolis-signature-page.pdf",
+"placeholder": false,
+"version": "signed-title-1",
+"label": "Signed PDF"
     "personalization": {
       "x": 96,
-      "y": 405,
+      "y": 50,
+      "size": 18
+    }
+    "A-Body-Fell-From-The-Sky-ebook": {
+  "signaturePage": "signing/A-Body-Fell-From-The-Sky-signature-page.pdf",
+"placeholder": false,
+"version": "signed-title-1",
+"label": "Signed PDF"
+    "personalization": {
+      "x": 96,
+      "y": 50,
       "size": 18
     }
   }
