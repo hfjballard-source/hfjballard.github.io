@@ -1,0 +1,31 @@
+/* Fixed paper leaves, measured before pagination; the story itself never scrolls. */
+#panel.magazine-reading{width:min(1080px,calc(100% - 16px));max-height:calc(100dvh - 16px);overflow:hidden}
+#panel.magazine-reading #panel-body>h2,#panel.magazine-reading #panel-body>.lede,#panel.magazine-reading #panel-body>.note{display:none}
+#panel.magazine-reading .bathroom-scene{min-height:0!important;padding:44px 8px 8px;border-width:4px;overflow:clip}
+#panel.magazine-reading .bathroom-caption{display:none}
+#panel.magazine-reading .magazine-on-lap{width:100%;max-width:none;margin:0}
+.paged-magazine.open-magazine{transform:none;grid-template-columns:repeat(2,minmax(0,1fr))}
+.paged-magazine .paper-page,.magazine-measure .paper-page{box-sizing:border-box;height:var(--mag-leaf-height,500px);min-height:0;min-width:0;display:flex;flex-direction:column;padding:24px 28px 38px;font:17px/1.65 Georgia,serif;overflow:hidden}
+.paged-magazine .mag-story,.magazine-measure .mag-story{flex:1;min-height:0;overflow:hidden;overflow-wrap:anywhere;white-space:pre-wrap}
+.paged-magazine .mag-story p,.magazine-measure .mag-story p{font:inherit;white-space:pre-wrap;margin:0 0 14px}
+.paged-magazine .mag-story p:last-child,.magazine-measure .mag-story p:last-child{margin-bottom:0}
+.paged-magazine .mag-page-title,.magazine-measure .mag-page-title{flex:none;font:19px/1.25 Georgia,serif;color:#3f5342;margin:8px 0 15px;overflow-wrap:anywhere;max-height:2.5em;overflow:hidden}
+.paged-magazine .mag-running,.magazine-measure .mag-running{flex:none;font:8px/1.4 ui-monospace,monospace;letter-spacing:.7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.paged-magazine .page-number{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:10px}
+.paged-magazine .page-corner{position:absolute;right:3px;bottom:3px;min-width:40px;min-height:32px;background:transparent;color:#596a44;font-size:18px}
+.paged-magazine .mag-opening{align-items:center;justify-content:center;text-align:center}
+.paged-magazine .mag-opening h3{font-size:clamp(24px,3vw,38px);overflow-wrap:anywhere;max-height:5em;overflow:hidden}
+.paged-magazine .mag-opening .mag-illustration{width:75%;height:min(180px,25dvh);margin:10px 0}.paged-magazine .mag-opening .mag-illustration svg{width:100%;height:100%}
+.paged-magazine .mag-opening p{font-size:14px}.paged-magazine .mag-empty{align-items:center;justify-content:center;font-style:italic}
+#panel.magazine-reading .magazine-controls{margin:10px auto 0;max-width:100%;gap:4px;padding:5px 8px}
+#panel.magazine-reading .magazine-controls .action,#panel.magazine-reading .put-down{font-size:12px;min-height:36px;padding:8px;margin:0}
+#panel.magazine-reading .magazine-controls>span{font-size:11px;min-width:110px;text-align:center}
+#panel.magazine-reading .mag-cover{box-sizing:border-box;height:var(--mag-leaf-height,500px);min-height:0;overflow:auto;padding-top:20px}
+#panel.magazine-reading .mag-cover h3{font-size:clamp(26px,5vw,40px)}
+.magazine-measure{position:fixed;left:-20000px;top:0;visibility:hidden;pointer-events:none;contain:layout style;z-index:-1}
+.magazine-measure .open-magazine{display:block;transform:none;border:0}
+.magazine-single .turning-leaf,.magazine-single .drag-leaf{width:100%;left:0}
+@media(max-width:720px){.paged-magazine.open-magazine{grid-template-columns:1fr}.paged-magazine .paper-page,.magazine-measure .paper-page{padding:20px 20px 36px;font-size:17px;line-height:1.65}#panel.magazine-reading .bathroom-scene{padding:40px 5px 5px}#panel.magazine-reading .magazine-controls>span{min-width:95px;font-size:10px}}
+@media(max-height:500px){.paged-magazine .paper-page,.magazine-measure .paper-page{padding-top:12px;padding-bottom:28px;font-size:16px;line-height:1.5}.paged-magazine .mag-page-title,.magazine-measure .mag-page-title{font-size:17px;margin:4px 0 7px}#panel.magazine-reading .bathroom-scene{padding-top:34px}#panel.magazine-reading .magazine-controls{margin-top:5px}}
+
+#panel.magazine-reading .bathroom-scene.magazine-held .shelf-arm{z-index:0}

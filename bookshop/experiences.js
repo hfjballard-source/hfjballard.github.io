@@ -26,24 +26,25 @@ window.BookshopScenes = (()=>{
     return ()=>{cancelAnimationFrame(raf);reset();viewport.removeEventListener('pointermove',pointer);viewport.removeEventListener('pointerleave',reset);viewport.removeEventListener('focusin',focus);keyTarget.removeEventListener('keydown',keyDown);keyTarget.removeEventListener('keyup',keyUp);window.removeEventListener('blur',reset);panStops.forEach(stop=>stop())};
   }
   function magazine(stage,getPage,turn,maxPage,preview){
+    const limit=()=>typeof maxPage==='function'?maxPage():maxPage;
     let drag=null,settling=false;const timers=new Set();
     const later=(fn,ms)=>{const timer=setTimeout(()=>{timers.delete(timer);fn()},ms);timers.add(timer)};
     function discard(){if(!drag)return;drag.leaf?.remove();drag.underlay?.remove();drag.book.classList.remove('page-dragging');drag=null;stage.classList.remove('dragging-page')}
     function down(e){const book=e.target.closest('.magazine-book');if(!book||drag||settling||!e.isPrimary||e.button!==0||e.target.closest('button,a'))return;
-      const r=book.getBoundingClientRect(),page=getPage();const direction=page===0?1:page===maxPage?-1:(e.clientX>r.x+r.width/2?1:-1);
+      const r=book.getBoundingClientRect(),page=getPage();const direction=page===0?1:page===limit()?-1:(e.clientX>r.x+r.width/2?1:-1);
       drag={book,id:e.pointerId,start:e.clientX,width:r.width,direction,page,progress:0,leaf:null};book.setPointerCapture(e.pointerId);
     }
     function move(e){if(!drag||drag.id!==e.pointerId)return;const distance=(drag.start-e.clientX)*drag.direction;
       if(!drag.leaf&&distance<8)return;e.preventDefault();
-      if(!drag.leaf){const source=drag.book.querySelector(drag.direction===1?'.page-right':'.page-left')||drag.book.querySelector('.mag-cover');
+      if(!drag.leaf){const source=drag.book.querySelector(drag.direction===1?'.page-right':'.page-left')||drag.book.querySelector('.page-left')||drag.book.querySelector('.mag-cover');
         const leaf=source.cloneNode(true);leaf.removeAttribute('id');leaf.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));leaf.querySelectorAll('button').forEach(b=>b.remove());leaf.setAttribute('aria-hidden','true');leaf.className='paper-page drag-leaf '+(drag.direction===1?'drag-forward':'drag-back')+(drag.book.classList.contains('magazine-closed')?' drag-cover':'');
-        if(preview&&drag.book.classList.contains('open-magazine')){const underlay=document.createElement('div');underlay.className='drag-underlay';underlay.setAttribute('aria-hidden','true');underlay.innerHTML=preview(Math.max(0,Math.min(maxPage,drag.page+drag.direction)));underlay.querySelectorAll('button').forEach(b=>b.remove());drag.book.append(underlay);drag.underlay=underlay}
+        if(preview&&drag.book.classList.contains('open-magazine')){const underlay=document.createElement('div');underlay.className='drag-underlay';underlay.setAttribute('aria-hidden','true');underlay.innerHTML=preview(Math.max(0,Math.min(limit(),drag.page+drag.direction)));underlay.querySelectorAll('button').forEach(b=>b.remove());drag.book.append(underlay);drag.underlay=underlay}
         drag.book.append(leaf);drag.leaf=leaf;drag.book.classList.add('page-dragging');stage.classList.add('dragging-page');}
       drag.progress=Math.max(0,Math.min(1,distance/(drag.width*.6)));drag.leaf.style.transform=`rotateY(${-drag.direction*drag.progress*170}deg)`;drag.leaf.style.filter=`brightness(${1-drag.progress*.25})`;
     }
     function up(e){if(!drag||drag.id!==e.pointerId)return;const gesture=drag;drag=null;gesture.book.classList.remove('page-dragging');stage.classList.remove('dragging-page');if(gesture.book.hasPointerCapture(e.pointerId))gesture.book.releasePointerCapture(e.pointerId);if(!gesture.leaf)return;
       const commit=gesture.progress>.28,next=gesture.page+gesture.direction;
-      settling=true;const finish=()=>{settling=false;gesture.leaf.remove();gesture.underlay?.remove();if(commit&&getPage()===gesture.page&&stage.isConnected&&stage.closest('dialog')?.open)turn(Math.max(0,Math.min(maxPage,next)))};
+      settling=true;const finish=()=>{settling=false;gesture.leaf.remove();gesture.underlay?.remove();if(commit&&getPage()===gesture.page&&stage.isConnected&&stage.closest('dialog')?.open)turn(Math.max(0,Math.min(limit(),next)))};
       if(reduced.matches){finish();return}gesture.leaf.style.transition='transform 160ms ease-out';gesture.leaf.style.transform=`rotateY(${commit?-gesture.direction*179:0}deg)`;later(finish,170);
     }
     const cancel=e=>{if(drag?.id===e.pointerId)discard()};
