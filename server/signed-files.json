@@ -10,20 +10,26 @@
     "placeholder": false,
     "version": "signed-title-1",
     "label": "Signed PDF",
-    "personalization": { "x": 96, "y": 405, "size": 18 }
+    "personalization": {
+       "text": "For {name},\nMay you always find a friend or a nap.",
+      "x": 96, "y": 705, "size": 18 }
   },
   "theopolis-ebook": {
     "signaturePage": "signing/Theopois-Turtopolis-signature-page.pdf",
     "placeholder": false,
     "version": "signed-title-1",
     "label": "Signed PDF",
-    "personalization": { "x": 96, "y": 50, "size": 18 }
+    "personalization": {
+       "text": "For {name},\nDon't trust squirrels. Not very many of them are your friend.",
+      "x": 96, "y": 100, "size": 18 }
   },
   "a-body-fell-ebook": {
     "signaturePage": "signing/A-Body-Fell-From-The-Sky-signature-page.pdf",
     "placeholder": false,
     "version": "signed-title-1",
     "label": "Signed PDF",
-    "personalization": { "x": 96, "y": 50, "size": 18 }
+    "personalization": { 
+       "text": "For {name},\nMay you never be a body that falls from the sky.",
+      "x": 96, "y": 50, "size": 18 }
   }
 }
