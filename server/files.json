@@ -6,3 +6,23 @@
   "west-ebook": [{ "label": "EPUB", "path": "west/the-name-of-the-west.epub" }, { "label": "PDF", "path": "west/the-name-of-the-west.pdf" }],
   "adventures-ebook": [{ "label": "EPUB", "path": "adventures/the-adventures-of-you.epub" }, { "label": "PDF", "path": "adventures/the-adventures-of-you.pdf" }]
 }
+"a-body-fell-ebook": [
+  {
+    "label": "PDF",
+    "path": "a-body-fell-from-the-sky/A-Body-Fell-From-The-Sky-ebook.pdf"
+  },
+]
+
+"duck-and-cat-ebook": [
+  {
+    "label": "PDF",
+    "path": "duck-and-cat/Duck-And-Cat-ebook.pdf"
+  },
+]
+
+"theopolis-ebook": [
+  {
+    "label": "PDF",
+    "path": "theopolis-turtopolis/Theopolis-Turtopolis-ebook.pdf"
+  },
+]
