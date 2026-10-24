@@ -24,7 +24,7 @@ export async function handler(event) {
       const source=item.files.find(file=>file.path.toLowerCase().endsWith('.pdf'));
       if(!source)throw Object.assign(new Error('This signing template needs a purchased PDF edition.'),{status:409});
       const book=check(await bucket.download(source.path));
-      if(book.size>20*1024*1024)throw Object.assign(new Error('This book needs a pre-prepared signed edition. Please contact the author.'),{status:409});
+      if(book.size>35*1024*1024)throw Object.assign(new Error('This book needs a pre-prepared signed edition. Please contact the author.'),{status:409});
       let pageBytes;
       if(spec.signaturePage){const page=check(await bucket.download(spec.signaturePage));if(page.size>2*1024*1024)throw new Error('Signing page exceeds size limit');pageBytes=await page.arrayBuffer();}
       else pageBytes=await placeholderPage(item.title);
@@ -49,3 +49,4 @@ export async function handler(event) {
     return {signed:true,title:item.title,preview};
   })(event);
 }
+
