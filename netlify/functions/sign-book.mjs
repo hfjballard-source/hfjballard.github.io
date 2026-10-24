@@ -1,7 +1,7 @@
 import { createHmac } from 'node:crypto';
 import { route, parse, userEmail, rateLimit, db, check, json, env } from '../../server/services.mjs';
 import { editionItems, signedFiles } from '../../server/edition-services.mjs';
-import { placeholderPage,prependSigningPage } from '../../server/signing-pdf.mjs';
+import { placeholderPage,replaceSigningPage } from '../../server/signing-pdf.mjs';
 export async function handler(event) {
   if(!['GET','POST'].includes(event.httpMethod))return json(405,{error:'Method not allowed.'});
   return route(event.httpMethod,async event=>{
@@ -29,7 +29,16 @@ export async function handler(event) {
       if(spec.signaturePage){const page=check(await bucket.download(spec.signaturePage));if(page.size>2*1024*1024)throw new Error('Signing page exceeds size limit');pageBytes=await page.arrayBuffer();}
       else pageBytes=await placeholderPage(item.title);
       const dedication=name.replace(/[\u0000-\u001f\u007f]/g,' ').trim()||'A fellow reader';
-      const pdf=await prependSigningPage(await book.arrayBuffer(),pageBytes,{name:dedication,personalization:spec.personalization});
+      let fontBytes;
+      if(spec.personalization?.fontPath){
+        const fontPath=spec.personalization.fontPath;
+        if(typeof fontPath!=='string'||!fontPath.startsWith('fonts/')||fontPath.includes('..')||!/\.(ttf|otf)$/i.test(fontPath))
+          throw new Error('Use a TTF or OTF font in the private fonts folder.');
+        const font=check(await bucket.download(fontPath));
+        if(font.size>5*1024*1024)throw new Error('Personalization font exceeds the 5 MB limit.');
+        fontBytes=await font.arrayBuffer();
+      }
+      const pdf=await replaceSigningPage(await book.arrayBuffer(),pageBytes,{name:dedication,personalization:spec.personalization,fontBytes});
       version=spec.version||spec.signaturePage||'placeholder-v1';preview=!!spec.placeholder;
       const key=createHmac('sha256',env('RATE_LIMIT_SECRET')).update(JSON.stringify([email,sku,version,dedication])).digest('hex');
       const path=`signed-editions/${key}.pdf`;
