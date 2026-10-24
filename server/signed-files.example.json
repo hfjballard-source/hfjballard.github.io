@@ -2,8 +2,20 @@
   "monster-ebook": {
     "signaturePage": "signing/monster-title-page.pdf",
     "placeholder": false,
-    "version": "signed-1",
+    "version": "signed-title-1",
     "label": "Signed PDF",
-    "personalization": { "page": 0, "x": 96, "y": 405, "size": 18 }
+    "personalization": {
+      "text": "For {name},\nThank you for being part of the story.",
+      "fontPath": "fonts/my-handwriting.ttf",
+      "x": 72,
+      "y": 430,
+      "width": 420,
+      "height": 100,
+      "size": 20,
+      "minSize": 12,
+      "lineHeight": 1.4,
+      "align": "left",
+      "color": "#263327"
+    }
   }
 }
