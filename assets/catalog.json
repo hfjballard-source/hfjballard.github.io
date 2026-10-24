@@ -10,15 +10,67 @@
         { "id": "monster-audio", "label": "Audiobook", "kind": "audio", "detail": "MP3 download", "previewPrice": 14.99, "saleEnabled": false }
       ]
     },
+
+{
+  "id": "a-body-fell",
+  "title": "A Body Fell Out of the Sky",
+  "cover": "images/abodyfelloutoftheskycover.png",
+  "eyebrow": "Available now",
+  "description": "Sometimes pop music wants us to believe that 'it's raining men', but what happens when it actually does?",
+  "formats": [
+    {
+      "id": "a-body-fell-ebook",
+      "label": "Ebook",
+      "kind": "ebook",
+      "detail": "PDF downloads",
+      "previewPrice": 5.99,
+      "saleEnabled": true
+    }
+  ]
+}
+    {
+  "id": "theopolis",
+  "title": "Theopolis Turtopolis",
+  "cover": "images/theopolisturtopoliscover.webp",
+  "eyebrow": "Available now",
+  "description": "A heartwarming story about a turtle who finds a friend after getting stuck on his back. This is book one in the Elswhere in the Hundred Acre Woods series.",
+  "formats": [
+    {
+      "id": "theopolis-ebook",
+      "label": "Ebook",
+      "kind": "ebook",
+      "detail": "PDF downloads",
+      "previewPrice": 5.99,
+      "saleEnabled": true
+    }
+  ]
+}
+    {
+  "id": "duck-and-cat",
+  "title": "Duck and Cat",
+  "cover": "images/duckandcatcover.webp",
+  "eyebrow": "Available now",
+  "description": "A cat and a duck meet in a forrest and discover what it means to have a freind.",
+  "formats": [
+    {
+      "id": "duck-and-cat-ebook",
+      "label": "Ebook",
+      "kind": "ebook",
+      "detail": "PDF downloads",
+      "previewPrice": 5.99,
+      "saleEnabled": true
+    }
+  ]
+}
     {
       "id": "west", "title": "The Name of the West", "cover": "images/thenameofthewestcover.webp",
       "eyebrow": "Explore the collection", "description": "A story from the HFJ Ballard collection, ready for your next reading adventure.",
-      "formats": [{ "id": "west-ebook", "label": "Ebook", "kind": "ebook", "detail": "EPUB + PDF", "previewPrice": 5.99, "saleEnabled": false }]
+      "formats": [{ "id": "west-ebook", "label": "Ebook", "kind": "ebook", "detail": "EPUB + PDF", "previewPrice": 3.99, "saleEnabled": false }]
     },
     {
       "id": "adventures", "title": "The Adventures of You (And Us Too)", "cover": "images/theadventuresofyoucover.webp",
       "eyebrow": "Find your next read", "description": "Make room on your digital bookshelf for another adventure.",
-      "formats": [{ "id": "adventures-ebook", "label": "Ebook", "kind": "ebook", "detail": "EPUB + PDF", "previewPrice": 4.99, "saleEnabled": false }]
+      "formats": [{ "id": "adventures-ebook", "label": "Ebook", "kind": "ebook", "detail": "EPUB + PDF", "previewPrice": 5.99, "saleEnabled": false }]
     },
     {
       "id": "fortunes", "title": "Fortunes and Sacred Honor", "cover": "images/flag.webp",
