@@ -1,4 +1,5 @@
 import { api, el, cover, status } from './common.js';
+import { prepareLibraryDownload, clearLibraryDownload } from '/assets/library-download.js?v=20261025';
 const message = document.querySelector('#library-status');
 const access = document.querySelector('#access');
 const library = document.querySelector('#library');
@@ -28,7 +29,7 @@ codeForm.addEventListener('submit', async event => {
     token = data.token; sessionStorage.setItem('hfj-library-token', token); await loadLibrary();
   } catch (error) { status(message, error.message, true); } finally { button.disabled = false; }
 });
-function signOut() { token = ''; sessionStorage.removeItem('hfj-library-token'); library.hidden = true; document.querySelector('#library-items').replaceChildren(); access.hidden = false; emailForm.hidden = false; codeForm.hidden = true; document.querySelector('#code').value = ''; }
+function signOut() { clearLibraryDownload(); token = ''; sessionStorage.removeItem('hfj-library-token'); library.hidden = true; document.querySelector('#library-items').replaceChildren(); access.hidden = false; emailForm.hidden = false; codeForm.hidden = true; document.querySelector('#code').value = ''; }
 document.querySelector('#sign-out').addEventListener('click', () => { signOut(); status(message, 'You are signed out.'); });
 document.querySelector('#refresh').addEventListener('click', loadLibrary);
 async function loadLibrary() {
@@ -48,11 +49,18 @@ async function loadLibrary() {
         button.addEventListener('click', async () => {
           button.disabled = true; status(message, 'Preparing your downloadâ€¦');
           try {
-            const { url } = await api('download', { sku: item.sku, index }, token);
-            const target = new URL(url); if (target.protocol !== 'https:') throw new Error('Download unavailable.');
-            const link = el('a'); link.href = target.href; link.rel = 'noopener noreferrer'; link.target = '_blank'; link.click();
+            const downloadToken=token;
+            const data = await api('download', { sku: item.sku, index }, downloadToken);
+            if(token!==downloadToken)return;
+            const download=await prepareLibraryDownload(data,text=>status(message,text));
+            if(token!==downloadToken){clearLibraryDownload();return;}
+            const link = el('a'); link.href = download.url; link.rel = 'noopener noreferrer'; link.target = '_blank';
+            if(download.filename)link.download=download.filename;
+            document.body.append(link);link.click();link.remove();
             status(message, 'Your download is ready. If it did not open, use the link below.');
-            const fallback = el('a', 'text-link', 'Open download'); fallback.href = target.href; fallback.target = '_blank'; fallback.rel = 'noopener noreferrer'; message.append(document.createTextNode(' '), fallback);
+            const fallback = el('a', 'text-link', 'Open download'); fallback.href = download.url; fallback.target = '_blank'; fallback.rel = 'noopener noreferrer';
+            if(download.filename)fallback.download=download.filename;
+            message.append(document.createTextNode(' '), fallback);
           } catch (error) { status(message, error.message, true); } finally { button.disabled = false; }
         }); downloads.append(button);
       }); content.append(downloads); book.append(content); list.append(book);
@@ -64,8 +72,6 @@ async function loadLibrary() {
     status(message, error.message, true);
   }
 }
-
-
 // Newsletter errors do not block library access.
 const newsletterPanel = el('section', 'notice'); newsletterPanel.style.marginTop = '2rem';
 newsletterPanel.append(el('h3', '', 'Your monthly newsletter'));
@@ -73,7 +79,7 @@ const newsletterForm = el('form');
 const newsletterBox = el('input'); newsletterBox.type = 'checkbox'; newsletterBox.disabled = true;
 newsletterBox.style.cssText = 'width:auto;margin:0 .6rem 0 0;accent-color:#d4af37';
 const newsletterLabel = el('label');
-newsletterLabel.append(newsletterBox, document.createTextNode('Email me HFJ Ballard’s monthly newsletter with new stories, book news, and upcoming events.'));
+newsletterLabel.append(newsletterBox, document.createTextNode('Email me HFJ Ballardâ€™s monthly newsletter with new stories, book news, and upcoming events.'));
 const newsletterSave = el('button', 'button', 'Save preferences'); newsletterSave.type = 'submit'; newsletterSave.disabled = true; newsletterSave.style.marginTop = '1rem';
 const newsletterMessage = el('p', 'fine-print'); newsletterMessage.setAttribute('role', 'status');
 newsletterForm.append(newsletterLabel, el('br'), newsletterSave);
@@ -81,7 +87,7 @@ newsletterPanel.append(newsletterForm, newsletterMessage); library.append(newsle
 async function loadNewsletter() {
   const currentToken = token;
   newsletterBox.disabled = true; newsletterSave.disabled = true;
-  newsletterMessage.textContent = 'Checking newsletter preferences…';
+  newsletterMessage.textContent = 'Checking newsletter preferencesâ€¦';
   try {
     const data = await api('newsletter', undefined, currentToken);
     if (token !== currentToken) return;
