@@ -75,6 +75,12 @@ async function personalize(pdf,page,name,spec,fontBytes){
   throw fail('This dedication does not fit the prepared space. Try a shorter name or contact the author.',400);
 }
 
+export async function validateSigningTemplate(pageBytes,{name='',personalization,fontBytes}={}) {
+  const title=await PDFDocument.load(pageBytes);
+  if(title.getPageCount()!==1)throw fail('Upload a signing template containing exactly one title page.');
+  if(name&&personalization)await personalize(title,title.getPage(0),name,personalization,fontBytes);
+}
+
 export async function replaceSigningPage(bookBytes,pageBytes,{name='',personalization,fontBytes}={}) {
   const original=await PDFDocument.load(bookBytes),title=await PDFDocument.load(pageBytes);
   if(original.getPageCount()<2)throw fail('This book needs a cover and a second-page title page before it can be signed.');
