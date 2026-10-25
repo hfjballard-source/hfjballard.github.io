@@ -29,6 +29,16 @@
   function checkout() {
     show(title('At the counter')+'<div class="counter-closeup"><div class="register-art" aria-hidden="true"><div class="register-screen">STRIPE</div><div class="register-keys">▦ ▦ ▦</div><div class="register-drawer">AFTERHOURS</div></div><div class="receipt"><div class="receipt-top">HFJ BALLARD<br><small>DIRECT DIGITAL EDITIONS</small></div>'+(bag.size?[...bag.keys()].map(id=>{const f=sku(id);return `<div class="receipt-row"><span>${esc(f.title)}<small>${esc(f.label)} · ${money(f.price)}</small></span><button data-remove="${esc(id)}">Remove</button></div>`;}).join('')+`<p class="receipt-total">SUBTOTAL <strong>${money([...bag.keys()].reduce((n,id)=>n+sku(id).price,0))}</strong></p><label class="newsletter-option"><input id="newsletter-opt-in" type="checkbox" ${newsletter?'checked':''}>Email me HFJ Ballard’s monthly newsletter with new stories, book news, and upcoming events. Optional; unsubscribe anytime.</label><button class="action" id="secure-checkout">Continue to secure checkout ↗</button><p>Use the email you want for My Library. Any applicable tax is shown at Stripe checkout.</p><p id="checkout-status" role="status" aria-live="polite"></p>`:'<p>Your book bag is empty.</p><button class="action" data-switch="store">Browse books</button>')+'</div></div>', 'immersive');
     body.querySelector('#newsletter-opt-in')?.addEventListener('change', e=>{newsletter=e.target.checked;requestId=crypto.randomUUID();});
+    const secureButton=body.querySelector('#secure-checkout');
+    if(secureButton){
+      const gift=document.createElement('button');gift.type='button';gift.className='action secondary';gift.textContent='Use a giveaway code';secureButton.after(gift);
+      gift.addEventListener('click',async()=>{
+        gift.disabled=true;
+        try{const {openGiveaway}=await import('/assets/giveaway.js?v=20261025');openGiveaway({items:[...bag.keys()],newsletterOptIn:newsletter,onSuccess:()=>{bag.clear();persist();checkout();}});}
+        catch{body.querySelector('#checkout-status').textContent='The giveaway form could not open. Please refresh and try again.';}
+        finally{gift.disabled=false;}
+      });
+    }
     body.querySelector('#secure-checkout')?.addEventListener('click', async e=>{
       const button=e.currentTarget, status=body.querySelector('#checkout-status'); button.disabled=true; status.textContent='Opening secure checkout…';
       try {
