@@ -1,4 +1,5 @@
 import { api, el, cover, status, money } from './common.js';
+import { openGiveaway } from '/assets/giveaway.js?v=20261025';
 let catalog, filter = 'all';
 const cart = new Map();
 let requestId = crypto.randomUUID();
@@ -6,11 +7,15 @@ const bag = document.querySelector('#bag');
 const storeStatus = document.querySelector('#store-status');
 const checkoutStatus = document.querySelector('#checkout-status');
 const checkout = document.querySelector('#checkout');
+const giveawayButton=el('button','text-button','Use a giveaway code');
+giveawayButton.type='button';giveawayButton.style.cssText='display:block;width:100%;min-height:44px;margin-top:12px';
+checkout.after(giveawayButton);
+giveawayButton.addEventListener('click',()=>openGiveaway({items:[...cart.keys()],newsletterOptIn:newsletterChoice.checked,onSuccess:()=>{cart.clear();requestId=crypto.randomUUID();renderBag();bag.close();}}));
 const newsletterChoice = el('input'); newsletterChoice.type = 'checkbox';
 newsletterChoice.style.cssText = 'width:auto;margin:0 .6rem 0 0;accent-color:#d4af37';
 const newsletterLabel = el('label', 'fine-print');
 newsletterLabel.style.cssText = 'display:block;margin:1rem 0;cursor:pointer';
-newsletterLabel.append(newsletterChoice, document.createTextNode('Email me HFJ Ballard’s monthly newsletter with new stories, book news, and upcoming events. Optional; unsubscribe anytime.'));
+newsletterLabel.append(newsletterChoice, document.createTextNode('Email me HFJ Ballardâ€™s monthly newsletter with new stories, book news, and upcoming events. Optional; unsubscribe anytime.'));
 checkout.before(newsletterLabel);
 newsletterChoice.addEventListener('change', () => { requestId = crypto.randomUUID(); });
 function buyCard(product, featured = false) {
@@ -62,6 +67,7 @@ function renderBag() {
   if (!cart.size) list.append(el('p', '', 'Your next adventure starts with a book.'));
   document.querySelector('#bag-total').textContent = `Subtotal ${money(total, catalog?.currency || 'usd')}`;
   checkout.disabled = !cart.size;
+  giveawayButton.disabled = !cart.size;
 }
 document.querySelector('#open-bag').addEventListener('click', () => { renderBag(); bag.showModal(); });
 ['#close-bag', '#continue-browsing'].forEach(selector => document.querySelector(selector).addEventListener('click', () => bag.close()));
