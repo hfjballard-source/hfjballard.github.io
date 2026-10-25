@@ -8,10 +8,10 @@
   "duck-and-cat-ebook": {
     "signaturePage": "signing/Duck-And-Cat-signature-page.pdf",
     "placeholder": false,
-    "version": "signed-title-2",
+    "version": "signed-title-3",
     "label": "Signed PDF",
    "personalization": {
-      "fontPath": "fonts/MyHandwriting.ttf",
+      "fontPath": "fonts/Quentin.otf",
   "text": "For {name},\nMay you always find a friend or a nap.",
   "x": 60,
   "y": 230,
@@ -26,20 +26,20 @@
   "theopolis-ebook": {
     "signaturePage": "signing/Theopolis-Turtopolis-signature-page.pdf",
     "placeholder": false,
-    "version": "signed-title-2",
+    "version": "signed-title-3",
     "label": "Signed PDF",
     "personalization": {
-       "fontPath": "fonts/MyHandwriting.ttf",
+       "fontPath": "fonts/Quentin.otf",
        "text": "For {name},\nMay a squirrel help you when you need it the most.",
       "x": 96, "y": 100, "size": 18 }
   },
   "a-body-fell-ebook": {
     "signaturePage": "signing/A-Body-Fell-From-The-Sky-signature-page.pdf",
     "placeholder": false,
-    "version": "signed-title-2",
+    "version": "signed-title-3",
     "label": "Signed PDF",
     "personalization": { 
-       "fontPath": "fonts/MyHandwriting.ttf",
+       "fontPath": "fonts/Quentin.otf",
        "text": "For {name},\nMay you never be a body that falls from the sky.",
       "x": 96, "y": 50, "size": 18 }
   }
