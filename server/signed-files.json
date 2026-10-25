@@ -11,6 +11,7 @@
     "version": "signed-title-1",
     "label": "Signed PDF",
    "personalization": {
+      "fontPath": "fonts/MyHandwriting.ttf",
   "text": "For {name},\nMay you always find a friend or a nap.",
   "x": 60,
   "y": 230,
@@ -28,7 +29,8 @@
     "version": "signed-title-1",
     "label": "Signed PDF",
     "personalization": {
-       "text": "For {name},\nDon't trust squirrels. Not very many of them are your friend.",
+       "fontPath": "fonts/MyHandwriting.ttf",
+       "text": "For {name},\nMay a squirrel help you when you need it the most.",
       "x": 96, "y": 100, "size": 18 }
   },
   "a-body-fell-ebook": {
@@ -37,6 +39,7 @@
     "version": "signed-title-1",
     "label": "Signed PDF",
     "personalization": { 
+       "fontPath": "fonts/MyHandwriting.ttf",
        "text": "For {name},\nMay you never be a body that falls from the sky.",
       "x": 96, "y": 50, "size": 18 }
   }
