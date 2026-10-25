@@ -10,9 +10,17 @@
     "placeholder": false,
     "version": "signed-title-1",
     "label": "Signed PDF",
-    "personalization": {
-       "text": "For {name},\nMay you always find a friend or a nap.",
-      "x": 96, "y": 705, "size": 18 }
+   "personalization": {
+  "text": "For {name},\nMay you always find a friend or a nap.",
+  "x": 60,
+  "y": 230,
+  "width": 270,
+  "height": 82,
+  "size": 16,
+  "minSize": 12,
+  "lineHeight": 1.3,
+  "align": "left"
+}
   },
   "theopolis-ebook": {
     "signaturePage": "signing/Theopois-Turtopolis-signature-page.pdf",
