@@ -8,7 +8,7 @@
   "duck-and-cat-ebook": {
     "signaturePage": "signing/Duck-And-Cat-signature-page.pdf",
     "placeholder": false,
-    "version": "signed-title-1",
+    "version": "signed-title-2",
     "label": "Signed PDF",
    "personalization": {
       "fontPath": "fonts/MyHandwriting.ttf",
@@ -26,7 +26,7 @@
   "theopolis-ebook": {
     "signaturePage": "signing/Theopois-Turtopolis-signature-page.pdf",
     "placeholder": false,
-    "version": "signed-title-1",
+    "version": "signed-title-2",
     "label": "Signed PDF",
     "personalization": {
        "fontPath": "fonts/MyHandwriting.ttf",
@@ -36,7 +36,7 @@
   "a-body-fell-ebook": {
     "signaturePage": "signing/A-Body-Fell-From-The-Sky-signature-page.pdf",
     "placeholder": false,
-    "version": "signed-title-1",
+    "version": "signed-title-2",
     "label": "Signed PDF",
     "personalization": { 
        "fontPath": "fonts/MyHandwriting.ttf",
