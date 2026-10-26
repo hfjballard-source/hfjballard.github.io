@@ -1,4 +1,4 @@
-import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import { PDFDocument, StandardFonts, rgb, PDFName, PDFDict, PDFArray } from 'pdf-lib';
 import fontkit from '@pdf-lib/fontkit';
 
 const fail=(message,status=409)=>Object.assign(new Error(message),{status});
@@ -39,7 +39,7 @@ function wrap(text,font,size,width){
 
 async function personalize(pdf,page,name,spec,fontBytes){
   let font;
-  if(fontBytes){pdf.registerFontkit(fontkit);font=await pdf.embedFont(fontBytes,{subset:true})}
+  if(fontBytes){pdf.registerFontkit(fontkit);font=await pdf.embedFont(fontBytes,{subset:false})}
   else {
     if(spec.fontPath)throw fail('The personalization font could not be loaded.');
     const choice=spec.font||'Helvetica';
@@ -70,6 +70,25 @@ async function personalize(pdf,page,name,spec,fontBytes){
       const measured=font.widthOfTextAtSize(line,size),offset=align==='center'?(width-measured)/2:align==='right'?width-measured:0;
       page.drawText(line,{x:x+offset,y:y-i*step,size,font,color});
     });
+    if(fontBytes){
+      const bytes=new Uint8Array(fontBytes);
+      if(bytes[0]===0x4f&&bytes[1]===0x54&&bytes[2]===0x54&&bytes[3]===0x4f){
+        // The complete OTTO container is OpenType, not a bare CIDFontType0C stream.
+        // Finish encoding first so pdf.save() will not replace this descriptor.
+        await font.embed();
+        const type0=pdf.context.lookup(font.ref,PDFDict);
+        const descendant=type0.lookup(PDFName.of('DescendantFonts'),PDFArray).lookup(0,PDFDict);
+        const descriptor=descendant.lookup(PDFName.of('FontDescriptor'),PDFDict);
+        const fileRef=descriptor.get(PDFName.of('FontFile3'))||descriptor.get(PDFName.of('FontFile2'));
+        const fontFile=pdf.context.lookup(fileRef);
+        if(!fontFile?.dict)throw fail('The personalization font could not be embedded.');
+        descendant.set(PDFName.of('Subtype'),PDFName.of('CIDFontType0'));
+        descendant.delete(PDFName.of('CIDToGIDMap'));
+        descriptor.delete(PDFName.of('FontFile2'));
+        descriptor.set(PDFName.of('FontFile3'),fileRef);
+        fontFile.dict.set(PDFName.of('Subtype'),PDFName.of('OpenType'));
+      }
+    }
     return;
   }
   throw fail('This dedication does not fit the prepared space. Try a shorter name or contact the author.',400);
