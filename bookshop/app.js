@@ -3,6 +3,8 @@
   const dialog = document.querySelector('#panel'), body = document.querySelector('#panel-body');
   const loading = document.createElement('p'); loading.className = 'bookshop-loading'; loading.textContent = 'Opening the bookshop…'; loading.setAttribute('role', 'status'); document.body.append(loading);
   await window.bookshopContentReady; loading.remove();
+  let bookPreviews=null;
+  try{bookPreviews=await import('/assets/book-preview.js?v=20261026');await bookPreviews.loadBookPreviews();}catch{}
   const content = window.SHOP_CONTENT, reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const title = text => `<h2 id="panel-title">${esc(text)}</h2>`;
@@ -25,6 +27,7 @@
   function book(id) {
     const b=content.books.find(b=>b.id===id); if(!b)return;
     show('<button class="back" data-back="store">← Put it back on the shelf</button><div class="book-detail">'+cover(b)+'<div>'+title(b.title)+`<p>${esc(b.genre)}</p><p class="body-copy">${esc(b.blurb)}</p><div class="edition-list">`+b.formats.map(f=>`<div><strong>${esc(f.label)}</strong> · ${esc(f.detail || '')} ${f.available ? money(f.price) : '— Not currently available direct'}<br><button class="action" data-add="${esc(f.id)}" ${f.available?'':'disabled'}>${bag.has(f.id)?'In your book bag':f.available?'Take to the counter':'Coming soon'}</button></div>`).join('')+'</div>'+(b.externalURL?`<a class="action secondary" href="${esc(b.externalURL)}" target="_blank" rel="noopener noreferrer">${b.externalURL.endsWith('.pdf')?'Read this story':'View on the original website'} ↗</a>`:'')+'<button class="action secondary" data-switch="checkout">View book bag</button></div></div>');
+    bookPreviews?.attachPreviewButton(body.querySelector('.book-detail > div:last-child'),b,'book');
   }
   function checkout() {
     show(title('At the counter')+'<div class="counter-closeup"><div class="register-art" aria-hidden="true"><div class="register-screen">STRIPE</div><div class="register-keys">▦ ▦ ▦</div><div class="register-drawer">AFTERHOURS</div></div><div class="receipt"><div class="receipt-top">HFJ BALLARD<br><small>DIRECT DIGITAL EDITIONS</small></div>'+(bag.size?[...bag.keys()].map(id=>{const f=sku(id);return `<div class="receipt-row"><span>${esc(f.title)}<small>${esc(f.label)} · ${money(f.price)}</small></span><button data-remove="${esc(id)}">Remove</button></div>`;}).join('')+`<p class="receipt-total">SUBTOTAL <strong>${money([...bag.keys()].reduce((n,id)=>n+sku(id).price,0))}</strong></p><label class="newsletter-option"><input id="newsletter-opt-in" type="checkbox" ${newsletter?'checked':''}>Email me HFJ Ballard’s monthly newsletter with new stories, book news, and upcoming events. Optional; unsubscribe anytime.</label><button class="action" id="secure-checkout">Continue to secure checkout ↗</button><p>Use the email you want for My Library. Any applicable tax is shown at Stripe checkout.</p><p id="checkout-status" role="status" aria-live="polite"></p>`:'<p>Your book bag is empty.</p><button class="action" data-switch="store">Browse books</button>')+'</div></div>', 'immersive');
