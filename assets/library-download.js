@@ -18,7 +18,7 @@ export async function prepareLibraryDownload(data,onProgress=()=>{}) {
   const recipe=data.recipe;
   onProgress('Preparing your signed book…');
   const pdf=await new Promise((resolve,reject)=>{
-    const worker=new Worker('/assets/signed-download-worker.js?v=20261025',{type:'module'});
+    const worker=new Worker('/assets/signed-download-worker.js?v=20261025-fontfix',{type:'module'});
     let settled=false;
     const finish=(error,bytes)=>{
       if(settled)return;settled=true;clearTimeout(timeout);worker.terminate();pendingCancel=null;
