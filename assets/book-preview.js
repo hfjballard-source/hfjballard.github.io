@@ -12,7 +12,7 @@ export function previewSpreads(count,firstPage=1){
   firstPage=Math.max(1,Math.min(count,Number.isInteger(firstPage)?firstPage:1));
   const pairs=[[null,firstPage]];for(let page=firstPage+1;page<=count;page+=2)pairs.push([page,page+1<=count?page+1:null]);return pairs;
 }
-function styles(){if(document.querySelector('[data-book-preview-style]'))return;const link=document.createElement('link');link.rel='stylesheet';link.href='/assets/book-preview.css?v=20261026';link.dataset.bookPreviewStyle='';document.head.append(link);}
+function styles(){if(document.querySelector('[data-book-preview-style]'))return;const link=document.createElement('link');link.rel='stylesheet';link.href='/assets/book-preview.css?v=20261026-drag';link.dataset.bookPreviewStyle='';document.head.append(link);}
 export async function attachPreviewButton(parent,product,mode='scroll'){
   let entries;try{entries=await loadBookPreviews();}catch{return;}
   if(!parent.isConnected||!sampleURL(entries[product.id]))return;
@@ -28,8 +28,10 @@ export async function openBookPreview(product,mode='scroll'){
   const reader=dialog.querySelector('.bp-reader'),message=dialog.querySelector('.bp-status'),prev=dialog.querySelector('.bp-prev'),next=dialog.querySelector('.bp-next'),position=dialog.querySelector('.bp-position');
   prev.hidden=next.hidden=mode!=='book';prev.disabled=next.disabled=true;
   let documentTask,pdf,observer,closed=false,busy=false,index=0,pairs=[],turnTimer,pageRatio=1;
-  const tasks=new Set();
-  function release(){closed=true;clearTimeout(turnTimer);observer?.disconnect();for(const task of tasks)task.cancel();tasks.clear();documentTask?.destroy().catch(()=>{});dialog.remove();if(active===dialog)active=null;if(before?.isConnected)before.focus();}
+  const tasks=new Set();let dragBook;
+  const behind=mode==='book'?document.querySelector('#panel'):null;
+  if(mode==='book'){dialog.classList.add('bp-loading');behind?.classList.add('bp-under-preview');dialog.append(dialog.querySelector('.bp-close'));}
+  function release(){closed=true;dragBook?.destroy();behind?.classList.remove('bp-under-preview');clearTimeout(turnTimer);observer?.disconnect();for(const task of tasks)task.cancel();tasks.clear();documentTask?.destroy().catch(()=>{});dialog.remove();if(active===dialog)active=null;if(before?.isConnected)before.focus();}
   dialog.addEventListener('close',release,{once:true});dialog.querySelector('.bp-close').onclick=()=>dialog.close();document.body.append(dialog);dialog.showModal();dialog.querySelector('.bp-close').focus();
   async function leaf(number){
     const figure=document.createElement('figure');figure.className='bp-page';figure.style.aspectRatio=String(pageRatio);
@@ -49,7 +51,7 @@ export async function openBookPreview(product,mode='scroll'){
       try{await task.promise;}finally{tasks.delete(task);}
       if(closed||figure.dataset.generation!==generation)return;
       const text=await page.getTextContent();if(closed||figure.dataset.generation!==generation)return;const description=document.createElement('p');description.className='bp-sr';description.textContent=text.items.map(t=>t.str||'').join(' ');figure.append(description);
-    }catch(error){if(!closed&&error.name!=='RenderingCancelledException'){const p=document.createElement('p');p.textContent='This page could not load. Use Open sample PDF below.';figure.append(p);}}
+    }catch(error){if(!closed&&error.name!=='RenderingCancelledException'){const p=document.createElement('p');p.textContent=mode==='book'?'This page could not load. Close and reopen the preview to try again.':'This page could not load. Use Open sample PDF below.';figure.append(p);}}
   }
   function control(){prev.disabled=busy||index===0;next.disabled=busy||index===pairs.length-1;position.textContent=index===0?`Opening · ${pdf.numPages}-page preview`:`Pages ${pairs[index].filter(Boolean).join('–')} of ${pdf.numPages}`;}
   function clonePaper(source){const clone=source.cloneNode(true);const from=source.querySelector('canvas'),to=clone.querySelector('canvas');if(from&&to)to.getContext('2d').drawImage(from,0,0);clone.querySelectorAll('.bp-sr,figcaption').forEach(n=>n.remove());return clone;}
@@ -71,21 +73,25 @@ export async function openBookPreview(product,mode='scroll'){
     for(const task of tasks)task.cancel();tasks.clear();
     reader.querySelectorAll('.bp-page[data-loaded]').forEach(figure=>{delete figure.dataset.loaded;figure.querySelectorAll('canvas,.bp-sr').forEach(node=>node.remove());render(figure);});
   };
-  dialog.addEventListener('keydown',event=>{if(mode==='book'&&['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();showSpread(index+(event.key==='ArrowRight'?1:-1));}});
-  let touch;reader.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')touch={x:e.clientX,y:e.clientY};});
+  dialog.addEventListener('keydown',event=>{if(mode==='book'&&['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();if(dragBook)dragBook.turn(event.key==='ArrowRight'?1:-1);}});
+  let touch;reader.addEventListener('pointerdown',e=>{if(mode!=='book'&&e.pointerType==='touch')touch={x:e.clientX,y:e.clientY};});
   reader.addEventListener('pointerup',e=>{if(mode==='book'&&!reader.classList.contains('bp-enlarged')&&touch){const dx=e.clientX-touch.x,dy=e.clientY-touch.y;touch=null;if(Math.abs(dx)>50&&Math.abs(dy)<70)showSpread(index+(dx<0?1:-1));}});reader.addEventListener('pointercancel',()=>touch=null);
   try{
     const lib=await import('/assets/vendor/pdfjs-6.4.299/pdf.min.mjs');if(closed)return;lib.GlobalWorkerOptions.workerSrc='/assets/vendor/pdfjs-6.4.299/pdf.worker.min.mjs';
     documentTask=lib.getDocument({url,isEvalSupported:false,iccUrl:'/assets/vendor/pdfjs-6.4.299/iccs/',standardFontDataUrl:'/assets/vendor/pdfjs-6.4.299/standard_fonts/',wasmUrl:'/assets/vendor/pdfjs-6.4.299/wasm/'});
-    pdf=await documentTask.promise;if(closed)return;pairs=previewSpreads(pdf.numPages,entry.firstPage||1);const firstView=(await pdf.getPage(pairs[0][1])).getViewport({scale:1});pageRatio=firstView.width/firstView.height;message.textContent='The first '+pdf.numPages+' pages. '+(mode==='book'?'Turn pages with the buttons, arrow keys, or a swipe.':'Scroll through the two-page spreads.');
+    pdf=await documentTask.promise;if(closed)return;pairs=previewSpreads(pdf.numPages,entry.firstPage||1);const firstView=(await pdf.getPage(pairs[0][1])).getViewport({scale:1});pageRatio=firstView.width/firstView.height;message.textContent='The first '+pdf.numPages+' pages. '+(mode==='book'?'Drag a page to turn it. Arrow keys also work.':'Scroll through the two-page spreads.');
     if(mode==='book'){
-      const fit=()=>reader.style.setProperty('--bp-book-width',Math.max(120,Math.min(reader.clientWidth-24,(reader.clientHeight-48)*pageRatio*2))+'px');
-      fit();observer=new ResizeObserver(fit);observer.observe(reader);await showSpread(0,false);
+      const {mountDragBook}=await import('/assets/book-drag.js?v=20261026-drag');
+      if(closed)return;
+      dragBook=await mountDragBook({reader,pairs,makeLeaf:leaf,renderPage:render,clonePaper,pageRatio,isClosed:()=>closed,
+        onChange:(number,pair)=>{index=number;position.textContent=`Pages ${pair.filter(Boolean).join('–')} of ${pdf.numPages}`;message.textContent=position.textContent;},
+        onError:()=>{message.textContent='This page could not load. Close and reopen the preview to try again.';message.classList.add('bp-error');}});
+      if(closed){dragBook.destroy();return;}dialog.classList.remove('bp-loading');
     }
     else{
       position.textContent=`${pdf.numPages}-page preview`;
       observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.querySelectorAll('.bp-page').forEach(render);observer.unobserve(entry.target);}},{root:reader,rootMargin:'400px'});
       for(const pair of pairs){const spread=document.createElement('div');spread.className='bp-spread';for(const n of pair)spread.append(await leaf(n));if(closed)return;reader.append(spread);observer.observe(spread);}
     }
-  }catch(error){if(!closed){message.textContent='This sample could not open. Try Open sample PDF below, or come back shortly.';message.classList.add('bp-error');}}
+  }catch(error){if(!closed){message.textContent=mode==='book'?'This sample could not open.':'This sample could not open. Try Open sample PDF below, or come back shortly.';message.classList.add('bp-error');if(mode==='book'){dialog.classList.remove('bp-loading');const link=document.createElement('a');link.href=url;link.textContent='Open the sample PDF';link.target='_blank';link.rel='noopener';message.append(' ',link);}}}
 }
