@@ -1,0 +1,19 @@
+{
+  "monster": {
+    "file": "/assets/previews/monster-preview.pdf",
+    "enabled": true,
+    "firstPage": 3
+  },
+  "duck-and-cat": {
+    "file": "/assets/previews/duck-and-cat-preview.pdf",
+    "enabled": true
+  },
+  "a-body-fell": {
+    "file": "/assets/previews/a-body-fell-preview.pdf",
+    "enabled": false
+  },
+  "theopolis": {
+    "file": "/assets/previews/theopolis-preview.pdf",
+    "enabled": false
+  }
+}

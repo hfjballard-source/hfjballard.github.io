@@ -1,6 +1,8 @@
 import { api, el, cover, status, money } from './common.js';
 import { openGiveaway } from '/assets/giveaway.js?v=20261025';
 let catalog, filter = 'all';
+const previewReady=import('/assets/book-preview.js?v=20261026').then(async module=>{await module.loadBookPreviews();return module;}).catch(()=>null);
+let bookPreviews=null;
 const cart = new Map();
 let requestId = crypto.randomUUID();
 const bag = document.querySelector('#bag');
@@ -24,6 +26,7 @@ function buyCard(product, featured = false) {
   root.append(el('p', 'eyebrow', product.eyebrow), el('h3', '', product.title));
   if (featured) root.append(el('p', '', product.description));
   const formats = product.formats.filter(format => filter === 'all' || featured || format.kind === filter);
+  bookPreviews?.attachPreviewButton(root,product,'scroll');
   if (!formats.length) { root.append(el('p', 'fine-print', 'Digital edition coming soon')); return root; }
   const tabs = el('div', 'format-buttons'); tabs.setAttribute('role', 'group'); tabs.setAttribute('aria-label', `${product.title} format`);
   const detail = el('p', 'format-detail'), price = el('p', 'price'), button = el('button', 'button');
@@ -88,6 +91,7 @@ checkout.addEventListener('click', async () => {
   } catch (error) { status(checkoutStatus, error.message, true); checkout.disabled = false; }
 });
 async function init() {
+  bookPreviews=await previewReady;
   let preview = false;
   try { catalog = await api('catalog'); }
   catch {
